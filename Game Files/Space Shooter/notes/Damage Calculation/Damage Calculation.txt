@@ -1,0 +1,17 @@
+DMG = Base DMG * Elemental DMG *  RES Multiplier * DEF Multiplier * Crit * Broken Multiplier * LVL Multiplier
+	
+Base DMG = (Multiplier + Extra) * Scale(ATK/HP/DEF)
+Scale = ATK * (1+ATK%)
+	
+Elemental DMG = 1 + Elemental DMG + Attribute DMG
+	
+RES Multiplier = 1 - Elemental RES + RES PEN
+	
+DEF Multiplier = 1 - [(Base DEF * (1 + DEF BONUS) * (1 + DEF PEN))/5000]
+*DEF is capped at 5000 and cannot go past that
+	
+Crit = 1 + Crit DMG
+
+Broken Multiplier = 1 + (0.15 if broken)
+
+LVL Multiplier = 1 - [(ENEMYLVL - LVL) * 0.01]

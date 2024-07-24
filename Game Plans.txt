@@ -1,0 +1,36 @@
+- Combat Features:
+- Projectiles
+- Laser
+- DoT
+- Bounce / Pierce
+- AoE
+- Homing
+- Skill / Ultimate
+- Special Skill
+- Healing
+- Shielding
+- Enemy Toughness
+- Elemental Debuff
+
+Indicators: (Who Activates, Who recieves)
+All Types of abilities - which ability hit
+Types of damage
+Healing - amount
+Shield - amount
+Enemy hit
+ally hit
+enemy status
+enemy HP
+enemy DEF
+enemy broken
+enemy killed (by what way)
+energy gained
+
+Stat:
+ATK, HP, DEF, CRIT, CRITDMG, ENERGY REGEN, AMMO, RELOAD,
+SPEED, RES, FRIC, ELEMENTAL SPECIALTY, RES PEN, DEF PEN,
+DAMAGE BONUS, TOUGHNESS BREAK EFFICIANCY, BREAK
+
+
+
+

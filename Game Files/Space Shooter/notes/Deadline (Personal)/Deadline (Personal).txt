@@ -1,0 +1,23 @@
+Completed: Wednesday
+
+Deadline for tommorrow:
+
+Deadline for this week(27/7/24):
+- Make a working enemy/elite
+- Make toughness system
+
+- Make base ships for steel, venom, lightning, qunatum
+- Make particles for the rest of the elements
+
+
+Queue:
+- Add Party setup
+- Optimize chip system
+- Add Chip-Ship relations
+- Add Full descriptions to the hangar
+- Complete passives
+- Add inventory sorting
+- Add pages to Hangar and Inventory
+
+
+Strikes: 2
