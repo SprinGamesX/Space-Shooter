@@ -22,7 +22,8 @@ for (var i = 0; i < 3; i++){
 		forceSwitch();
 	}
 }
-
-if (!instance_exists(training)){
-	training = SummonTrainingEnemy(sEnemiesNormal, room_width/4 * 3, random_range(64, room_height - 64), 10, 500, 0, 0);
+for (var i = 0; i < array_length(training); i++){
+	if (!instance_exists(training[i])){
+		training[i] = SummonTrainingEnemy(sEnemiesNormal, room_width/4 * 3 + random_range(-128, 128), random_range(64, room_height - 64), 10, 500, 0, 0);
+	}
 }

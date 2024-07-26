@@ -13,7 +13,6 @@ count = 0;
 onBasicAttack = function(){
 	CreateLinearProjectile(sFireball, self, x, y, 10, direction + random_range(-5, 5), ATTACK_TYPE.BASIC,,,,true);
 	ammo--;
-	GenerateEnergy(1);
 }
 
 onAltAttack = function(){

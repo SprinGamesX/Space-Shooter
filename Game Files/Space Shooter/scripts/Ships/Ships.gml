@@ -202,6 +202,80 @@ function GetShipDetails(_id){
 				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
+		case 4:{
+			_inst = instance_create_depth(-100,-100,999, oShipObject);
+			with(_inst){
+				
+				name = "Veneno";
+				role = ROLES.DEBUFFER;
+				lvl = 1;
+
+				// base stats
+				b_atk = 30;
+				b_hp = 100;
+				b_def = 34;
+				b_spd = 4;
+
+				// Ammo
+				reload_max = seconds(1.5);
+				max_ammo = 15;
+				
+				// Cooldowns
+				max_bcd = seconds(0.5);
+				max_acd = seconds(1.5);
+				max_scd = seconds(12);
+				
+				max_energy = 100;
+				max_charge = 20;
+				
+				scales = ds_map_create();
+				ds_map_add(scales, ATTACK_TYPE.BASIC, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.ALT, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.SKILL, 0.5);
+				ds_map_add(scales, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 0.2);
+				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+			}
+		} break;
+		case 5:{
+			_inst = instance_create_depth(-100,-100,999, oShipObject);
+			with(_inst){
+				
+				name = "Ligera";
+				role = ROLES.DPS;
+				lvl = 1;
+
+				// base stats
+				b_atk = 30;
+				b_hp = 100;
+				b_def = 34;
+				b_spd = 4;
+
+				// Ammo
+				reload_max = seconds(0.5);
+				max_ammo = 3;
+				
+				// Cooldowns
+				max_bcd = seconds(0.1);
+				max_acd = seconds(0.5);
+				max_scd = seconds(15);
+				
+				max_energy = 100;
+				max_charge = 10;
+				
+				scales = ds_map_create();
+				ds_map_add(scales, ATTACK_TYPE.BASIC, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.ALT, 0.25);
+				ds_map_add(scales, ATTACK_TYPE.SKILL, 0.2);
+				ds_map_add(scales, ATTACK_TYPE.SPECIAL, 0.3);
+				ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 0.2);
+				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+			}
+		} break;
 	}
 	
 	return _inst;

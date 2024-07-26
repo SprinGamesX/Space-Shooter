@@ -12,7 +12,6 @@ element = ELEMENT.LIFE;
 onBasicAttack = function(){
 	CreateLinearProjectile(sLifeball, self, x, y, 10, direction, ATTACK_TYPE.BASIC);
 	ammo--;
-	GenerateEnergy(1);
 	ConsumeHp(1);
 }
 

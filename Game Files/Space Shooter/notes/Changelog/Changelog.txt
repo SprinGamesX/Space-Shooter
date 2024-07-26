@@ -1,0 +1,9 @@
+
+Changelog:
+
+26/7/24 - Friday
+Added Lightning / Venom ship
+Added bouncing projectiles
+Added Jumping projectiles
+Added homing projectiles
+Added tracking laser

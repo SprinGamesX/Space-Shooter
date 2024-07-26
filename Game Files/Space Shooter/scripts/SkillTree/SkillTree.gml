@@ -18,10 +18,16 @@ function GetShipST(_id){
 						[0.1, 0.1, 0.1, 0.15, 0.08, 0.05, 0.16]];
 						
 		case 2: return [[STAT.ATK,STAT.HP,STAT.DEF,STAT.ATK,STAT.ASPD,STAT.CRITDMG,STAT.ASPD],
-						[0.1, 0.1, 0.1, 0.15, 0.03, 0.15, 0.07]];
+						[0.1, 0.1, 0.1, 0.15, 0.03, 0.16, 0.07]];
 						
 		case 3: return [[STAT.ATK,STAT.HP,STAT.DEF,STAT.HP,STAT.HEALINGBONUS,STAT.ENERGYREGEN,STAT.HEALINGBONUS],
 						[0.1, 0.1, 0.1, 0.15, 0.05, 0.05, 0.1]];
+		
+		case 4: return [[STAT.ATK,STAT.HP,STAT.DEF,STAT.ATK,STAT.EFFECTCHANCE,STAT.SPD,STAT.EFFECTCHANCE],
+						[0.1, 0.1, 0.1, 0.15, 0.15, 0.07, 0.25]];
+		
+		case 5: return [[STAT.ATK,STAT.HP,STAT.DEF,STAT.ATK,STAT.LIGHTNINGDMG,STAT.CRIT,STAT.LIGHTNINGDMG],
+						[0.1, 0.1, 0.1, 0.15, 0.08, 0.08, 0.16]];
 	}
 }
 

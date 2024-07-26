@@ -13,15 +13,20 @@ function CreateDamageIndicator(_xx, _yy, _text, _element){
 }
 
 function CreateStatIndicator(_ship, _stat, _scale){
-	var _xy = oGameManager.getShipUiCords(_ship);
-	var _inst = instance_create_layer(_xy[0], _xy[1], "Misc", oStatIndicator);
-	
+	var _inst = noone;
+	if (object_is_ancestor(_ship.object_index, oShipObject)){
+		var _xy = oGameManager.getShipUiCords(_ship);
+		_inst = instance_create_layer(_xy[0], _xy[1], "Misc", oStatIndicator);
+	}
+	else {
+		_inst = instance_create_layer(_ship.x, _ship.y - 32, "Misc", oStatIndicator);
+	}
 	
 	with(_inst){
 		text = "[scale, 0.6]" + StatToText(_stat);
-		text += (sign(_scale) == -1 ? " -" : " +") + string(abs(_scale)) + "%";
+		text += (sign(_scale) == -1 ? " -" : " +") + string(abs(_scale*100)) + "%";
 		sc_obj = scribble(text);
-		sc_obj.starting_format("font_damage_indicator", c_white);
+		sc_obj.starting_format("font_damage_indicator", _scale > 0 ? c_white : c_red);
 		sc_obj.align(fa_center, fa_middle);
 		typewriter.in(1, 2);
 	}
@@ -29,9 +34,14 @@ function CreateStatIndicator(_ship, _stat, _scale){
 }
 
 function CreateCustomStatIndicator(_ship, _custom_text, _element){
-	var _xy = oGameManager.getShipUiCords(_ship);
-	var _inst = instance_create_layer(_xy[0], _xy[1], "Misc", oStatIndicator);
-	
+	var _inst = noone;
+	if (object_is_ancestor(_ship.object_index, oShipObject)){
+		var _xy = oGameManager.getShipUiCords(_ship);
+		_inst = instance_create_layer(_xy[0], _xy[1], "Misc", oStatIndicator);
+	}
+	else {
+		_inst = instance_create_layer(_ship.x, _ship.y - 32, "Misc", oStatIndicator);
+	}
 	
 	with(_inst){
 		text = "[scale, 0.6]" + _custom_text;

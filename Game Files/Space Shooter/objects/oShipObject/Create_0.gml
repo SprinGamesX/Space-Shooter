@@ -121,6 +121,9 @@ onHit = function(_enemy, _atk_type){
 
 onPostHit = function(_enemy, _atk_type, _damage){
 	// After it is done call onAllyPostHit for allies
+	if (_atk_type != ATTACK_TYPE.ULTIMATE){
+		GenerateEnergy(1);
+	}
 }
 
 // allies
@@ -133,7 +136,7 @@ onAllyHit = function(_enemy, _atk_type, _ally){
 }
 
 onAllyPostHit = function(_enemy, _atk_type, _ally, _damage){
-	
+	GenerateEnergy(0.25);
 }
 
 // Sustain

@@ -20,8 +20,78 @@ function CreateLinearProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_
 	return _inst;
 }
 
-function CreateLaser(_xx, _yy, _follow, _direction, _length, _attack_type, _aoe, _lifetime, _sprite,_owner = self, _particles = true){
-	var _inst = instance_create_layer(_xx, _yy, "Proj", oLaser)
+function CreateHomingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _pierce = 1, _aoe = 1, _correction = 2, _exclude_normals = false, _spin = false, _trail = true, _echo = false){
+	var _inst = instance_create_layer(_x, _y, "Proj", oHomingProjectile);
+	with (_inst){
+		sprite_index = _sprite;
+		speed = _spd;
+		direction = _direction;
+		image_angle = direction;
+		owner = _owner;
+		pierce = _pierce;
+		aoe = _aoe;
+		spin = _spin;
+		atk_type = _atk_type;
+		correction = _correction;
+		exclude_normals = _exclude_normals;
+		
+		if (_trail){
+			trail = CreateProjTrail(_owner.element);
+		}
+	}
+	return _inst;
+}
+function CreateBouncingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _pierce = 1, _aoe = 1, _correction = 10, _radius = 1000, _spin = false, _trail = true, _echo = false){
+	var _inst = instance_create_layer(_x, _y, "Proj", oBouncingProjectile);
+	with (_inst){
+		sprite_index = _sprite;
+		speed = _spd;
+		direction = _direction;
+		image_angle = direction;
+		owner = _owner;
+		pierce = _pierce;
+		aoe = _aoe;
+		spin = _spin;
+		atk_type = _atk_type;
+		correction = _correction;
+		radius = _radius;
+		
+		if (_trail){
+			trail = CreateProjTrail(_owner.element);
+		}
+	}
+	return _inst;
+}
+function CreateJumpingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _pierce = 1, _aoe = 1, _jumps = 1, _offset = 0, _spin = false, _trail = true, _echo = false){
+	var _inst = instance_create_layer(_x, _y, "Proj", oJumpingProjectile);
+	with (_inst){
+		sprite_index = _sprite;
+		speed = _spd;
+		direction = _direction;
+		image_angle = direction;
+		owner = _owner;
+		pierce = _pierce;
+		aoe = _aoe;
+		spin = _spin;
+		atk_type = _atk_type;
+		jumps = _jumps;
+		offset = _offset;
+		
+		if (_trail){
+			trail = CreateProjTrail(_owner.element);
+		}
+	}
+	return _inst;
+}
+
+function CreateLaser(_xx, _yy, _follow, _direction, _length, _attack_type, _aoe, _lifetime, _sprite, _tracker = noone,_owner = self, _particles = true){
+	
+	var _inst = noone;
+	if (_tracker != noone){
+		_inst = instance_create_layer(_xx, _yy, "Proj", oTrackingLaser);
+	}
+	else _inst = instance_create_layer(_xx, _yy, "Proj", oLaser);
+	
 	with(_inst){
 		sprite_index = _sprite;
 		xx = _xx;
@@ -33,6 +103,7 @@ function CreateLaser(_xx, _yy, _follow, _direction, _length, _attack_type, _aoe,
 		aoe = _aoe;
 		atk_type = _attack_type;
 		length = _length;
+		target = _tracker;
 		
 		if (_particles){
 			part = CreateLaserParticles(_owner.element);

@@ -94,7 +94,7 @@ if (mode == HANGARMODE.SKILLS){
 				_c = c_gray;
 			}
 			if (_c == c_gray) _cnext = _c;
-			else if (!global.passives[_s.shipId][_index]) _cnext = c_gray;
+			else if (_index < 14 and !global.passives[_s.shipId][_index]) _cnext = c_gray;
 			
 			if (j < 2 or i > 1) {
 				if (d == 1) draw_line_width_color(xx, yy, j != 2 ? xx + 192*d : xx, j == 2 ? yy - 192 : yy, 4, _c, _cnext);

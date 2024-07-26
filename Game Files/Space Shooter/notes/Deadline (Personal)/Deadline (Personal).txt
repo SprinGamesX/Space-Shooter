@@ -1,13 +1,12 @@
-Completed: Wednesday
+Completed: Friday
 
 Deadline for tommorrow:
+- Make toughness system
+- Make base ships for steel, lightning, qunatum
+- Make particles for the rest of the elements
 
 Deadline for this week(27/7/24):
 - Make a working enemy/elite
-- Make toughness system
-
-- Make base ships for steel, venom, lightning, qunatum
-- Make particles for the rest of the elements
 
 
 Queue:
@@ -20,4 +19,4 @@ Queue:
 - Add pages to Hangar and Inventory
 
 
-Strikes: 2
+Strikes: 3

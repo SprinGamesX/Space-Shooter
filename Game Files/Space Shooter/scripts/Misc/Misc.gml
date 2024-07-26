@@ -36,3 +36,40 @@ function RoundTo(_num, _decimals){
 	return _newnum/_mul;
 	
 }
+
+function CalculateReflection(_direction, _isVertical){
+	show_debug_message("Reflection")
+	if (InRange(_direction, 0, 90)){
+		if (_isVertical){
+			return 180 - _direction;
+		}
+		else {
+			_dir = 90 - _direction 
+			return 270 + _dir;
+		}
+	}
+	if (InRange(_direction, 90, 180)){
+		if (_isVertical){
+			return 180 - _direction;
+		}
+		else {
+			return 270 - (_direction - 90);
+		}
+	}
+	if (InRange(_direction, 180, 270)){
+		if (_isVertical){
+			return 360 - (_direction - 180);
+		}
+		else {
+			return 90 + (270 - _direction);
+		}
+	}
+	if (InRange(_direction, 270, 360)){
+		if (_isVertical){
+			return 180 + (360 - _direction);
+		}
+		else {
+			return 90 - (_direction - 270);
+		}
+	}
+}

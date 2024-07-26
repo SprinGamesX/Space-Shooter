@@ -23,12 +23,12 @@ active_index = 0; // the index of the current active ship in the team
 team_standing = [1,1,1]; // Array that stores a boolean that indicates if the ship is dead or not
 
 team[0] = instance_create_layer(room_width/2, room_height/2, "Ships", oShipIce1);
-team[1] = instance_create_layer(x, y, "Ships", oShipFire1);
-team[2] = instance_create_layer(x, y, "Ships", oShipLife1);
+team[1] = instance_create_layer(x, y, "Ships", oShipLightning1);
+team[2] = instance_create_layer(x, y, "Ships", oShipVenom1);
 
 team[0].active = true;
 
-training = SummonTrainingEnemy(sEnemiesNormal, room_width/4 * 3, room_height/2, 10, 500, 0, 0);
+training = array_create(5, noone);
 
 getActive = function(){
 	return team[active_index];

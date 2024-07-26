@@ -1,6 +1,6 @@
 /// @description
 if (lifetime > 0) lifetime--;
-else instance_destroy();
+else destruction();
 
 var _col = ds_list_create();
 var _n = instance_place_list(x, y, oEnemyObject, _col, false);

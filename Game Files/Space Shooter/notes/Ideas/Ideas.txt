@@ -65,5 +65,9 @@ Each ship has 7 passives:
 7 - Custom
 
 
+Lightning Ship - Kit related to bounce bullets / DPS
+Quantum Ship - Kit related to BREAK / Sub-Dps
+Steel Ship - Kit related to shield / Shielder
+
 
  

@@ -11,13 +11,12 @@ element = ELEMENT.ICE;
 ult_pulses = 3;
 
 onBasicAttack = function(){
-	CreateLinearProjectile(sIceShard1, self, x, y, 10, direction, ATTACK_TYPE.BASIC,,,,true);
+	CreateLinearProjectile(sIceShard1, self, x, y, 10, direction, ATTACK_TYPE.BASIC);
 	ammo--;
-	GenerateEnergy(1);
 }
 
 onAltAttack = function(){
-	CreateLaser(0, 0, true, 0, 5000, ATTACK_TYPE.ALT, 1, seconds(0.2), sIceLaser,,true);
+	CreateLaser(0, 0, true, 0, 5000, ATTACK_TYPE.ALT, 1, seconds(0.2), sIceLaser,,,true);
 	ammo -= 2;
 }
 
