@@ -11,7 +11,7 @@ element = ELEMENT.FIRE;
 count = 0;
 
 onBasicAttack = function(){
-	CreateLinearProjectile(sFireball, self, x, y, 10, direction + random_range(-5, 5), ATTACK_TYPE.BASIC,,,,true);
+	CreateLinearProjectile(sFireball, self, x, y, 10, direction + random_range(-5, 5), ATTACK_TYPE.BASIC);
 	ammo--;
 }
 
@@ -21,7 +21,7 @@ onAltAttack = function(){
 		charge = 0;
 	}
 	else if (charge > 0){
-		CreateLinearProjectile(sBigFireball, self, x, y, 10, direction, ATTACK_TYPE.ALT,,1.5);
+		CreateLinearProjectile(sBigFireball, self, x, y, 10, direction, ATTACK_TYPE.ALT,,,1.5);
 		charge--;
 	}
 }
@@ -35,9 +35,9 @@ onSkill = function(){
 }
 
 onSpecialSkill = function(){
-	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction, ATTACK_TYPE.SPECIAL,,2);
-	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction - 5, ATTACK_TYPE.SPECIAL,,2);
-	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction + 5, ATTACK_TYPE.SPECIAL,,2);
+	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction, ATTACK_TYPE.SPECIAL,,,2);
+	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction - 5, ATTACK_TYPE.SPECIAL,,,2);
+	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction + 5, ATTACK_TYPE.SPECIAL,,,2);
 }
 
 onUltimate = function(){
@@ -47,11 +47,12 @@ onUltimate = function(){
 	energy = 0;
 }
 
-onPostHit = function(_enemy, _atk_type, _damage){
+onPostHit = function(_enemy, _atk_type, _dmg_type, _damage){
 	// After it is done call onAllyPostHit for allies
 	count++;
 	if (count >= 5){
 		count = 0;
 		charge++;
 	}
+	oGameManager.onTeamPostHit(_enemy, _atk_type, self, _damage);
 }

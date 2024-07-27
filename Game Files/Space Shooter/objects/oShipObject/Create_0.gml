@@ -11,6 +11,7 @@ y_spd = 0;
 fric = 0.2;
 ind_index = 1;
 hp = 0;
+shield = 0;
 
 // Abilities
 
@@ -41,6 +42,7 @@ max_charge = 0;
 
 
 scales = ds_map_create();
+toughs = ds_map_create();
 
 ds_map_add(scales, ATTACK_TYPE.BASIC, 0);
 ds_map_add(scales, ATTACK_TYPE.ALT, 0);
@@ -50,6 +52,14 @@ ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 0);
 ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
 ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
 ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+ds_map_add(toughs, ATTACK_TYPE.BASIC, 0);
+ds_map_add(toughs, ATTACK_TYPE.ALT, 0);
+ds_map_add(toughs, ATTACK_TYPE.SKILL, 0);
+ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 0);
+ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 0);
+ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 
 
 
@@ -87,43 +97,46 @@ onFollowup = function(){
 }
 
 // onHits
-onPreHit = function(_enemy, _atk_type){
+onPreHit = function(_enemy, _atk_type,  _dmg_type){
 	// After it is done call onHit and onAllyPreHit for allies
+	_enemy.onToughnessReduction(ds_map_find_value(toughs, _atk_type), self);
 	
-	onHit(_enemy, _atk_type);
+	oGameManager.onTeamPreHit(_enemy, _atk_type, self);
+	onHit(_enemy, _atk_type,  _dmg_type);
 }
 
-onHit = function(_enemy, _atk_type){
-	// After it is done call onPostHit and onAllyHit for allies
-	show_debug_message("Enemy Hit");
-	// Multiplier - 0.5 temporarly
-	var _basedmg = (getATK()) * ds_map_find_value(scales,_atk_type);
+onHit = function(_enemy, _atk_type, _dmg_type){
+	if (instance_exists(_enemy)){
+		var _basedmg = (getATK()) * ds_map_find_value(scales,_atk_type);
 	
-	var _dmgbonus = 1 + GetDamageBonus(element, _atk_type);
+		var _dmgbonus = 1 + GetDamageBonus(element, _dmg_type);
 	
-	var _res = (1 - _enemy.getStatBonus(STAT.RES) + getStatBonus(STAT.RESPEN));
+		var _res = (1 - _enemy.getStatBonus(STAT.RES) + getStatBonus(STAT.RESPEN));
 	
-	var _def = (1 - ((_enemy.b_def * (1 + _enemy.getStatBonus(STAT.DEF)) * (1 + getStatBonus(STAT.DEFPEN)))/5000));
+		var _def = (1 - ((_enemy.b_def * (1 + _enemy.getStatBonus(STAT.DEF)) * (1 + getStatBonus(STAT.DEFPEN)))/5000));
 	
-	var _crit = RollChance(getStatBonus(STAT.CRIT));
+		var _crit = RollChance(getStatBonus(STAT.CRIT));
 	
 	
-	// 1 - Lvl multiplier
-	var _damage = _basedmg * _dmgbonus * _res * _def * (1 + (_crit ? getStatBonus(STAT.CRITDMG) : 0)) *(_enemy.toughness == 0 ? 1.15 : 1) * (1 - ((_enemy.lvl - lvl) * 0.01));
+		// 1 - Lvl multiplier
+		var _damage = _basedmg * _dmgbonus * _res * _def * (1 + (_crit ? getStatBonus(STAT.CRITDMG) : 0)) *(_enemy.toughness == 0 ? 1.15 : 1) * (1 - ((_enemy.lvl - lvl) * 0.01));
 
-	show_debug_message(string(_damage));
+		show_debug_message(string(_damage));
 	
-	CreateDamageIndicator(_enemy.x + random_range(0, 48) * (ind_index), _enemy.y - random_range(16, 64), string(round(_damage)) + (_crit ? "!" : ""), element);
-	ind_index *= -1;
-	_enemy.onHit(_damage, self);
-	onPostHit(_enemy, _atk_type, 0);
+		CreateDamageIndicator(_enemy.x + random_range(0, 48) * (ind_index), _enemy.y - random_range(16, 64), string(round(_damage)) + (_crit ? "!" : ""), element);
+		ind_index *= -1;
+		_enemy.onHit(_damage, self);
+		oGameManager.onTeamHit(_enemy, _atk_type, self);
+		onPostHit(_enemy, _atk_type,  _dmg_type, _damage);
+	}
 }
 
-onPostHit = function(_enemy, _atk_type, _damage){
+onPostHit = function(_enemy, _atk_type, _dmg_type, _damage){
 	// After it is done call onAllyPostHit for allies
 	if (_atk_type != ATTACK_TYPE.ULTIMATE){
 		GenerateEnergy(1);
 	}
+	oGameManager.onTeamPostHit(_enemy, _atk_type, self, _damage);
 }
 
 // allies
@@ -156,6 +169,14 @@ onHpRestoration = function(_amount){
 	
 }
 
+onShieldGain = function(_amount){
+	
+}
+
+onShieldHit = function(_amount){
+	
+}
+
 // Additions
 onEnemyKilled = function(_killer){
 	
@@ -163,6 +184,24 @@ onEnemyKilled = function(_killer){
 
 onEnergyGained = function(_amount){
 	
+}
+
+onBreak = function(_enemy){
+	
+	oGameManager.onTeamBreak(_enemy, self);
+	
+	// Base dmg for break is 5% of the enemies HP 
+	var _basedmg = (1 + getStatBonus(STAT.BREAKDMG)) * (_enemy.getHP() * 0.05);
+	
+	var _res = (1 - _enemy.getStatBonus(STAT.RES) + getStatBonus(STAT.RESPEN));
+	
+	var _def = (1 - ((_enemy.b_def * (1 + _enemy.getStatBonus(STAT.DEF)) * (1 + getStatBonus(STAT.DEFPEN)))/5000));
+		
+	// 1 - Lvl multiplier
+	var _damage = _basedmg * _res * _def * (1 - ((_enemy.lvl - lvl) * 0.01));
+	
+	CreateDamageIndicator(_enemy.x + random_range(0, 48), _enemy.y - random_range(-64, -16), string(round(_damage)) + "-BREAK!", element);
+	_enemy.onHit(_damage, self);
 }
 
 onEnemyBreak = function(_enemy, _breaker){

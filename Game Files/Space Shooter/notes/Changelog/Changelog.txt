@@ -7,3 +7,11 @@ Added bouncing projectiles
 Added Jumping projectiles
 Added homing projectiles
 Added tracking laser
+
+27/7/24 - Saturady
+Added Steel / Quantum ship
+added storm projectiles
+added new variable to projectiles (dmg type - controls the type of damage the ship does with a certain attack e.g Skill -> ultimate dmg)
+added toughness system and break dmg
+added trails for all elements
+fixed issue with piercing homing projectiles

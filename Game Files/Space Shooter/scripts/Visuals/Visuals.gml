@@ -58,7 +58,7 @@ function CreateLaserParticles(_element){
 	part_type_sprite(_part, sPixel, 0, 0, 0);
 	part_type_color1(_part, ColorForElement(_element));
 	part_type_life(_part, seconds(0.8), seconds(1));
-	part_type_alpha3(_part, 1, 0.5, 0);
+	part_type_alpha3(_part, 1, 0.7, 0);
 	part_type_orientation(_part, 0, 359, 0.2, false, true);
 	part_type_size(_part, 2, 2.5, -0.005, false);
 	return _part;
@@ -66,10 +66,14 @@ function CreateLaserParticles(_element){
 
 function DrawLaserParticle(_ship){
 	if (part != undefined){
-		var _p = part;
-		part_type_speed(_p, 5, 10, -0.05, 0);
-		part_type_direction(_p, _ship.direction - 10, _ship.direction + 10, 0, 0);
-		part_particles_create(global.battlePartSystem, _ship.x, _ship.y, _p, 3);
+		for (var i = 0; i < 10; i++){
+			var _p = part;
+			part_type_direction(_p, direction - 90, direction + 90, 0, 0);
+			part_type_speed(_p, 1, 2, -0.02, 0);
+			var _dis = irandom(length);
+		
+			part_particles_create(global.battlePartSystem, _ship.x + lengthdir_x(_dis, direction), _ship.y + lengthdir_y(_dis, direction), _p, 3);
+		}
 	}
 }
 
@@ -101,6 +105,42 @@ function CreateProjTrail(_element){
 			part_type_orientation(_part, 0, 359, 1, false, true);
 			part_type_size(_part, 1, 1.5, -0.005, false);
 		} break;
+		case ELEMENT.LIGHTNING:{
+			part_type_sprite(_part, sPixel, 0, 0, 0);
+			part_type_color2(_part, #fdfa00, c_white);
+			part_type_life(_part, seconds(0.75), seconds(1));
+			part_type_alpha3(_part, 1, 0.6, 0);
+			part_type_orientation(_part, 0, 359, 1, false, true);
+			part_type_size(_part, 1, 1.5, -0.005, 0.5);
+			part_type_speed(_part, 0.5, 2, -0.01, 0);
+		} break;
+		case ELEMENT.VENOM:{
+			part_type_sprite(_part, sPixel, 0, 0, 0);
+			part_type_color3(_part, #d140d2, #a43aa5, c_black);
+			part_type_life(_part, seconds(0.25), seconds(0.5));
+			part_type_alpha3(_part, 1, 0.9, 0);
+			part_type_orientation(_part, 0, 359, 1, false, true);
+			part_type_size(_part, 1, 1.5, -0.005, 0.5);
+			part_type_speed(_part, 0.25, 1, -0.002, 0);
+		} break;
+		case ELEMENT.STEEL:{
+			part_type_sprite(_part, sPixel, 0, 0, 0);
+			part_type_color2(_part, #a1a1a1, #7b7b7b);
+			part_type_life(_part, seconds(0.25), seconds(0.5));
+			part_type_alpha3(_part, 1, 0.6, 0);
+			part_type_orientation(_part, 0, 359, 1, false, true);
+			part_type_size(_part, 1, 1.5, -0.005, 0.5);
+			part_type_speed(_part, 0.4, 1, -0.002, 0);
+		} break;
+		case ELEMENT.QUANTUM:{
+			part_type_sprite(_part, sPixel, 0, 0, 0);
+			part_type_color1(_part, #6456ff);
+			part_type_life(_part, seconds(0.75), seconds(1));
+			part_type_alpha3(_part, 1, 0.8, 0);
+			part_type_orientation(_part, 0, 359, 1, false, true);
+			part_type_size(_part, 1, 1.5, -0.005, false);
+			part_type_speed(_part, 0.5, 1, -0.01, 0);
+		} break;
 	}
 	return _part;
 }
@@ -126,9 +166,26 @@ function DrawProjTrail(_ship){
 				var _p = trail;
 				part_type_speed(_p, 0.2, 0.5, -0.01, 0);
 				part_type_direction(_p, _ship.direction - 200, _ship.direction - 160, 0, 0);
-			
-			
-			
+				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
+			} break;
+			case ELEMENT.LIGHTNING:{
+				var _p = trail;
+				part_type_direction(_p, 0, 360, 0, 0);
+				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
+			} break;
+			case ELEMENT.VENOM:{
+				var _p = trail;
+				part_type_direction(_p, _ship.direction - 190, _ship.direction - 170, 0, 0);
+				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
+			} break;
+			case ELEMENT.STEEL:{
+				var _p = trail;
+				part_type_direction(_p, _ship.direction - 181, _ship.direction - 179, 0, 0);
+				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
+			} break;
+			case ELEMENT.QUANTUM:{
+				var _p = trail;
+				part_type_direction(_p, _ship.direction - 190, _ship.direction - 170, 0, 0);
 				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
 			} break;
 		}

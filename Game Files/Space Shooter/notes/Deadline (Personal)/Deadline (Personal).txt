@@ -1,22 +1,19 @@
-Completed: Friday
+Completed: Saturady
 
 Deadline for tommorrow:
-- Make toughness system
-- Make base ships for steel, lightning, qunatum
-- Make particles for the rest of the elements
 
-Deadline for this week(27/7/24):
+Deadline for this week(3/8/24):
 - Make a working enemy/elite
-
-
-Queue:
 - Add Party setup
-- Optimize chip system
 - Add Chip-Ship relations
 - Add Full descriptions to the hangar
 - Complete passives
 - Add inventory sorting
 - Add pages to Hangar and Inventory
+- Add movement bounderies
+
+Queue:
+- Optimize chip system
 
 
 Strikes: 3

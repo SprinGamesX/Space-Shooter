@@ -45,7 +45,23 @@ function RestoreTeamHp(_hp, _supplier = self, _ignore_self = false){
 	}
 }
 
+function ProvideShield(_shield, _supplier = self, _target = self){
+	_target.shield += _shield;
+	_target.onShieldGain(_shield);
+	
+	CreateCustomStatIndicator(_target, "Shield +" + string(_shield), ELEMENT.STEEL);
+}
 
+function ProvideTeamShield(_shield, _supplier = self, _ignore_self = false){
+	
+	var _targets = noone;
+	if (_ignore_self) _targets = oGameManager.getInactiveShips();
+	else _targets = oGameManager.getTeam();
+	
+	for (var i = 0; i < array_length(_targets); i++){
+		ProvideShield(_shield, _supplier, _targets[i]);
+	}
+}
 
 
 function InitiateShip(_id){
@@ -79,6 +95,7 @@ function InitiateShip(_id){
 	max_energy = _ship.max_energy;
 	energy = max_energy/2;
 	ds_map_copy(scales, _ship.scales);
+	ds_map_copy(toughs, _ship.toughs);
 	ApplyStat(self, "Base Crit", STAT.CRIT, 0.05, 1, 1,,true,,false);
 	ApplyStat(self, "Base Critdmg", STAT.CRITDMG, 0.5, 1, 1,,true,,false);
 	
@@ -126,6 +143,17 @@ function GetShipDetails(_id){
 				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
 				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				toughs = ds_map_create();
+				ds_map_add(toughs, ATTACK_TYPE.BASIC, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ALT, 20);
+				ds_map_add(toughs, ATTACK_TYPE.SKILL, 40);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 40);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
+				
 			}
 		} break;
 		case 2:{
@@ -163,6 +191,16 @@ function GetShipDetails(_id){
 				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
 				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				toughs = ds_map_create();
+				ds_map_add(toughs, ATTACK_TYPE.BASIC, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ALT, 40);
+				ds_map_add(toughs, ATTACK_TYPE.SKILL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 40);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 		case 3:{
@@ -200,6 +238,16 @@ function GetShipDetails(_id){
 				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
 				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				toughs = ds_map_create();
+				ds_map_add(toughs, ATTACK_TYPE.BASIC, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ALT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.SKILL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 		case 4:{
@@ -237,6 +285,16 @@ function GetShipDetails(_id){
 				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
 				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				toughs = ds_map_create();
+				ds_map_add(toughs, ATTACK_TYPE.BASIC, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ALT, 20);
+				ds_map_add(toughs, ATTACK_TYPE.SKILL, 40);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 		case 5:{
@@ -274,6 +332,110 @@ function GetShipDetails(_id){
 				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
 				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				toughs = ds_map_create();
+				ds_map_add(toughs, ATTACK_TYPE.BASIC, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ALT, 40);
+				ds_map_add(toughs, ATTACK_TYPE.SKILL, 10);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 10);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
+			}
+		} break;
+		case 6:{
+			_inst = instance_create_depth(-100,-100,999, oShipObject);
+			with(_inst){
+				
+				name = "Acero";
+				role = ROLES.SHIELDER;
+				lvl = 1;
+
+				// base stats
+				b_atk = 30;
+				b_hp = 100;
+				b_def = 34;
+				b_spd = 4;
+
+				// Ammo
+				reload_max = seconds(2);
+				max_ammo = 5;
+				
+				// Cooldowns
+				max_bcd = seconds(0.5);
+				max_acd = seconds(2);
+				max_scd = seconds(22);
+				
+				max_energy = 130;
+				max_charge = 3;
+				
+				scales = ds_map_create();
+				ds_map_add(scales, ATTACK_TYPE.BASIC, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.ALT, 0);
+				ds_map_add(scales, ATTACK_TYPE.SKILL, 0);
+				ds_map_add(scales, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 0);
+				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				toughs = ds_map_create();
+				ds_map_add(toughs, ATTACK_TYPE.BASIC, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ALT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.SKILL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
+			}
+		} break;
+		case 7:{
+			_inst = instance_create_depth(-100,-100,999, oShipObject);
+			with(_inst){
+				
+				name = "Cuantico";
+				role = ROLES.BUFFER;
+				lvl = 1;
+
+				// base stats
+				b_atk = 30;
+				b_hp = 100;
+				b_def = 34;
+				b_spd = 4;
+
+				// Ammo
+				reload_max = seconds(2);
+				max_ammo = 30;
+				
+				// Cooldowns
+				max_bcd = seconds(0.2);
+				max_acd = seconds(0.3);
+				max_scd = seconds(5);
+				
+				max_energy = 130;
+				max_charge = 3;
+				
+				scales = ds_map_create();
+				ds_map_add(scales, ATTACK_TYPE.BASIC, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.ALT, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.SKILL, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 0.05);
+				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				toughs = ds_map_create();
+				ds_map_add(toughs, ATTACK_TYPE.BASIC, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ALT, 30);
+				ds_map_add(toughs, ATTACK_TYPE.SKILL, 60);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 	}

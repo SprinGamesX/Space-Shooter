@@ -29,6 +29,29 @@ draw_setup(,,fa_left, fa_bottom);
 draw_text_scribble(xx + 185*2, yy, max(_s.ammo, 0));
 
 draw_sprite_stretched_ext(sShipGuiBarBig, 0, xx - 79*4, (yy) - 8*4, 158*4 * _hp/100, 28, c_red, 1);
+
+// Shield stuff
+var _over = false;
+var _loops = 0;
+var _shield = _s.shield;
+while(!_over and _s.shield > 0){
+	var _shieldSection = _shield;
+	while(_shieldSection > _s.getHP()) _shieldSection -= _s.getHP();
+	_shieldSection = (_shieldSection/_s.getHP());
+	var _color1 = c_orange;
+	
+	switch(_loops){
+		case 1: _color1 = c_yellow; break;
+		case 2: _color1 = c_blue; break;
+		case 3: _color1 = c_aqua; break;
+	}
+	
+	draw_sprite_stretched_ext(sShipGuiBarBig, 0, xx - 79*4, (yy) - 8*4, 158*4 * _shieldSection, 28, _color1, 1);
+	_shield -= _s.getHP();
+	if (_shield <= 0) _over = true;
+	else _loops++;
+}
+
 draw_setup(font_basic_ui, c_white, fa_center, fa_bottom);
 draw_text_scribble(xx, yy, string(_s.hp) + "/" + string(_s.getHP()));
 
@@ -69,5 +92,6 @@ if (_tab){
 	draw_setup(font_debug, c_white, fa_left, fa_top);
 	var _text = "ATK: " + string(_s.getATK()) + "\nDEF: " + string(_s.getDEF());
 	draw_text_scribble(32, 32, _text);
-}	
+}
+
 

@@ -16,7 +16,7 @@ onBasicAttack = function(){
 }
 
 onAltAttack = function(){
-	CreateLaser(0, 0, true, 0, 5000, ATTACK_TYPE.ALT, 1, seconds(0.2), sIceLaser,,,true);
+	CreateLaser(0, 0, true, 0, 5000, ATTACK_TYPE.ALT, 1, seconds(0.2), sIceLaser);
 	ammo -= 2;
 }
 

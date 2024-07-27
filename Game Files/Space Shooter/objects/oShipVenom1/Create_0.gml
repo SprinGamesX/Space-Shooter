@@ -14,13 +14,13 @@ ult_remain = 30;
 energy = max_energy;
 
 onBasicAttack = function(){
-	CreateLinearProjectile(sVenomGoo, self, x, y, 10, direction, ATTACK_TYPE.BASIC,,,,true);
+	CreateLinearProjectile(sVenomGoo, self, x, y, 10, direction, ATTACK_TYPE.BASIC);
 	ammo--;
 }
 
 onAltAttack = function(){
 	for (var i = -10; i <= 10; i += 5){
-		CreateLinearProjectile(sVenomGoo, self, x, y, 12, direction+i+random_range(-2, 2), ATTACK_TYPE.ALT,,,,true);
+		CreateLinearProjectile(sVenomGoo, self, x, y, 12, direction+i+random_range(-2, 2), ATTACK_TYPE.ALT);
 	}
 	ammo -= 5;
 }
@@ -44,7 +44,7 @@ onUltimate = function(){
 	energy = 0;
 }
 
-onPreHit = function(_enemy, _atk_type){
+onPreHit = function(_enemy, _atk_type, _dmg_type){
 	if (charge > 0){
 		
 		if (_atk_type == ATTACK_TYPE.ULTIMATE){
@@ -57,7 +57,7 @@ onPreHit = function(_enemy, _atk_type){
 		}
 	}
 	
-	// After it is done call onHit and onAllyPreHit for allies
-	onHit(_enemy, _atk_type);
+	oGameManager.onTeamPreHit(_enemy, _atk_type, self);
+	onHit(_enemy, _atk_type, _dmg_type);
 }
 

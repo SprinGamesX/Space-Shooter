@@ -13,7 +13,7 @@ radius = 1000;
 
 SeekClosestEnemy = function(){
 	//var _enemy = _exclude_normals ?  instance_nearest(x,y, oParentElite) : instance_nearest(x,y, oEnemyObject);
-	var _enemy =  target;
+	var _enemy = target;
 	
 	if (instance_exists(_enemy)){
 		direction += correction * sign(angle_difference(point_direction(x, y, _enemy.x, _enemy.y), direction));

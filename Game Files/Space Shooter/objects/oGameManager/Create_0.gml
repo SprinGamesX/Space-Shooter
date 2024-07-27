@@ -22,9 +22,9 @@ team = [noone, noone, noone];
 active_index = 0; // the index of the current active ship in the team
 team_standing = [1,1,1]; // Array that stores a boolean that indicates if the ship is dead or not
 
-team[0] = instance_create_layer(room_width/2, room_height/2, "Ships", oShipIce1);
-team[1] = instance_create_layer(x, y, "Ships", oShipLightning1);
-team[2] = instance_create_layer(x, y, "Ships", oShipVenom1);
+team[0] = instance_create_layer(room_width/2, room_height/2, "Ships", oShipQuantum1);
+team[1] = instance_create_layer(x, y, "Ships", oShipVenom1);
+team[2] = instance_create_layer(x, y, "Ships", oShipSteel1);
 
 team[0].active = true;
 
@@ -129,6 +129,33 @@ onTeamKill = function(_killer){
 		team[i].onEnemyKilled(_killer);
 	}
 }
+
+onTeamPreHit = function(_enemy, _atk_type, _ally){
+	var _team = getInactiveShips();
+	for (var i = 0; i < array_length(_team); i++){
+		_team[i].onAllyPreHit(_enemy, _atk_type, _ally);
+	}
+	
+}
+onTeamHit = function(_enemy, _atk_type, _ally){
+	var _team = getInactiveShips();
+	for (var i = 0; i < array_length(_team); i++){
+		_team[i].onAllyHit(_enemy, _atk_type, _ally);
+	}
+}
+onTeamPostHit = function(_enemy, _atk_type, _ally, _damage){
+	var _team = getInactiveShips();
+	for (var i = 0; i < array_length(_team); i++){
+		_team[i].onAllyPostHit(_enemy, _atk_type, _ally, _damage);
+	}
+}
+
+onTeamBreak = function(_enemy, _breaker){
+	for (var i = 0; i < array_length(team); i++){
+		team[i].onEnemyBreak(_enemy, _breaker);
+	}
+}
+
 
 for (var i = 0; i < 3; i++){
 	if (instance_exists(team[i])){
