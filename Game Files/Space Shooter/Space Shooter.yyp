@@ -94,6 +94,7 @@
     {"id":{"name":"oLinearProjectile","path":"objects/oLinearProjectile/oLinearProjectile.yy",},},
     {"id":{"name":"oMenuLine","path":"objects/oMenuLine/oMenuLine.yy",},},
     {"id":{"name":"oMenuManager","path":"objects/oMenuManager/oMenuManager.yy",},},
+    {"id":{"name":"oPartyManager","path":"objects/oPartyManager/oPartyManager.yy",},},
     {"id":{"name":"oProjectile","path":"objects/oProjectile/oProjectile.yy",},},
     {"id":{"name":"oShipFire1","path":"objects/oShipFire1/oShipFire1.yy",},},
     {"id":{"name":"oShipIce1","path":"objects/oShipIce1/oShipIce1.yy",},},
@@ -112,6 +113,7 @@
     {"id":{"name":"rHangar","path":"rooms/rHangar/rHangar.yy",},},
     {"id":{"name":"rInventory","path":"rooms/rInventory/rInventory.yy",},},
     {"id":{"name":"rMenu","path":"rooms/rMenu/rMenu.yy",},},
+    {"id":{"name":"rParty","path":"rooms/rParty/rParty.yy",},},
     {"id":{"name":"__scribble_class_element","path":"scripts/__scribble_class_element/__scribble_class_element.yy",},},
     {"id":{"name":"__scribble_class_event","path":"scripts/__scribble_class_event/__scribble_class_event.yy",},},
     {"id":{"name":"__scribble_class_font","path":"scripts/__scribble_class_font/__scribble_class_font.yy",},},
@@ -308,6 +310,7 @@
     {"roomId":{"name":"rBattle","path":"rooms/rBattle/rBattle.yy",},},
     {"roomId":{"name":"rHangar","path":"rooms/rHangar/rHangar.yy",},},
     {"roomId":{"name":"rInventory","path":"rooms/rInventory/rInventory.yy",},},
+    {"roomId":{"name":"rParty","path":"rooms/rParty/rParty.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[

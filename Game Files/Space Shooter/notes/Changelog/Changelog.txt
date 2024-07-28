@@ -15,3 +15,7 @@ added new variable to projectiles (dmg type - controls the type of damage the sh
 added toughness system and break dmg
 added trails for all elements
 fixed issue with piercing homing projectiles
+
+28/7/24 - Sunday
+Added movement barriers for ships
+Added basis for party setup

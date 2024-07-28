@@ -15,7 +15,7 @@ if (active and !locked){
 		x_spd = b_spd * x_move
 	}
 	else if (abs(x_spd) > 0) x_spd -= sign(x_spd) * fric;
-
+	if (place_meeting(x + x_spd, y, oBorder)) x_spd = 0;
 	x += x_spd;
 
 	var y_move = k_down - k_up;
@@ -24,7 +24,7 @@ if (active and !locked){
 		y_spd = b_spd * y_move
 	}
 	else if (abs(y_spd) > 0) y_spd -= sign(y_spd) * fric;
-
+	if (place_meeting(x, y + y_spd, oBorder)) y_spd = 0;
 	y += y_spd;
 	
 	direction = point_direction(x, y, global.cursor.x, global.cursor.y);
