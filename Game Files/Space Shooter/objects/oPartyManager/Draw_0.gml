@@ -36,7 +36,27 @@ for (var i = 0; i < 24; i++){
 	if (i < array_length(global.ships)-1){
 		_s2 = instance_create_depth(-999, -999, 99, global.ships[i+1]);
 		if (mouse_check_button_pressed(mb_left) and InRange(mouse_x, (xx) - 64,(xx) + 64) and InRange(mouse_y, yy - 64,yy + 64)){
-			ship_selection = i;
+			if (ship_selection == i){
+				var _replaced = false;
+				if (ship_selection+1 == global.party[0]){
+					global.party[0] = global.party[selection];
+					global.party[selection] = ship_selection+1;
+				}
+				else if (ship_selection+1 == global.party[1]){
+					global.party[1] = global.party[selection];
+					global.party[selection] = ship_selection+1;
+	
+				}
+				else if (ship_selection+1 == global.party[2]){
+					global.party[2] = global.party[selection];
+					global.party[selection] = ship_selection+1;
+	
+				}
+				else {
+					global.party[selection] = ship_selection+1;
+				}
+			}
+			else ship_selection = i;
 		}
 	}
 	var _color = c_dkgray;

@@ -22,9 +22,9 @@ team = [noone, noone, noone];
 active_index = 0; // the index of the current active ship in the team
 team_standing = [1,1,1]; // Array that stores a boolean that indicates if the ship is dead or not
 
-team[0] = instance_create_layer(room_width/2, room_height/2, "Ships", oShipQuantum1);
-team[1] = instance_create_layer(x, y, "Ships", oShipVenom1);
-team[2] = instance_create_layer(x, y, "Ships", oShipSteel1);
+team[0] = instance_create_layer(room_width/2, room_height/2, "Ships", global.ships[global.party[0]]);
+team[1] = instance_create_layer(x, y, "Ships", global.ships[global.party[1]]);
+team[2] = instance_create_layer(x, y, "Ships", global.ships[global.party[2]]);
 
 team[0].active = true;
 
