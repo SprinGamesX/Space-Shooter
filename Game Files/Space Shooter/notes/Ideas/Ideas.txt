@@ -70,4 +70,29 @@ Quantum Ship - Kit related to BREAK / Sub-Dps
 Steel Ship - Kit related to shield / Shielder
 
 
+Enemies (Elites and bosses):
+
+Enemies should have 4 kinds of possible attacks
+1. Summon
+2. Move
+3. Area attacks
+4. Complicated attacks (Show warnings)
+
+Enemies will additionally have a data file (similar to ships) that contains all their: 
+- attacks
+- cooldowns
+- stats
+- weaknesses
+- resistances
+
+bosses and elites will have their HP/toughness bars drawn on the top of the screen by the GameManager (up to 4 bars will fit and bosses will have custom bars)
+
+Smaller enemies:
+Summons will have their own stats and will deal damage based on themselves
+Summons will also have their own weaknesses and ressistances but will not have attacks or cooldowns, instead they will have types of movements (such as Linear, curved, still, etc)
+
+Projectiles will not have their own stats and will either be one shot (by ships) or unhitable
+
+
+
  

@@ -19,3 +19,17 @@ fixed issue with piercing homing projectiles
 28/7/24 - Sunday
 Added movement barriers for ships
 Added basis for party setup
+
+30/7/24 - Tusday
+Finished character selection
+
+31/7/24 - Wednesday
+Added stat passives to game/hangar
+
+7/8/24 - Wednesday
+Added Elite enemies
+Added Elite-Experimental
+Added Custom (Small) enemies
+Added Enemy-Liner
+Added elite enemy attacks
+Added Cooldowns (class)

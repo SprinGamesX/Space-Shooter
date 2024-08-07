@@ -73,3 +73,12 @@ function CalculateReflection(_direction, _isVertical){
 		}
 	}
 }
+
+function CreateCooldown(_timer, _repeat){
+	var _inst = instance_create_depth(-999, -999, 99, oCooldown);
+	with (_inst){
+		timer = _timer;
+		onRepeat = _repeat;
+	}
+	return _inst;
+}

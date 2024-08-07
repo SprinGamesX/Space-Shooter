@@ -1,19 +1,12 @@
-Completed: Saturady
+Completed: Wednesday
 
-Deadline for tommorrow:
-- Finish Party setup
+Current Task:
+- Add Enemy hitting
 
-Deadline for this week(3/8/24):
-- Make a working enemy/elite
+TASKS:
 - Add Chip-Ship relations
 - Add Full descriptions to the hangar
 - Complete passives
 - Add inventory sorting
 - Add pages to Hangar and Inventory
-
-
-Queue:
 - Optimize chip system
-
-
-Strikes: 3

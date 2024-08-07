@@ -28,7 +28,7 @@ team[2] = instance_create_layer(x, y, "Ships", global.ships[global.party[2]]);
 
 team[0].active = true;
 
-training = array_create(5, noone);
+training = array_create(1, noone);
 
 getActive = function(){
 	return team[active_index];

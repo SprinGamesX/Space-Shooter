@@ -102,6 +102,15 @@ function InitiateShip(_id){
 	ApplyStat(self, "Base Critdmg", STAT.CRITDMG, 0.5, 1, 1,,true,,false);
 	
 	passives = [global.passives[shipId][3], global.passives[shipId][9], global.passives[shipId][13]];
+	var pass = global.passives[shipId];
+	var _ind = 0;
+	var _st = GetShipST(shipId);
+	for (var i = 0; i < array_length(pass); i += 2){
+		if (pass[i]){
+			ApplyStat(self, "ST Buff " + string(i), _st[0][_ind], _st[1][_ind], 1, 1,,true,,false);
+			_ind++;
+		}
+	}
 	
 	instance_destroy(_ship);
 }

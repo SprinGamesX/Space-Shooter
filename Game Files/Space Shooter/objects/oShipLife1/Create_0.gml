@@ -39,6 +39,7 @@ onSpecialSkill = function(){
 
 onUltimate = function(){
 	RestoreTeamHp(getHP() * ds_map_find_value(scales, ATTACK_TYPE.ULTIMATE));
+	energy = 0;
 }
 
 onExitSkill = function(_next){
