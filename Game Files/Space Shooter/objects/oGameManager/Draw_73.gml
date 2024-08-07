@@ -53,7 +53,7 @@ while(!_over and _s.shield > 0){
 }
 
 draw_setup(font_basic_ui, c_white, fa_center, fa_bottom);
-draw_text_scribble(xx, yy, string(_s.hp) + "/" + string(_s.getHP()));
+draw_text_scribble(xx, yy, string(round(_s.hp)) + "/" + string(round(_s.getHP())));
 
 draw_setup(font_basic_ui, c_white, fa_center, fa_middle);
 draw_text_scribble( xx - 180*2, yy - 32,"[scale, 0.5][alpha, 0.5]" + string(ceil(_ult_progress)) + "%");
@@ -66,24 +66,27 @@ draw_sprite_ext(sShipGuiAmmo, 1, xx + 174*2, yy, 2, 2, 0, c_white, 1);
 // Draw Teammates
 
 var _inactive = getInactiveShips();
+var _inactiveI = getInactiveIndexes();
 for(var i = 0; i < 2; i++){
-	_s = _inactive[i];
+	
+	var _index = _inactiveI[i];
+	_s = team[_index];
 	xx = i == 0 ? 96 : room_width - 96;
 	yy = room_height - 16;
 	
 	draw_sprite_ext(sShipGuiAway, 0, xx, yy, 2, 2, 0, c_white, 1);
 	
-	_hp = (_s.hp/_s.getHP())*100;
-	_ult_progress = ((_s.energy/_s.max_energy) * 100);
-	_color = ColorForElement(_s.element);
-	
-	
-	draw_sprite_stretched_ext(sShipGuiBarBig, 0, xx - 15*4, (yy) - 8*4, 30*4 * _hp/100, 28, c_red, 1);
-	
-	draw_sprite_stretched_ext(sShipGuiAwayBar, 0, xx - 15*4 , yy - 9*4 - (30*4 * _ult_progress / 100), 30*4, (30*4 * _ult_progress / 100), _color, _ult_progress == 100 ? 1 : 0.5);
+	if (team_standing[_index]){
+		_hp = (_s.hp/_s.getHP())*100;
+		_ult_progress = ((_s.energy/_s.max_energy) * 100);
+		_color = ColorForElement(_s.element);
+		draw_sprite_stretched_ext(sShipGuiBarBig, 0, xx - 15*4, (yy) - 8*4, 30*4 * _hp/100, 28, c_red, 1);
+		draw_sprite_stretched_ext(sShipGuiAwayBar, 0, xx - 15*4 , yy - 9*4 - (30*4 * _ult_progress / 100), 30*4, (30*4 * _ult_progress / 100), _color, _ult_progress == 100 ? 1 : 0.5);
+	}
 	draw_sprite_ext(_s.sprite_index, _s.image_index, xx, yy - 96, 1.5, 1.5, 0, c_white, 1);
 	
 	draw_sprite_ext(sShipGuiAway, 1, xx, yy, 2, 2, 0, c_white, 1);
+	if (!team_standing[_index]) draw_sprite_ext(sBrokenAlly, 1, xx, yy, 2, 2, 0, c_white, 1);
 	
 }
 

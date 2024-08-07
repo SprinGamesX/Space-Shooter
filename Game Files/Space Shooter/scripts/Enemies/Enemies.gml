@@ -14,7 +14,7 @@ function SummonEnemy(_enemy, _x, _y, _level){
 			_inst = instance_create_layer(_x, _y, "Enemies", oExperimentalElite);
 			with(_inst){
 				lvl = _level;
-				b_atk = 10;
+				b_atk = 100;
 				b_hp = 1500;
 				hp = b_hp;
 				b_def = 300;
@@ -24,7 +24,7 @@ function SummonEnemy(_enemy, _x, _y, _level){
 				max_toughtness = 3000;
 				toughness = max_toughtness;
 				
-				weaknesses = [ELEMENT.ICE, ELEMENT.FIRE, ELEMENT.LIFE];
+				weaknesses = [ELEMENT.ICE, ELEMENT.FIRE, ELEMENT.QUANTUM];
 			}
 			
 		}

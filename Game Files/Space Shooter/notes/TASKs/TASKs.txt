@@ -2,6 +2,7 @@ Completed: Wednesday
 
 Current Task:
 - Add Enemy hitting
+- Add Resistances to enemies that do not have a weakness
 
 TASKS:
 - Add Chip-Ship relations

@@ -12,6 +12,8 @@ fric = 0.2;
 ind_index = 1;
 hp = 0;
 shield = 0;
+invisible = false;
+invis_cd = 0;
 
 // Abilities
 
@@ -153,8 +155,11 @@ onAllyPostHit = function(_enemy, _atk_type, _ally, _damage){
 }
 
 // Sustain
-onHitTaken = function(_enemy){
+onHitTaken = function(_enemy, _damage){
 	
+	hp -= _damage;
+	
+	GenerateEnergy(0.5);
 }
 
 onAllyHitTaken = function(_enemy, _ally){

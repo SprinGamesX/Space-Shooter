@@ -13,4 +13,10 @@ if (!stopped){
 		else image_angle = direction;
 	}
 	if (isEntering) onEntrance();
+	
+	
+	var _ship = instance_place(x, y, oShipObject);
+	if (instance_exists(_ship) and !_ship.invisible){
+		onShipHit(_ship);
+	}
 }

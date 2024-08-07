@@ -33,3 +33,7 @@ Added Custom (Small) enemies
 Added Enemy-Liner
 Added elite enemy attacks
 Added Cooldowns (class)
+Added Room management
+Added ship deaths and ship damage
+Added invisibilty state to ships (unhitable)
+Added enemy damage calc

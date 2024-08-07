@@ -5,6 +5,7 @@ event_inherited();
 
 customMovement = true;
 
+
 cd_a1 = CreateCooldown(seconds(3), true);
 cd_a2 = CreateCooldown(seconds(5), true);
 

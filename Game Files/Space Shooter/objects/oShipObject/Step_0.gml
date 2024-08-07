@@ -92,4 +92,5 @@ if (ammo <= 0){
 	}
 }
 
+if (invis_cd == 0 and invisible) invisible = false;
 
