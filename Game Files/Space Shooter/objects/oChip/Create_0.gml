@@ -5,7 +5,7 @@ chiptype = 1;
 scale = 0;
 
 
-wearer = noone;
+wearer = -1;
 wearer_slot = -1;
 
 

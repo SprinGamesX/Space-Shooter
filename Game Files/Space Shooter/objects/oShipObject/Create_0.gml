@@ -125,7 +125,7 @@ onHit = function(_enemy, _atk_type, _dmg_type){
 
 		show_debug_message(string(_damage));
 	
-		CreateDamageIndicator(_enemy.x + random_range(0, 48) * (ind_index), _enemy.y - random_range(16, 64), string(round(_damage)) + (_crit ? "!" : ""), element);
+		CreateDamageIndicator(_enemy.x + random_range(0, 48) * (ind_index), _enemy.y - random_range(16, 64), string(round(_damage)) + (_crit ? "!" : ""), element, !object_is_ancestor(_enemy.object_index, oEnemyElite) ? 0.5 : 1);
 		ind_index *= -1;
 		_enemy.onHit(_damage, self);
 		oGameManager.onTeamHit(_enemy, _atk_type, self);
@@ -156,6 +156,19 @@ onAllyPostHit = function(_enemy, _atk_type, _ally, _damage){
 
 // Sustain
 onHitTaken = function(_enemy, _damage){
+	
+	if (shield > 0){
+		var _shield = shield;
+		if (shield > _damage) {
+			shield -= _damage;
+			_damage = 0;
+		}
+		else {
+			_damage -= _shield;
+			shield = 0;
+		}
+	}
+	
 	
 	hp -= _damage;
 	
@@ -205,7 +218,7 @@ onBreak = function(_enemy){
 	// 1 - Lvl multiplier
 	var _damage = _basedmg * _res * _def * (1 - ((_enemy.lvl - lvl) * 0.01));
 	
-	CreateDamageIndicator(_enemy.x + random_range(0, 48), _enemy.y - random_range(-64, -16), string(round(_damage)) + "-BREAK!", element);
+	CreateDamageIndicator(_enemy.x + random_range(0, 48), _enemy.y - random_range(-64, -16), string(round(_damage)) + "-BREAK!", element, !object_is_ancestor(_enemy.object_index, oEnemyElite) ? 0.5 : 1);
 	_enemy.onHit(_damage, self);
 }
 

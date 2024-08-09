@@ -1,10 +1,11 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function CreateDamageIndicator(_xx, _yy, _text, _element){
+function CreateDamageIndicator(_xx, _yy, _text, _element, _size = 1){
 	var _inst = instance_create_layer(_xx, _yy, "Misc", oDamageIndicator);
 	with(_inst){
 		text = _text;
 		sc_obj = scribble(text);
+		sc_obj.scale(_size);
 		sc_obj.starting_format("font_damage_indicator", ColorForElement(_element));
 		sc_obj.align(fa_center, fa_middle);
 		typewriter.in(0.5, 2);

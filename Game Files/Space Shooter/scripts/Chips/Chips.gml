@@ -1,6 +1,41 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
+// D1 - 1235/236 D2 - 1747/236 D3 - 1235/364 D4 - 1747/364
+// C1 - 1363/44 C2 - 1491/44 C3 - 1619/44
+// B1 - 1427/556 B2 - 1555/556
+// A - 1415/224
+enum CHIPSLOT{
+	A = 0,
+	B1 = 1,
+	B2 = 2,
+	C1 = 3,
+	C2 = 4,
+	C3 = 5,
+	D1 = 6,
+	D2 = 7,
+	D3 = 8,
+	D4 = 9
+	
+}
+
+
+function GetChipSlotCords(_slot){
+	switch(_slot){
+		case CHIPSLOT.A:  return [1431, 240];
+		case CHIPSLOT.B1: return [1427, 556];
+		case CHIPSLOT.B2: return [1555, 556];
+		case CHIPSLOT.C1: return [1363, 44];
+		case CHIPSLOT.C2: return [1491, 44];
+		case CHIPSLOT.C3: return [1619, 44];
+		case CHIPSLOT.D1: return [1235, 236];
+		case CHIPSLOT.D2: return [1747, 236];
+		case CHIPSLOT.D3: return [1235, 364];
+		case CHIPSLOT.D4: return [1747, 364];
+	}
+}
+
+
 function GetRandomChipSet(){
 	
 	var _r = irandom_range(1,18);
@@ -105,11 +140,18 @@ function GenerateRandomChip(){
 	return _chip;
 }
 
-function GetInventorySection(_spaces, _skips){
+function GetInventorySection(_spaces, _skips, _type = -1){
 	var arr = array_create(_spaces, noone);
-	for (var i = _skips; i < _spaces + _skips; i++){
-		if (ds_list_size(global.chips) <= i) break;
-		arr[i - _skips] = global.chips[|i]
+	var _index = 0;
+	for (var i = _skips; arr[_spaces-1] == noone; i++){
+		if (ds_list_size(global.chips) <= i or i + _skips >= ds_list_size(global.chips)) break;
+		if (_type != -1){
+			if (_type == global.chips[|i].chiptype) {
+				arr[_index] = global.chips[|i];
+				_index++;
+			}
+		}
+		else arr[i - _skips] = global.chips[|i]
 	}
 	return arr;
 }
@@ -180,4 +222,64 @@ function LoadChips(){
 	
 	ds_list_destroy(_save);
 	ini_close();
+}
+
+function ConnectChip(_chip, _ship, _slot){
+	var _found = noone;
+	
+	// Check if the slot is occupied
+	for (var i = 0; i < ds_list_size(global.chips) and _found == noone; i++){
+		var _inst = global.chips[|i];
+		if (instance_exists(_inst)){
+			if (_inst.wearer == _ship.shipId and _inst.wearer_slot == _slot){
+				_found = _inst;
+			}
+		}
+	}
+	
+	// Slot is not occupied
+	if (_found == noone){
+		_chip.wearer = _ship.shipId;
+		_chip.wearer_slot = _slot;
+		SaveChips();
+		return true;
+	}
+	// Slot is occupied
+	else {
+		// the current chip is also occupied
+		if (_chip.wearer != -1){
+			_inst.wearer = _chip.wearer;
+			_inst.wearer_slot = _chip.wearer_slot;
+		}
+		else {
+			_inst.wearer = -1;
+			_inst.wearer_slot = -1;
+		}
+		_chip.wearer = _ship.shipId;
+		_chip.wearer_slot = _slot;
+		SaveChips();
+		return true;
+	}
+	
+	return false;
+}
+
+function FindChip(_wearer, _wearer_slot){
+	for (var i = 0; i < ds_list_size(global.chips); i++){
+		var _chip = global.chips[|i];
+		if (instance_exists(_chip) and _chip.wearer = _wearer and _chip.wearer_slot = _wearer_slot) return _chip;
+	}
+	return noone;
+}
+
+function GetShipLoadout(_shipId){
+	var arr = array_create(10, noone);
+	var _index = 0;
+	for (var i = 0; i < global.chips[|i]; i++){
+		if (instance_exists(global.chips[|i]) and global.chips[|i].wearer = _shipId) {
+			arr[_index] = global.chips[|i]; 
+			_index++;
+		}
+	}
+	return arr;
 }

@@ -111,6 +111,12 @@ function InitiateShip(_id){
 			_ind++;
 		}
 	}
+	var _chips = GetShipLoadout(_id);
+	for (var i = 0; i < array_length(_chips); i++){
+		if (instance_exists(_chips[i])){
+			ApplyStat(self, "Chip Buff " + string(i), _chips[i].stat, _chips[i].scale/100, 1, 1,,true,,false);
+		}
+	}
 	
 	instance_destroy(_ship);
 }
@@ -139,7 +145,7 @@ function GetShipDetails(_id){
 				
 				// Cooldowns
 				max_bcd = seconds(0.2);
-				max_acd = seconds(0.2);
+				max_acd = seconds(0.4);
 				max_scd = seconds(4);
 				
 				max_energy = 50;
@@ -147,7 +153,7 @@ function GetShipDetails(_id){
 				
 				scales = ds_map_create();
 				ds_map_add(scales, ATTACK_TYPE.BASIC, 0.1);
-				ds_map_add(scales, ATTACK_TYPE.ALT, 0.2);
+				ds_map_add(scales, ATTACK_TYPE.ALT, 0.1);
 				ds_map_add(scales, ATTACK_TYPE.SKILL, 0.5);
 				ds_map_add(scales, ATTACK_TYPE.SPECIAL, 0.75);
 				ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 1);

@@ -161,7 +161,43 @@ if (mode == HANGARMODE.SKILLS){
 
 if (mode == HANGARMODE.CHIPS){
 	
-	var _inv = GetInventorySection(32, 0);
+	// Draw chip slots
+	draw_sprite_ext(sChipSlots, 0, room_width/5 * 4 + 15, room_height/3, 2, 2, 0, _color, 1);
+	
+	if (mouse_check_button_pressed(mb_left)){
+		for (var i = 0; i < 10; i++){
+			var cords = GetChipSlotCords(i);
+			var _scale = i == 0 ? 2 : 1;
+			if (InRange(mouse_x, cords[0], cords[0] + 120*_scale) and InRange(mouse_y, cords[1], cords[1] + 120*_scale)){
+				chipslot_selection = i;
+				chip_selection = -1;
+				preview_chip = FindChip(_s, i);
+			}
+		}
+	}
+	
+	for (var i = 0; i < 10; i++){
+		var _cord = GetChipSlotCords(i);
+		var _chip = FindChip(_s.shipId, i);
+		if (instance_exists(_chip)){
+			
+			var _scale = i == 0 ? 4 : 2;
+			var xx = _cord[0] + 30 * _scale;
+			var yy = _cord[1] + 30 * _scale;
+			
+			draw_sprite_ext(sChips, _chip.chiptype-1, xx, yy, _scale, _scale, 0, GetChipSetColor(_chip.set), 1);
+			draw_sprite_ext(sStatIcons, _chip.stat, xx, yy + 4*_scale, _scale, _scale, 0, GetChipSetColor(_chip.set), 1);
+		}
+	}
+	
+	
+	var cords = GetChipSlotCords(chipslot_selection);
+	var _scale = chipslot_selection == 0 ? 4 : 2;
+	draw_sprite_ext(sChipSlotSelect, (time%16)div 4, cords[0], cords[1], _scale, _scale, 0, c_white, 1);
+	
+	// Draw chip inventory
+	var _type = chipslot_selection > 5 ? 4 : (chipslot_selection > 2 ? 3 : (chipslot_selection > 0 ? 2 : 1));
+	var _inv = GetInventorySection(32, 0, _type);
 	
 	var yy = room_height/3 + 176;
 	var _index = 0;
@@ -169,12 +205,25 @@ if (mode == HANGARMODE.CHIPS){
 	for (var dy = 0; dy < 4 ;dy++){
 		var xx = 132;
 		for (var dx = 0; dx < 8; dx++){
+			var _colChipSpace = _color;
+			if (mouse_check_button_pressed(mb_left) and InRange(mouse_x, xx - 64, xx + 64) and InRange(mouse_y, yy - 64, yy + 64) and instance_exists(_inv[_index])){
+				if (chip_selection == _index){ 
+					ConnectChip(_inv[_index], _s, chipslot_selection);
+				}
+				else chip_selection = _index;
+				preview_chip = _inv[_index];
+			}
+			if (chip_selection == _index) _colChipSpace = c_white;
+			draw_sprite_ext(sSkillTreeNode, 0, xx, yy, 2, 2, 0, _colChipSpace, 1);
 			
-			draw_sprite_ext(sSkillTreeNode, 0, xx, yy, 2, 2, 0, _color, 1);
 			if (instance_exists(_inv[_index])){
 				var _chip = _inv[_index];
 				draw_sprite_ext(sChips, _chip.chiptype-1, xx, yy, 2, 2, 0, GetChipSetColor(_chip.set), 1);
 				draw_sprite_ext(sStatIcons, _chip.stat, xx, yy+8, 2, 2, 0, GetChipSetColor(_chip.set), 1);
+				if (_chip.wearer > 0){
+					draw_sprite(object_get_sprite(global.ships[_chip.wearer]), 1, xx + 48, yy - 48);
+				}
+				
 			}
 			
 			xx += 136;
@@ -182,6 +231,22 @@ if (mode == HANGARMODE.CHIPS){
 		}
 		yy += 136;
 	}
+	
+	// Draw Preview chip
+	if (instance_exists(preview_chip)){
+		var xx = room_width/5 * 4 + 15;
+		yy = room_height/4 * 3 - 64;
+		var _chip = preview_chip;
+		
+		draw_sprite_ext(sChips, preview_chip.chiptype-1, xx - 256, yy, 3, 3, 0, GetChipSetColor(preview_chip.set), 1);
+		draw_sprite_ext(sStatIcons, preview_chip.stat, xx - 256, yy+12, 3, 3, 0, GetChipSetColor(preview_chip.set), 1);
+		
+		draw_setup(font_hangar, c_white, fa_left, fa_middle);
+		draw_text_scribble(xx - 192, yy + 48, StatToText(_chip.stat) + " +" + string_format(RoundTo(_chip.scale, 1), log10(_chip.scale), 1) + "%");
+		
+	}
+	
+	
 }
 
 

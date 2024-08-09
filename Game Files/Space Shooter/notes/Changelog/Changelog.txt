@@ -37,3 +37,8 @@ Added Room management
 Added ship deaths and ship damage
 Added invisibilty state to ships (unhitable)
 Added enemy damage calc
+
+9/8/24 - Friday
+Added Chip-Ship relations
+Added Chip slots to the hangar
+Added a new way to filter chips via type

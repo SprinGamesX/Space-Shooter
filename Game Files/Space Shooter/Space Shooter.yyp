@@ -260,6 +260,8 @@
     {"id":{"name":"sBigFireball","path":"sprites/sBigFireball/sBigFireball.yy",},},
     {"id":{"name":"sBrokenAlly","path":"sprites/sBrokenAlly/sBrokenAlly.yy",},},
     {"id":{"name":"sChips","path":"sprites/sChips/sChips.yy",},},
+    {"id":{"name":"sChipSlots","path":"sprites/sChipSlots/sChipSlots.yy",},},
+    {"id":{"name":"sChipSlotSelect","path":"sprites/sChipSlotSelect/sChipSlotSelect.yy",},},
     {"id":{"name":"scribble_fallback_bulletpoint","path":"sprites/scribble_fallback_bulletpoint/scribble_fallback_bulletpoint.yy",},},
     {"id":{"name":"sCrosshairs","path":"sprites/sCrosshairs/sCrosshairs.yy",},},
     {"id":{"name":"sElements","path":"sprites/sElements/sElements.yy",},},

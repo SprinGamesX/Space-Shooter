@@ -37,6 +37,7 @@ ds_map_add(dstats,STAT.ULTIMATEDMG, ds_list_create());
 ds_map_add(dstats,STAT.FOLLOWUPDMG, ds_list_create());
 ds_map_add(dstats,STAT.HEALINGBONUS, ds_list_create());
 ds_map_add(dstats,STAT.ASPD, ds_list_create());
+ds_map_add(dstats,STAT.EFFECTCHANCE, ds_list_create());
 
 
 // Movement

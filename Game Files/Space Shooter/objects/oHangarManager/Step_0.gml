@@ -5,3 +5,4 @@ if (keyboard_check_pressed(ord("D"))){
 if (keyboard_check_pressed(ord("A"))){
 	moveLeft();
 }
+time++;

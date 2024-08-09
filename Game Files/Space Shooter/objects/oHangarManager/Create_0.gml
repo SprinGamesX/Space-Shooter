@@ -22,6 +22,9 @@ rad = 100;
 
 selection = noone;
 skill_selection = 0;
+chipslot_selection = 0;
+chip_selection = -1;
+preview_chip = noone;
 ship = 1;
 mode = HANGARMODE.DEFAULT;
 
@@ -42,3 +45,5 @@ moveRight = function(){
 switchMode = function(_mode){
 	mode = _mode;
 }
+
+time = 0;

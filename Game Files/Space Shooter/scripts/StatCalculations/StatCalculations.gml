@@ -80,7 +80,6 @@ function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stack
 		else CreateStatIndicator(_target, _stat, _scale);
 	}
 	var _list = ds_map_find_value(_target.dstats, _stat);
-	
 	// Check if the buff exists already
 	var _buff_exists = false;
 	for (var i = 0; i < ds_list_size(_list); i++){
@@ -140,11 +139,9 @@ function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stack
 				_inst.time = _lifetime;
 				return noone;
 			}
-		
 		}
-		
-		
 	}
+	
 }
 
 function ApplyTeamStat(_name, _stat, _scale, _lifetime, _stacks, _max_stacks = 1, _isInfinite = false, _supplier = self, _show_indicator = false, _custom_indicator = "", _excludeself = false){
