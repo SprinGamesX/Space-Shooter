@@ -25,6 +25,7 @@ function SummonEnemy(_enemy, _x, _y, _level){
 				toughness = max_toughtness;
 				
 				weaknesses = [ELEMENT.ICE, ELEMENT.FIRE, ELEMENT.QUANTUM];
+				GainElementalRes(weaknesses);
 			}
 			
 		}
@@ -114,4 +115,16 @@ function CreateAttack(_queue, _cd, _repeat = 1, _attacker = self, _var1 = 0, _va
 	}
 	ds_queue_enqueue(_queue, _inst);
 	return _inst;
+}
+
+function GainElementalRes(_weaknesses){
+	for (var i = 1; i < 8; i++){
+		var _has_weakness = false;
+		for (var j = 0; j < array_length(_weaknesses) and !_has_weakness; j++){
+			if (_weaknesses[j] == i) _has_weakness = true;
+		}
+		if (!_has_weakness){
+			ApplyStat(self,"RES " + string(i), ElementToRes(i), 0.25, 1, 1,,true);
+		}
+	}
 }

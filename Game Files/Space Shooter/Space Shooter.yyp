@@ -170,6 +170,7 @@
     {"id":{"name":"Enemies","path":"scripts/Enemies/Enemies.yy",},},
     {"id":{"name":"Followers","path":"scripts/Followers/Followers.yy",},},
     {"id":{"name":"Hangar","path":"scripts/Hangar/Hangar.yy",},},
+    {"id":{"name":"InventorySorting","path":"scripts/InventorySorting/InventorySorting.yy",},},
     {"id":{"name":"Misc","path":"scripts/Misc/Misc.yy",},},
     {"id":{"name":"Projectiles","path":"scripts/Projectiles/Projectiles.yy",},},
     {"id":{"name":"scribble_add_macro","path":"scripts/scribble_add_macro/scribble_add_macro.yy",},},

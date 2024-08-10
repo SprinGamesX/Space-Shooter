@@ -113,7 +113,7 @@ onHit = function(_enemy, _atk_type, _dmg_type){
 	
 		var _dmgbonus = 1 + GetDamageBonus(element, _dmg_type);
 	
-		var _res = (1 - _enemy.getStatBonus(STAT.RES) + getStatBonus(STAT.RESPEN));
+		var _res = (1 - _enemy.getStatBonus(STAT.RES) - GetCorrispondingRes(element, _enemy) + getStatBonus(STAT.RESPEN));
 	
 		var _def = (1 - ((_enemy.b_def * (1 + _enemy.getStatBonus(STAT.DEF)) * (1 + getStatBonus(STAT.DEFPEN)))/5000));
 	
@@ -211,7 +211,7 @@ onBreak = function(_enemy){
 	// Base dmg for break is 5% of the enemies HP 
 	var _basedmg = (1 + getStatBonus(STAT.BREAKDMG)) * (_enemy.getHP() * 0.05);
 	
-	var _res = (1 - _enemy.getStatBonus(STAT.RES) + getStatBonus(STAT.RESPEN));
+	var _res = (1 - _enemy.getStatBonus(STAT.RES) - GetCorrispondingRes(element, _enemy) + getStatBonus(STAT.RESPEN));
 	
 	var _def = (1 - ((_enemy.b_def * (1 + _enemy.getStatBonus(STAT.DEF)) * (1 + getStatBonus(STAT.DEFPEN)))/5000));
 		

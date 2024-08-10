@@ -42,3 +42,8 @@ Added enemy damage calc
 Added Chip-Ship relations
 Added Chip slots to the hangar
 Added a new way to filter chips via type
+
+10/8/24 - Saturady
+Added Ability to remove assigned chips
+Added Elemental RES to enemies that do not have weaknesses
+Added Inventory Sorting (Defualt by SET -> TYPE -> STAT -> SCALE)

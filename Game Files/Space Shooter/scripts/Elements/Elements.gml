@@ -23,3 +23,15 @@ function ColorForElement(_element){
 		case ELEMENT.NONE: return make_color_rgb(192, 32, 43);
 	}
 }
+
+function ElementToRes(_element){
+	switch(_element){
+		case ELEMENT.ICE: return STAT.ICERES;
+		case ELEMENT.FIRE: return STAT.FIRERES;
+		case ELEMENT.LIFE: return STAT.LIFERES;
+		case ELEMENT.LIGHTNING: return STAT.LIGHTNINGRES;
+		case ELEMENT.STEEL: return STAT.STEELRES;
+		case ELEMENT.QUANTUM: return STAT.QUANTUMRES;
+		case ELEMENT.VENOM: return STAT.VENOMRES;
+	}
+}

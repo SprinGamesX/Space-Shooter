@@ -1,5 +1,4 @@
 Current Task:
-- Add Resistances to enemies that do not have a weakness
 
 TASKS:
 

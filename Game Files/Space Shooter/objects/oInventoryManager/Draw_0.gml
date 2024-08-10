@@ -7,6 +7,7 @@ draw_setup(font_hangar);
 draw_text_scribble(room_width/2, room_height - 64, "Chips: " + string(ds_list_size(global.chips)));
 
 var _inv = GetInventorySection(168, 0);
+InventorySort(_inv);
 
 var _index = 0;
 for (var yy = 76; yy < room_height - 64; yy += 80){

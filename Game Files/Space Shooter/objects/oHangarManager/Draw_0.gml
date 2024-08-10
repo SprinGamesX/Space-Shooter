@@ -169,9 +169,13 @@ if (mode == HANGARMODE.CHIPS){
 			var cords = GetChipSlotCords(i);
 			var _scale = i == 0 ? 2 : 1;
 			if (InRange(mouse_x, cords[0], cords[0] + 120*_scale) and InRange(mouse_y, cords[1], cords[1] + 120*_scale)){
+				if (chipslot_selection == i and FindChip(_s.shipId, chipslot_selection) != noone){
+					SeperateChip(FindChip(_s.shipId, chipslot_selection));
+				}
+				
 				chipslot_selection = i;
 				chip_selection = -1;
-				preview_chip = FindChip(_s, i);
+				preview_chip = FindChip(_s.shipId, i);
 			}
 		}
 	}
@@ -198,6 +202,7 @@ if (mode == HANGARMODE.CHIPS){
 	// Draw chip inventory
 	var _type = chipslot_selection > 5 ? 4 : (chipslot_selection > 2 ? 3 : (chipslot_selection > 0 ? 2 : 1));
 	var _inv = GetInventorySection(32, 0, _type);
+	InventorySort(_inv);
 	
 	var yy = room_height/3 + 176;
 	var _index = 0;

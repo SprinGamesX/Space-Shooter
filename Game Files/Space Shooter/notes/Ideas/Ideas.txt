@@ -54,6 +54,10 @@ ENERGY: C: 14% -> 28%
 SPD: C: 11% -> 22%
 
 
+Inventory Sorting:
+SET -> TYPE -> STAT -> SCALE
+
+
 Passives:
 Each ship has 7 passives:
 1 - Gain a big stat buff

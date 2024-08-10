@@ -264,6 +264,15 @@ function ConnectChip(_chip, _ship, _slot){
 	return false;
 }
 
+function SeperateChip(_chip){
+	if (instance_exists(_chip)){
+		_chip.wearer = -1;
+		_chip.wearer_slot = -1;
+		return true;
+	}
+	return false;
+}
+
 function FindChip(_wearer, _wearer_slot){
 	for (var i = 0; i < ds_list_size(global.chips); i++){
 		var _chip = global.chips[|i];

@@ -33,3 +33,19 @@ function GetDamageBonus(_element, _attribute){
 	return _bonus;
 	
 }
+
+function GetCorrispondingRes(_element, _target){
+	var _bonus = 0;
+	
+	switch(_element){
+		case ELEMENT.ICE: _bonus += _target.getStatBonus(STAT.ICERES); break;
+		case ELEMENT.FIRE: _bonus += _target.getStatBonus(STAT.FIRERES); break;
+		case ELEMENT.LIFE: _bonus += _target.getStatBonus(STAT.LIFERES); break;
+		case ELEMENT.VENOM: _bonus += _target.getStatBonus(STAT.VENOMRES); break;
+		case ELEMENT.LIGHTNING: _bonus += _target.getStatBonus(STAT.LIGHTNINGRES); break;
+		case ELEMENT.STEEL: _bonus += _target.getStatBonus(STAT.STEELRES); break;
+		case ELEMENT.QUANTUM: _bonus += _target.getStatBonus(STAT.QUANTUMRES); break;
+	}
+	
+	return _bonus;
+}
