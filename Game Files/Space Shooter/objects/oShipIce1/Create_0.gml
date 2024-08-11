@@ -19,6 +19,7 @@ onAltAttack = function(){
 	CreateLinearProjectile(sIceShard1, self, x, y, 15, direction+5, ATTACK_TYPE.ALT,,2);
 	CreateLinearProjectile(sIceShard1, self, x, y, 15, direction, ATTACK_TYPE.ALT,,2);
 	CreateLinearProjectile(sIceShard1, self, x, y, 15, direction-5, ATTACK_TYPE.ALT,,2);
+	
 	ammo -= 3;
 }
 

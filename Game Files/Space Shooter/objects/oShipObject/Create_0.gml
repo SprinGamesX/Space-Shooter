@@ -15,6 +15,10 @@ shield = 0;
 invisible = false;
 invis_cd = 0;
 
+reactive = false;
+react_time = 0;
+react_cooldown = 0;
+
 // Abilities
 
 ammo = 0;
@@ -45,6 +49,7 @@ max_charge = 0;
 
 scales = ds_map_create();
 toughs = ds_map_create();
+elmacc = ds_map_create();
 
 ds_map_add(scales, ATTACK_TYPE.BASIC, 0);
 ds_map_add(scales, ATTACK_TYPE.ALT, 0);
@@ -54,6 +59,8 @@ ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 0);
 ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
 ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
 ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+
+
 ds_map_add(toughs, ATTACK_TYPE.BASIC, 0);
 ds_map_add(toughs, ATTACK_TYPE.ALT, 0);
 ds_map_add(toughs, ATTACK_TYPE.SKILL, 0);
@@ -62,6 +69,17 @@ ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 0);
 ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
 ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
+
+
+ds_map_add(elmacc, ATTACK_TYPE.BASIC, 0);
+ds_map_add(elmacc, ATTACK_TYPE.ALT, 0);
+ds_map_add(elmacc, ATTACK_TYPE.SKILL, 0);
+ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 0);
+ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 0);
+ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
+ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
+ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
+
 
 
 
@@ -102,6 +120,9 @@ onFollowup = function(){
 onPreHit = function(_enemy, _atk_type,  _dmg_type){
 	// After it is done call onHit and onAllyPreHit for allies
 	_enemy.onToughnessReduction(ds_map_find_value(toughs, _atk_type), self);
+	_enemy.onElementalHit(ds_map_find_value(elmacc, _atk_type), self);
+	
+	show_debug_message(_enemy.elemental_status[ELEMENT.ICE]);
 	
 	oGameManager.onTeamPreHit(_enemy, _atk_type, self);
 	onHit(_enemy, _atk_type,  _dmg_type);
@@ -227,6 +248,56 @@ onEnemyBreak = function(_enemy, _breaker){
 }
 
 onBattleBegan = function(){
+	
+}
+
+onReact = function(){
+	reactive = true;
+	react_time = 10;
+	react_cooldown = seconds(0.5);
+}
+
+onDodge = function(_enemy){
+	invisible = true;
+	invis_cd = seconds(2);
+	reactive = false;
+	ApplyStat(self, "Dodged", STAT.SPD, 0.2, invis_cd, 1);
+}
+
+onReflect = function(_enemy){
+	invisible = true;
+	invis_cd = seconds(0.5);
+	if (!object_is_ancestor(_enemy.object_index, oEnemyElite)){
+		_enemy.direction -= 180;
+		reactive = false;
+	}
+}
+
+onIceReaction = function(_enemy){
+	
+}
+
+onFireReaction = function(_enemy){
+	
+}
+
+onLifeReaction = function(_enemy){
+	
+}
+
+onVenomReaction = function(_enemy){
+	
+}
+
+onLightningReaction = function(_enemy){
+	
+}
+
+onSteelReaction = function(_enemy){
+	
+}
+
+onQuantumReaction = function(_enemy){
 	
 }
 

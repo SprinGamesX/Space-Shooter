@@ -97,6 +97,19 @@ Summons will also have their own weaknesses and ressistances but will not have a
 
 Projectiles will not have their own stats and will either be one shot (by ships) or unhitable
 
+Element stuff
 
+Elemental Accumilation
+each element accumilates to 250 (50 on small enemies) and when it does it will trigger an effect like DOT/explosion/freeze etc
 
- 
+Effects:
+ICE - Cryoarrested - Freezes the target for 5 seconds and causes it to have its ICE RES reduced by 5% for the rest of the battle (Stacks up to 10 stacks)
+FIRE - Volatogenic - Adds a stack of EXPLOSIVE to the target, upon death the target will explode (Explosion radius depends on EXPLOSIVE stacks, EXPLOSIVE can stack up to 50 stacks)
+LIFE - Germinative -Heals all ships for a certain amount depending on the ship's ES
+VENOM - Incised - Applies a DoT to the target and reducing its ATK and SPD by 20% for 10s
+LIGHTNING - Electrostruck - Applies SHOCKED to the target, when SHOCKED each time the target is hit it will also attack nearby enemies, this lasts for 15s and the radius depends on the ship's ES
+STEEL - Fractured - Deplete's 25% of the enemies TOUGHNESS and reduces their DEF by 50% for 10s (unstackable)
+QUANTUM - Decoherence - Deals Damage equal to 1% of the target's base HP and has a chance of 50% to teleport the enemy(small) back to a random location
+
+Enemies of the same element will be completely immune to elemental accumilation
+Elemental accumilation will accumilate faster depending on the ship's Elemental Specialty

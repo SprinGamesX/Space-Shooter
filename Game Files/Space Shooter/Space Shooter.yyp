@@ -70,6 +70,7 @@
     {"id":{"name":"font_hangar","path":"fonts/font_hangar/font_hangar.yy",},},
     {"id":{"name":"font_menu","path":"fonts/font_menu/font_menu.yy",},},
     {"id":{"name":"scribble_fallback_font","path":"fonts/scribble_fallback_font/scribble_fallback_font.yy",},},
+    {"id":{"name":"Bosses","path":"notes/Bosses/Bosses.yy",},},
     {"id":{"name":"Changelog","path":"notes/Changelog/Changelog.yy",},},
     {"id":{"name":"Damage Calculation","path":"notes/Damage Calculation/Damage Calculation.yy",},},
     {"id":{"name":"Ideas","path":"notes/Ideas/Ideas.yy",},},

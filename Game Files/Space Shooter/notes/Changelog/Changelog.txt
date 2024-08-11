@@ -47,3 +47,12 @@ Added a new way to filter chips via type
 Added Ability to remove assigned chips
 Added Elemental RES to enemies that do not have weaknesses
 Added Inventory Sorting (Defualt by SET -> TYPE -> STAT -> SCALE)
+
+11/8/24 - Sunday
+Added Dodge ability to (LIFE, QUANTUM, LIGHTNING, VENOM) ships 
+Added Counter ability to (ICE, FIRE, STEEL) ships
+
+Added elemental accumilation fully for ICE, LIFE, FIRE, STEEL, QUANTUM
+Added elemental accumilation (not finished) for VENOM(missing DoT), LIGHTNING(missing additional damage for nearby enemies)
+
+Added AdditionalDamage and AdditionalSetDamage

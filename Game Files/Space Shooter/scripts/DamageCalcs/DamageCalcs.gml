@@ -8,7 +8,9 @@ enum ATTACK_TYPE{
 	SPECIAL = 4,
 	ENTRANCE = 5,
 	EXIT = 6,
-	FOLLOWUP = 7
+	FOLLOWUP = 7,
+	DOT = 8,
+	FIRE_EXPLOSION = 9
 }
 
 function GetDamageBonus(_element, _attribute){
@@ -28,6 +30,7 @@ function GetDamageBonus(_element, _attribute){
 		case ATTACK_TYPE.SKILL: _bonus += getStatBonus(STAT.SKILLDMG); break;
 		case ATTACK_TYPE.ULTIMATE: _bonus += getStatBonus(STAT.ULTIMATEDMG); break;
 		case ATTACK_TYPE.FOLLOWUP: _bonus += getStatBonus(STAT.FOLLOWUPDMG); break;
+		case ATTACK_TYPE.FIRE_EXPLOSION: _bonus += getStatBonus(STAT.ES); break;
 	}
 	
 	return _bonus;
@@ -48,4 +51,47 @@ function GetCorrispondingRes(_element, _target){
 	}
 	
 	return _bonus;
+}
+
+function AdditionalDamage(_enemy, _ship, _scale, _dmg_type){
+	if (instance_exists(_enemy)){
+		var _basedmg = (_ship.getATK()) * _scale;
+	
+		var _dmgbonus = 1 + GetDamageBonus(_ship.element, _dmg_type);
+	
+		var _res = (1 - _enemy.getStatBonus(STAT.RES) - GetCorrispondingRes(_ship.element, _enemy) + _ship.getStatBonus(STAT.RESPEN));
+	
+		var _def = (1 - ((_enemy.b_def * (1 + _enemy.getStatBonus(STAT.DEF)) * (1 + _ship.getStatBonus(STAT.DEFPEN)))/5000));
+	
+		var _crit = RollChance(_ship.getStatBonus(STAT.CRIT));
+	
+	
+		// 1 - Lvl multiplier
+		var _damage = _basedmg * _dmgbonus * _res * _def * (1 + (_crit ? _ship.getStatBonus(STAT.CRITDMG) : 0)) *(_enemy.toughness == 0 ? 1.15 : 1) * (1 - ((_enemy.lvl - _ship.lvl) * 0.01));
+
+		show_debug_message(string(_damage));
+	
+		CreateDamageIndicator(_enemy.x + random_range(0, 48) * (_ship.ind_index), _enemy.y - random_range(16, 64), string(round(_damage)) + (_crit ? "!" : ""), _ship.element, !object_is_ancestor(_enemy.object_index, oEnemyElite) ? 0.5 : 1);
+		_ship.ind_index *= -1;
+		_enemy.onHit(_damage, self);
+	}
+}
+
+function AdditionalSetDamage(_enemy, _ship, _base_dmg){
+	if (instance_exists(_enemy)){
+		var _basedmg = _base_dmg;
+	
+		var _res = (1 - _enemy.getStatBonus(STAT.RES) - GetCorrispondingRes(_ship.element, _enemy) + _ship.getStatBonus(STAT.RESPEN));
+	
+		var _def = (1 - ((_enemy.b_def * (1 + _enemy.getStatBonus(STAT.DEF)) * (1 + _ship.getStatBonus(STAT.DEFPEN)))/5000));
+
+		// 1 - Lvl multiplier
+		var _damage = _basedmg * _res * _def *(_enemy.toughness == 0 ? 1.15 : 1) * (1 - ((_enemy.lvl - _ship.lvl) * 0.01));
+
+		show_debug_message(string(_damage));
+	
+		CreateDamageIndicator(_enemy.x + random_range(0, 48) * (_ship.ind_index), _enemy.y - random_range(16, 64), string(round(_damage)), _ship.element, !object_is_ancestor(_enemy.object_index, oEnemyElite) ? 0.5 : 1);
+		_ship.ind_index *= -1;
+		_enemy.onHit(_damage, self);
+	}
 }

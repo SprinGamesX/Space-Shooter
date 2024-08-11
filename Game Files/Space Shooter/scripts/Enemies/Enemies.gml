@@ -128,3 +128,9 @@ function GainElementalRes(_weaknesses){
 		}
 	}
 }
+
+// if stop time is -1 it will stop permenently until release
+function StopEnemy(_enemy, _stoptime = -1){
+	_enemy.stopped = true;
+	_enemy.stoptime = _stoptime;
+}

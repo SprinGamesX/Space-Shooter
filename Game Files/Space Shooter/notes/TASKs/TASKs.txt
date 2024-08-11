@@ -1,9 +1,15 @@
 Current Task:
 
-TASKS:
 
+Tasks(Mandatory):
+- Add hitstun to ships(From powerful attacks)
+- Add animation controller
+
+
+TASKS(QOL):
 - Add Full descriptions to the hangar
 - Complete passives
 - Add inventory sorting
 - Add pages to Hangar and Inventory
 - Optimize chip system
+- Add satisfaction to perry/dodge

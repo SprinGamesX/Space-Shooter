@@ -13,3 +13,12 @@ if (shield > getHP()*4) shield = getHP()*4;
 if (energy < 0) energy = 0;
 if (energy > max_energy) energy = max_energy;
 
+if (invis_cd == 0 and invisible) {invisible = false;}
+else if (invis_cd > 0) invis_cd--;
+
+if (reactive){
+	react_time--;
+	if (react_time <= 0) reactive = false;
+}
+
+if (react_cooldown >= 0) react_cooldown--;

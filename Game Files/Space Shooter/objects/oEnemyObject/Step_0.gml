@@ -20,3 +20,10 @@ if (!stopped){
 		onShipHit(_ship);
 	}
 }
+
+if (stoptime > 0) {
+	stoptime--;
+	stoptime = round(stoptime);
+	show_debug_message(stoptime);
+}
+if (stoptime == 0) stopped = false;

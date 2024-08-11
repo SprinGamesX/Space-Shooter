@@ -27,14 +27,17 @@ toughness = 0;
 max_toughtness = 0;
 broken_time = 0;
 stopped = false;
+stoptime = -1;
 
 // Elemental Charge
 // Each index represents the elemental charge of a corrisponding element aka 0 - Ice, 1 - Fire etc
-elemental_status = [0,0,0,0,0,0,0];
+elemental_status = [0,0,0,0,0,0,0,0];
+max_elmstat = 2;
+awaiting_destruction = false;
 
 onDeath = function(_attacker){
 	oGameManager.onTeamKill(_attacker);
-	instance_destroy();
+	awaiting_destruction = true;
 }
 
 onHit = function(_damage, _attacker){
@@ -56,6 +59,16 @@ onToughnessReduction = function(_amount, _ship){
 	}
 }
 
+onElementalHit = function(_amount, _ship){
+	if (_amount != undefined and _ship.element != element and elemental_status[_ship.element] < max_elmstat){
+		elemental_status[_ship.element] += _amount;
+		if (elemental_status[_ship.element] >= max_elmstat) {
+			elemental_status[_ship.element] = 0;
+			TriggerElementalReaction(self, _ship);
+		}
+	}
+}
+
 onEntrance = function(){
 	
 	
@@ -67,6 +80,12 @@ onEntrance = function(){
 }
 
 onShipHit = function(_enemy){
+	
+	if (_enemy.reactive){
+		if (_enemy.element == ELEMENT.LIFE or _enemy.element == ELEMENT.QUANTUM or _enemy.element == ELEMENT.LIGHTNING or _enemy.element == ELEMENT.VENOM) _enemy.onDodge(self);
+		else _enemy.onReflect(self);
+	}
+	else {	
 		// Enemies deal 10% of ATK if they are normal enemies and 100% of atk if they are elite
 		var _basedmg = (getATK()) * (object_index == oEnemyElite ? 1 : 0.1);
 	
@@ -90,4 +109,5 @@ onShipHit = function(_enemy){
 		
 		hits--;
 		if (hits <= 0) instance_destroy();
+	}
 }

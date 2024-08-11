@@ -1,0 +1,13 @@
+Elites:
+- LIGHTNING Dragon
+- LIFE Bow
+- ICE/FIRE Spirits
+- STEEL Cannon
+
+Bosses:
+
+- FIRE-LIGHTNING Hydra
+- FIRE-ICE Ying & Yang
+- FIRE-STEEL Sword
+- LIFE-VENOM Snake
+

@@ -161,3 +161,12 @@ function ApplyTeamStat(_name, _stat, _scale, _lifetime, _stacks, _max_stacks = 1
 	}
 }
 	
+function CheckForStat(_gameobject, _type, _name){
+	var _list = ds_map_find_value(_gameobject.dstats, _type);
+	if (ds_list_size(_list) <= 0) return noone;
+	for (var i = 0; i < ds_list_size(_list); i++){
+		if (_list[|i].name == _name) return _list[|i];
+	}
+	
+	return noone;
+}
