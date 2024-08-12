@@ -23,6 +23,6 @@ if (instance_exists(_col) and _col != noone and ds_list_find_index(hit_list, _co
 }
 
 // Particles
-if (trail != noone){
+if (trail){
 	DrawProjTrail(owner);
 }

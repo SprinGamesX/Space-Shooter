@@ -56,3 +56,12 @@ Added elemental accumilation fully for ICE, LIFE, FIRE, STEEL, QUANTUM
 Added elemental accumilation (not finished) for VENOM(missing DoT), LIGHTNING(missing additional damage for nearby enemies)
 
 Added AdditionalDamage and AdditionalSetDamage
+
+12/8/24 - Monday
+
+Added DoT (Damage over Time)
+Added elemental accumilation fully for VENOM and LIGHTNING
+Added Party saving after quitting game
+
+Optimized particles
+Optimized enemy spawns

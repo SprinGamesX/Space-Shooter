@@ -10,5 +10,6 @@ if (typewriter_state == 1) and (text_state == 1){
 }
 if (typewriter_state == 1) and (text_state == 0) {
 	text_state++;
-	typewriter.out(0.5, 3);
+	typewriter.out(0.2, 3);
+	alarm[0] = seconds(3);
 }

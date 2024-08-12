@@ -1,7 +1,7 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
-global.party = [1,2,3];
+
 
 enum ROLES{
 	DPS,
@@ -108,6 +108,8 @@ function TriggerElementalReaction(_enemy, _ship){
 			ApplyStat(_enemy, "Incised", STAT.ATK, -0.2, seconds(15), 1,,, _ship,true, "Incised");
 			ApplyStat(_enemy, "Incised 2", STAT.SPD, -0.2, seconds(15), 1,,, _ship);
 			
+			ApplyStat(_enemy, "Incised DoT", STAT.DOT, 0.5 + (0.5 * _ship.getStatBonus(STAT.ES)), seconds(2), 5,50,,_ship);
+			
 			
 			// Notify team
 			var _team = oGameManager.getTeam();
@@ -118,7 +120,7 @@ function TriggerElementalReaction(_enemy, _ship){
 		
 		case ELEMENT.LIGHTNING: {
 			// effect
-			ApplyStat(_enemy, "Electrostruck", STAT.LIGHTNINGRES, 0, seconds(15), 1,,, _ship,true, "Electrostruck");
+			ApplyStat(_enemy, "Shocked", STAT.LIGHTNINGRES, -0.1, seconds(15), 1,,, _ship,true, "Electrostruck");
 			
 			// Notify team
 			var _team = oGameManager.getTeam();
@@ -221,6 +223,9 @@ function InitiateShip(_id){
 			ApplyStat(self, "Chip Buff " + string(i), _chips[i].stat, _chips[i].scale/100, 1, 1,,true,,false);
 		}
 	}
+	
+	// Particles
+	
 	
 	hp = getHP();
 	ammo = max_ammo;

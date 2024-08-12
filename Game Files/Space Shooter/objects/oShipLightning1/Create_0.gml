@@ -55,6 +55,12 @@ onUltimate = function(){
 
 onPostHit = function(_enemy, _atk_type, _dmg_type, _damage){
 	// After it is done call onAllyPostHit for allies
+	
+	var _shock = CheckForStat(_enemy, STAT.LIGHTNINGRES, "Shocked");
+	if (_shock != noone){
+		_shock.provider.onShock(_enemy);
+	}
+	
 	if (_atk_type == ATTACK_TYPE.BASIC or _atk_type == ATTACK_TYPE.ALT){
 		charge++;
 	}

@@ -66,9 +66,9 @@ function CreateLaserParticles(_element){
 }
 
 function DrawLaserParticle(_ship){
-	if (part != undefined){
+	if (_ship.laser_particle != undefined){
 		for (var i = 0; i < 10; i++){
-			var _p = part;
+			var _p = _ship.laser_particle;
 			part_type_direction(_p, direction - 90, direction + 90, 0, 0);
 			part_type_speed(_p, 1, 2, -0.02, 0);
 			var _dis = irandom(length);
@@ -148,44 +148,38 @@ function CreateProjTrail(_element){
 
 function DrawProjTrail(_ship){
 	if (instance_exists(self)){
+		var _p = _ship.trail_particle;
 		switch(_ship.element){
 			case ELEMENT.ICE:{
-				var _p = trail;
 				part_type_speed(_p, 0.05, 0.08, 0, 0);
 				part_type_direction(_p, _ship.direction - 190, _ship.direction - 170, 0, 0);
 			
 				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
 			} break;
 			case ELEMENT.FIRE:{
-				var _p = trail;
 				part_type_speed(_p, 0.5, 1, -0.01, 0);
 				part_type_direction(_p, _ship.direction - 190, _ship.direction - 170, 0, 0);
 			
 				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
 			} break;
 			case ELEMENT.LIFE:{
-				var _p = trail;
 				part_type_speed(_p, 0.2, 0.5, -0.01, 0);
 				part_type_direction(_p, _ship.direction - 200, _ship.direction - 160, 0, 0);
 				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
 			} break;
 			case ELEMENT.LIGHTNING:{
-				var _p = trail;
 				part_type_direction(_p, 0, 360, 0, 0);
 				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
 			} break;
 			case ELEMENT.VENOM:{
-				var _p = trail;
 				part_type_direction(_p, _ship.direction - 190, _ship.direction - 170, 0, 0);
 				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
 			} break;
 			case ELEMENT.STEEL:{
-				var _p = trail;
 				part_type_direction(_p, _ship.direction - 181, _ship.direction - 179, 0, 0);
 				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
 			} break;
 			case ELEMENT.QUANTUM:{
-				var _p = trail;
 				part_type_direction(_p, _ship.direction - 190, _ship.direction - 170, 0, 0);
 				part_particles_create(global.battlePartSystem, random_range(x - sprite_width/2, x + sprite_width/2), random_range(y - sprite_height/2, y + sprite_height/2), _p, 1);
 			} break;

@@ -11,7 +11,7 @@ for (var i = 0; i < _n; i++){
 	}
 }
 
-if (part != noone){
+if (show_particles){
 	DrawLaserParticle(owner);
 }
 

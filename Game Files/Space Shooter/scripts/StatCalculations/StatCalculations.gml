@@ -39,7 +39,8 @@ enum STAT{
 	VENOMRES = 35,
 	LIGHTNINGRES = 36,
 	STEELRES = 37,
-	QUANTUMRES = 38
+	QUANTUMRES = 38,
+	DOT = 999
 }
 
 function StatToText(_stat){
@@ -75,6 +76,7 @@ function StatToText(_stat){
 		case STAT.HEALINGBONUS: return "HEALING BONUS";
 		case STAT.ASPD: return "ATTACK SPEED";
 		case STAT.EFFECTCHANCE: return "EFFECT-CHANCE";
+		case STAT.DOT: return "DoT";
 	}
 	return "Forgor :(";
 }
@@ -101,7 +103,8 @@ function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stack
 	}
 	// Apply buff if it doesnt exists
 	if (!_buff_exists){
-		_inst = instance_create_depth(-1000, -1000, 999, oStat);
+		if (_stat == STAT.DOT) _inst = instance_create_depth(-1000, -1000, 999, oDamageOverTime);
+		else _inst = instance_create_depth(-1000, -1000, 999, oStat);
 		with(_inst){
 			name = _name;
 			target = _target;
@@ -112,6 +115,7 @@ function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stack
 			isInfinite = _isInfinite;
 			max_stacks = _max_stacks;
 			stacks = _stacks;
+			if (_stat == STAT.DOT) max_time = _lifetime;
 		}
 		ds_list_add(_list, _inst);
 		return _inst;
@@ -124,12 +128,14 @@ function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stack
 			if (_inst.stacks < _inst.max_stacks) {
 				_inst.stacks += _stacks;
 				if (_inst.stacks > _inst.max_stacks) _inst.stacks = _inst.max_stacks;
-				_inst.time = _lifetime;
+				if (_stat == STAT.DOT and _inst.max_time > _lifetime) _inst.max_time = _lifetime;
+				else _inst.time = _lifetime;
 				return noone;
 			}
 			// if stacks are maxed refresh time
 			else {
-				_inst.time = _lifetime;
+				if (_stat == STAT.DOT and _inst.max_time > _lifetime) _inst.max_time = _lifetime;
+				else _inst.time = _lifetime;
 				return noone;
 			}
 		}
@@ -138,12 +144,14 @@ function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stack
 			// if currenct buff is bigger
 			if (_inst.scale < _scale){
 				_inst.scale = _scale;
-				_inst.time = _lifetime;
+				if (_stat == STAT.DOT and _inst.max_time > _lifetime) _inst.max_time = _lifetime;
+				else _inst.time = _lifetime;
 				return noone;
 			}
 			// if it is exactly the same buff refresh its time
 			else {
-				_inst.time = _lifetime;
+				if (_stat == STAT.DOT and _inst.max_time > _lifetime) _inst.max_time = _lifetime;
+				else _inst.time = _lifetime;
 				return noone;
 			}
 		}

@@ -45,6 +45,8 @@ ds_map_add(dstats,STAT.VENOMRES, ds_list_create());
 ds_map_add(dstats,STAT.LIGHTNINGRES, ds_list_create());
 ds_map_add(dstats,STAT.STEELRES, ds_list_create());
 ds_map_add(dstats,STAT.QUANTUMRES, ds_list_create());
+ds_map_add(dstats,STAT.DOTDMG, ds_list_create());
+ds_map_add(dstats,STAT.DOT, ds_list_create());
 
 
 // Movement

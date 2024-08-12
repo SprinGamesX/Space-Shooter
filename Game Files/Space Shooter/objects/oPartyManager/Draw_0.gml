@@ -57,6 +57,8 @@ for (var i = 0; i < 24; i++){
 				}
 			}
 			else ship_selection = i;
+			
+			SaveParty();
 		}
 	}
 	var _color = c_dkgray;

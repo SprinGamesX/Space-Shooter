@@ -43,6 +43,10 @@ max_energy = 0;
 charge = 0;
 max_charge = 0;
 
+// Particles
+laser_particle = undefined;
+trail_particle = undefined;
+
 // Get Passives
 
 
@@ -122,8 +126,6 @@ onPreHit = function(_enemy, _atk_type,  _dmg_type){
 	_enemy.onToughnessReduction(ds_map_find_value(toughs, _atk_type), self);
 	_enemy.onElementalHit(ds_map_find_value(elmacc, _atk_type), self);
 	
-	show_debug_message(_enemy.elemental_status[ELEMENT.ICE]);
-	
 	oGameManager.onTeamPreHit(_enemy, _atk_type, self);
 	onHit(_enemy, _atk_type,  _dmg_type);
 }
@@ -156,6 +158,11 @@ onHit = function(_enemy, _atk_type, _dmg_type){
 
 onPostHit = function(_enemy, _atk_type, _dmg_type, _damage){
 	// After it is done call onAllyPostHit for allies
+	var _shock = CheckForStat(_enemy, STAT.LIGHTNINGRES, "Shocked");
+	if (_shock != noone){
+		_shock.provider.onShock(_enemy);
+	}
+	
 	if (_atk_type != ATTACK_TYPE.ULTIMATE){
 		GenerateEnergy(1);
 	}
@@ -251,6 +258,12 @@ onBattleBegan = function(){
 	
 }
 
+onBattleStart = function(){
+	// Only for technical setup
+	trail_particle = CreateProjTrail(element);
+	laser_particle = CreateLaserParticles(element);
+}
+
 onReact = function(){
 	reactive = true;
 	react_time = 10;
@@ -301,5 +314,41 @@ onQuantumReaction = function(_enemy){
 	
 }
 
+onShock = function(_enemy){
+	
+	
+	
+	// Base Radius is 256 pixels
+	
+	var _list = ds_list_create();
+	var _nearby = collision_circle_list(_enemy.x, _enemy.y, 256 * (1 + getStatBonus(STAT.ES)), oEnemyObject, 0, 0, _list, false);
+	
+	for (var i = 0; i < _nearby; i++){
+		if (_list[|i].id != _enemy.id and _list[|i].shock_immune <= 0){
+			AdditionalDamage(_list[|i], self, 0.1, ATTACK_TYPE.SHOCK);
+			
+			var _dist = point_distance(_enemy.x, _enemy.y, _list[|i].x, _list[|i].y);
+			var _dir = point_direction(_enemy.x, _enemy.y, _list[|i].x, _list[|i].y);
+			var _divider = _dist/10;
+			while(_dist >= 0 and _divider != 0){
+				part_particles_create(global.battlePartSystem, _enemy.x + lengthdir_x(_dist + random_range(-32, 32), _dir), _enemy.y + lengthdir_y(_dist + random_range(-32, 32), _dir), shock_particle, 3);
+				_dist -= _divider;
+			}
+			
+		}
+	}
+	ds_list_destroy(_list);
+	
+	
+}
 
+part_invis = part_type_create();
+
+shock_particle = part_type_create();
+part_type_sprite(shock_particle, sPixel, 0, 0, 0);
+part_type_color2(shock_particle, #e8e873,ColorForElement(ELEMENT.LIGHTNING));
+part_type_life(shock_particle, seconds(0.3), seconds(0.5));
+part_type_alpha3(shock_particle, 1, 0.7, 0);
+part_type_orientation(shock_particle, 0, 359, 0.2, false, true);
+part_type_size(shock_particle, 1.5, 1.75, -0.005, 0.5);
 

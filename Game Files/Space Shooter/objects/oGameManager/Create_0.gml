@@ -159,6 +159,7 @@ onTeamBreak = function(_enemy, _breaker){
 
 for (var i = 0; i < 3; i++){
 	if (instance_exists(team[i])){
+		team[i].onBattleStart();
 		team[i].onBattleBegan();
 	}
 }

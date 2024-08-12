@@ -9,6 +9,9 @@ max_attack_cd = 0;
 isAttacking = false;
 hits = 9999999;
 
+kill_out_of_bounds = false;
+
+max_elmstat = 150;
 movement_speed = 0;
 
 onAttackFinish = function(){

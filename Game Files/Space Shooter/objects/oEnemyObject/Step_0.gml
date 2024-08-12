@@ -27,3 +27,11 @@ if (stoptime > 0) {
 	show_debug_message(stoptime);
 }
 if (stoptime == 0) stopped = false;
+
+if (shock_immune){
+	shock_immune--;
+}
+
+if (kill_out_of_bounds and IsOutOfBounds(128)){
+	instance_destroy();
+}

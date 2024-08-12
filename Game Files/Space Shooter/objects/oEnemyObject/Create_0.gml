@@ -29,10 +29,13 @@ broken_time = 0;
 stopped = false;
 stoptime = -1;
 
+kill_out_of_bounds = true;
+
 // Elemental Charge
 // Each index represents the elemental charge of a corrisponding element aka 0 - Ice, 1 - Fire etc
 elemental_status = [0,0,0,0,0,0,0,0];
-max_elmstat = 2;
+max_elmstat = 50;
+shock_immune = 0;
 awaiting_destruction = false;
 
 onDeath = function(_attacker){

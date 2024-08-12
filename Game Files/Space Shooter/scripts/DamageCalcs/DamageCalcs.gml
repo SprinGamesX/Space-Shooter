@@ -10,27 +10,30 @@ enum ATTACK_TYPE{
 	EXIT = 6,
 	FOLLOWUP = 7,
 	DOT = 8,
-	FIRE_EXPLOSION = 9
+	SHOCK = 998,
+	FIRE_EXPLOSION = 999
 }
 
-function GetDamageBonus(_element, _attribute){
+function GetDamageBonus(_element, _attribute, _obj = self){
 	var _bonus = 0;
 	switch(_element){
-		case ELEMENT.ICE: _bonus += getStatBonus(STAT.ICEDMG); break;
-		case ELEMENT.FIRE: _bonus += getStatBonus(STAT.FIREDMG); break;
-		case ELEMENT.LIFE: _bonus += getStatBonus(STAT.LIFEDMG); break;
-		case ELEMENT.VENOM: _bonus += getStatBonus(STAT.VENOMDMG); break;
-		case ELEMENT.LIGHTNING: _bonus += getStatBonus(STAT.LIGHTNINGDMG); break;
-		case ELEMENT.STEEL: _bonus += getStatBonus(STAT.STEELDMG); break;
-		case ELEMENT.QUANTUM: _bonus += getStatBonus(STAT.QUANTUMDMG); break;
+		case ELEMENT.ICE: _bonus += _obj.getStatBonus(STAT.ICEDMG); break;
+		case ELEMENT.FIRE: _bonus += _obj.getStatBonus(STAT.FIREDMG); break;
+		case ELEMENT.LIFE: _bonus += _obj.getStatBonus(STAT.LIFEDMG); break;
+		case ELEMENT.VENOM: _bonus += _obj.getStatBonus(STAT.VENOMDMG); break;
+		case ELEMENT.LIGHTNING: _bonus += _obj.getStatBonus(STAT.LIGHTNINGDMG); break;
+		case ELEMENT.STEEL: _bonus += _obj.getStatBonus(STAT.STEELDMG); break;
+		case ELEMENT.QUANTUM: _bonus += _obj.getStatBonus(STAT.QUANTUMDMG); break;
 	}
 	switch(_attribute){
-		case ATTACK_TYPE.BASIC: _bonus += getStatBonus(STAT.BASICATTACKDMG); break;
-		case ATTACK_TYPE.ALT: _bonus += getStatBonus(STAT.ALTDMG); break;
-		case ATTACK_TYPE.SKILL: _bonus += getStatBonus(STAT.SKILLDMG); break;
-		case ATTACK_TYPE.ULTIMATE: _bonus += getStatBonus(STAT.ULTIMATEDMG); break;
-		case ATTACK_TYPE.FOLLOWUP: _bonus += getStatBonus(STAT.FOLLOWUPDMG); break;
-		case ATTACK_TYPE.FIRE_EXPLOSION: _bonus += getStatBonus(STAT.ES); break;
+		case ATTACK_TYPE.BASIC: _bonus += _obj.getStatBonus(STAT.BASICATTACKDMG); break;
+		case ATTACK_TYPE.ALT: _bonus +=_obj.getStatBonus(STAT.ALTDMG); break;
+		case ATTACK_TYPE.SKILL: _bonus += _obj.getStatBonus(STAT.SKILLDMG); break;
+		case ATTACK_TYPE.ULTIMATE: _bonus += _obj.getStatBonus(STAT.ULTIMATEDMG); break;
+		case ATTACK_TYPE.FOLLOWUP: _bonus += _obj.getStatBonus(STAT.FOLLOWUPDMG); break;
+		case ATTACK_TYPE.FIRE_EXPLOSION: _bonus += _obj.getStatBonus(STAT.ES); break;
+		case ATTACK_TYPE.DOT: _bonus += _obj.getStatBonus(STAT.DOTDMG); break;
+		case ATTACK_TYPE.SHOCK: _bonus += _obj.getStatBonus(STAT.ES); break;
 	}
 	
 	return _bonus;

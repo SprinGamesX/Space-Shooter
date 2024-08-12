@@ -15,9 +15,8 @@ function CreateLinearProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_
 		if (_dmg_type == -1) dmg_type = atk_type;
 		else dmg_type = _dmg_type;
 		
-		if (_trail){
-			trail = CreateProjTrail(_owner.element);
-		}
+		trail = _trail;
+		echo = _echo;
 	}
 	return _inst;
 }
@@ -39,9 +38,8 @@ function CreateHomingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_
 		correction = _correction;
 		exclude_normals = _exclude_normals;
 		
-		if (_trail){
-			trail = CreateProjTrail(_owner.element);
-		}
+		trail = _trail;
+		echo = _echo;
 	}
 	return _inst;
 }
@@ -62,9 +60,8 @@ function CreateBouncingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _at
 		correction = _correction;
 		radius = _radius;
 		
-		if (_trail){
-			trail = CreateProjTrail(_owner.element);
-		}
+		trail = _trail;
+		echo = _echo;
 	}
 	return _inst;
 }
@@ -85,9 +82,8 @@ function CreateJumpingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk
 		jumps = _jumps;
 		offset = _offset;
 		
-		if (_trail){
-			trail = CreateProjTrail(_owner.element);
-		}
+		trail = _trail;
+		echo = _echo;
 	}
 	return _inst;
 }
@@ -114,9 +110,8 @@ function CreateStormProjectile(_sprite, _owner, _x, _y, _spd, _direction, _rotsp
 		max_radius = _radius;
 		rot_spd = _rotspd;
 		
-		if (_trail){
-			trail = CreateProjTrail(_owner.element);
-		}
+		trail = _trail;
+		echo = _echo;
 	}
 	return _inst;
 }
@@ -144,9 +139,7 @@ function CreateLaser(_xx, _yy, _follow, _direction, _length, _attack_type, _aoe,
 		length = _length;
 		target = _tracker;
 		
-		if (_particles){
-			part = CreateLaserParticles(_owner.element);
-		}
+		show_particles = _particles;
 		
 		image_xscale = (length/sprite_width);
 	}

@@ -103,7 +103,7 @@ if (ammo <= 0){
 if (invisible) {
 	image_alpha = 0.5;
 	
-	var part = part_type_create();
+	var part = part_invis;
 	part_type_alpha2(part, 0.1, 0);
 	part_type_sprite(part, sprite_index, false, false, false);
 	part_type_subimage(part, image_index);
@@ -111,6 +111,8 @@ if (invisible) {
 	part_type_scale(part, image_xscale, image_yscale);
 	
 	part_particles_create(global.battlePartSystem, x, y, part, 1);
+	
+	
 	
 }
 else image_alpha = 1;

@@ -12,6 +12,7 @@ ult_pulses = 3;
 
 onBasicAttack = function(){
 	CreateLinearProjectile(sIceShard1, self, x, y, 10, direction, ATTACK_TYPE.BASIC);
+	
 	ammo--;
 }
 

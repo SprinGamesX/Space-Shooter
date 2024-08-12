@@ -57,6 +57,9 @@ onPreHit = function(_enemy, _atk_type, _dmg_type){
 		}
 	}
 	
+	_enemy.onToughnessReduction(ds_map_find_value(toughs, _atk_type), self);
+	_enemy.onElementalHit(ds_map_find_value(elmacc, _atk_type), self);
+	
 	oGameManager.onTeamPreHit(_enemy, _atk_type, self);
 	onHit(_enemy, _atk_type, _dmg_type);
 }
