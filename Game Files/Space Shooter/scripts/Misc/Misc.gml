@@ -82,3 +82,14 @@ function CreateCooldown(_timer, _repeat){
 	}
 	return _inst;
 }
+
+function ScreenShake(_time, _magnitude, _fade)
+{
+   with (oScreenShake)
+   {
+      shake = true;
+      shake_time = seconds(_time);
+      shake_magnitude = _magnitude;
+      shake_fade = _fade;
+   }
+}

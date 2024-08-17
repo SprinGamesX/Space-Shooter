@@ -163,3 +163,15 @@ for (var i = 0; i < 3; i++){
 		team[i].onBattleBegan();
 	}
 }
+
+part_enemy = part_type_create();
+part_type_sprite(part_enemy, sPixel, 0,0,0);
+part_type_size(part_enemy, 1, 2, 0, 0);
+part_type_life(part_enemy, seconds(1), seconds(2));
+part_type_speed(part_enemy, 0.5, 1, -0.003, 0);
+part_type_orientation(part_enemy, 0, 359, 0, 0, 0);
+part_type_direction(part_enemy, 0, 359, 0, 0);
+part_type_alpha2(part_enemy, 1, 0);
+
+
+

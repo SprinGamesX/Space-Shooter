@@ -10,7 +10,7 @@ cd_a1 = CreateCooldown(seconds(3), true);
 cd_a2 = CreateCooldown(seconds(5), true);
 
 movement = function(){
-	image_angle += (movement_speed) * (1 + getStatBonus(STAT.SPD));
+	image_angle += (movement_speed) * (1 + getStatBonus(STAT.SPD)) * slowed ? 0.1 : 1;
 }
 
 cooldowns = function(){

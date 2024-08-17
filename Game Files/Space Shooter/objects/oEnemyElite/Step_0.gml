@@ -10,7 +10,8 @@ if (!stopped){
 		isAttacking = true;
 	}
 	if (attack_cd > 0){
-		attack_cd--;
+		if (slowed) attack_cd -= 0.1;
+		else attack_cd--;
 	}
 	
 	movement();

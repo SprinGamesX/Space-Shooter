@@ -1,7 +1,8 @@
 Elites:
-- LIGHTNING Dragon
+- LIGHTNING Dragon (Golon)
 - LIFE Bow
-- ICE/FIRE Spirits
+- FIRE Spirit
+- ICE Cube (I9)
 - STEEL Cannon
 
 Bosses:
@@ -10,4 +11,4 @@ Bosses:
 - FIRE-ICE Ying & Yang
 - FIRE-STEEL Sword
 - LIFE-VENOM Snake
-
+- LIFE-??? Giant Tree

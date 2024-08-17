@@ -28,6 +28,8 @@ max_toughtness = 0;
 broken_time = 0;
 stopped = false;
 stoptime = -1;
+slowed = false;
+slowtime = -1;
 
 kill_out_of_bounds = true;
 
@@ -37,6 +39,7 @@ elemental_status = [0,0,0,0,0,0,0,0];
 max_elmstat = 50;
 shock_immune = 0;
 awaiting_destruction = false;
+countered = false;
 
 onDeath = function(_attacker){
 	oGameManager.onTeamKill(_attacker);
@@ -49,6 +52,9 @@ onHit = function(_damage, _attacker){
 	if (hp <= 0){
 		onDeath(_attacker);
 	}
+	
+	// effect
+	
 }
 
 onToughnessReduction = function(_amount, _ship){
@@ -114,3 +120,11 @@ onShipHit = function(_enemy){
 		if (hits <= 0) instance_destroy();
 	}
 }
+
+part_hit = part_type_create();
+part_type_sprite(part_hit, sPixel, 0,0,0);
+part_type_size(part_hit, 2, 3, 0, 0);
+part_type_life(part_hit, seconds(1), seconds(1.5));
+part_type_speed(part_hit, 0.5, 1.2, -0.003, 0);
+part_type_orientation(part_hit, 0, 359, 0, 0, 0);
+part_type_alpha3(part_hit, 1, 0.7, 0);

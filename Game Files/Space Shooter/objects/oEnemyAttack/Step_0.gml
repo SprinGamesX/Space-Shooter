@@ -10,9 +10,9 @@ if (active){
 				onAttackBegin();
 				attack_began = true;
 			}
-		if (start_cd > 0) start_cd--;
+		if (start_cd > 0 and !attacker.stopped) start_cd -= attacker.slowed ? 0.1 : 1;
 		else {
-			if (cd > 0) cd--;
+			if (cd > 0 and !attacker.stopped) cd -= attacker.slowed ? 0.1 : 1;
 			else {
 				attack();
 				cd = max_cd;

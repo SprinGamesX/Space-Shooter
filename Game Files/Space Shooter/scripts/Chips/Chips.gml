@@ -260,8 +260,6 @@ function ConnectChip(_chip, _ship, _slot){
 		SaveChips();
 		return true;
 	}
-	
-	return false;
 }
 
 function SeperateChip(_chip){

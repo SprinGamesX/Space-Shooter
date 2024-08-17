@@ -63,6 +63,14 @@ function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEME
 		spin = _spin;
 		if (instance_exists(boss)){
 			weaknesses = boss.weaknesses;
+			if (boss.stopped) {
+				stopped = true;
+				stoptime = boss.stoptime;
+			}
+			if(boss.slowed){
+				slowed = true;
+				slowtime = boss.slowtime;
+			}
 		}
 		else weaknesses = [ELEMENT.ICE, ELEMENT.FIRE, ELEMENT.LIFE, ELEMENT.LIGHTNING, ELEMENT.VENOM, ELEMENT.STEEL, ELEMENT.QUANTUM];
 	}
@@ -133,4 +141,14 @@ function GainElementalRes(_weaknesses){
 function StopEnemy(_enemy, _stoptime = -1){
 	_enemy.stopped = true;
 	_enemy.stoptime = _stoptime;
+}
+
+function StopAllEnemies(_stoptime = -1){
+	oEnemyObject.stopped = true;
+	oEnemyObject.stoptime = _stoptime;
+}
+
+function SlowAllEnemies(_slowtime = -1){
+	oEnemyObject.slowed = true;
+	oEnemyObject.slowtime = _slowtime;
 }

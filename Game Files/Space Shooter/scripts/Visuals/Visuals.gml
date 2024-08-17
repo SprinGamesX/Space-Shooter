@@ -187,3 +187,9 @@ function DrawProjTrail(_ship){
 	}
 	
 }
+
+function EnemyDeathParticles(_enemy = self){
+	var _part = oGameManager.part_enemy;
+	
+	part_particles_create_color(global.battlePartSystem, _enemy.x, _enemy.y, _part, ColorForElement(_enemy.element), 30);
+}

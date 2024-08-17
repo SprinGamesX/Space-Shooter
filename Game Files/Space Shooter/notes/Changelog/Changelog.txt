@@ -65,3 +65,18 @@ Added Party saving after quitting game
 
 Optimized particles
 Optimized enemy spawns
+
+17/8/24 - Saturady
+
+Added Visual effects to: [Dodge] and [Counter]
+Added Counter now deals damage when countered enemy hits another enemy
+Added Screen shake when ship is hit
+Added Slowing enemies when using [Dodge] successfuly
+Added Stopping enemies when using [Counter] successfuly
+
+Balance Changes:
+[Counter] deals damage when hitting another enemy (deals 1% of elites hp if hits elite)
+[Dodge] invisibility: 2s -> 1s 
+
+
+

@@ -201,6 +201,7 @@ onHitTaken = function(_enemy, _damage){
 	hp -= _damage;
 	
 	GenerateEnergy(0.5);
+	ScreenShake(0.3, 1.2, 0.1);
 }
 
 onAllyHitTaken = function(_enemy, _ally){
@@ -266,15 +267,21 @@ onBattleStart = function(){
 
 onReact = function(){
 	reactive = true;
-	react_time = 10;
+	react_time = 7;
 	react_cooldown = seconds(0.5);
 }
 
 onDodge = function(_enemy){
 	invisible = true;
-	invis_cd = seconds(2);
+	invis_cd = seconds(1);
 	reactive = false;
 	ApplyStat(self, "Dodged", STAT.SPD, 0.2, invis_cd, 1);
+	
+	GenerateEnergy(10);
+	
+	// Effects
+	SlowAllEnemies(seconds(1));
+	ScreenShake(0.05, 0.5, 0.01);
 }
 
 onReflect = function(_enemy){
@@ -283,7 +290,15 @@ onReflect = function(_enemy){
 	if (!object_is_ancestor(_enemy.object_index, oEnemyElite)){
 		_enemy.direction -= 180;
 		reactive = false;
+		_enemy.countered = true;
 	}
+	
+	GenerateEnergy(10);
+	
+	// Effects
+	SlowAllEnemies(seconds(0.1));
+	ScreenShake(1, 1, 0.1);
+	part_particles_create(global.battlePartSystem, (x + _enemy.x)/2, (y + _enemy.y)/2, part_shockwave, 3);
 }
 
 onIceReaction = function(_enemy){
@@ -352,3 +367,8 @@ part_type_alpha3(shock_particle, 1, 0.7, 0);
 part_type_orientation(shock_particle, 0, 359, 0.2, false, true);
 part_type_size(shock_particle, 1.5, 1.75, -0.005, 0.5);
 
+part_shockwave = part_type_create();
+part_type_sprite(part_shockwave,sShockwaveParticle,0,0,0);
+part_type_life(part_shockwave, seconds(0.5), seconds(0.5));
+part_type_alpha2(part_shockwave, 0.9, 0);
+part_type_size(part_shockwave, 0, 0.8, 0.8, 0);

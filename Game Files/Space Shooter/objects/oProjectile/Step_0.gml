@@ -19,6 +19,12 @@ if (instance_exists(_col) and _col != noone and ds_list_find_index(hit_list, _co
 	pierce--;
 	ds_list_add(hit_list, _col.id);
 	
+	if (object_is_ancestor(_col.object_index, oEnemyElite)){
+		var _part = _col.part_hit;
+		part_type_direction(_part, direction + 170, direction + 190, 0, 0);
+		part_particles_create_color(global.battlePartSystem, x + lengthdir_x(sprite_width/2, direction), y + lengthdir_y(sprite_width/2, direction), _part, ColorForElement(_col.element), 15);
+	}
+	
 	if (pierce <= 0) instance_destroy();
 }
 
