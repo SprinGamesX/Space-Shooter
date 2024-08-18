@@ -287,10 +287,10 @@ onDodge = function(_enemy){
 onReflect = function(_enemy){
 	invisible = true;
 	invis_cd = seconds(0.5);
+	_enemy.countered = true;
 	if (!object_is_ancestor(_enemy.object_index, oEnemyElite)){
 		_enemy.direction -= 180;
 		reactive = false;
-		_enemy.countered = true;
 	}
 	
 	GenerateEnergy(10);

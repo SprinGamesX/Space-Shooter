@@ -2,7 +2,8 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
 enum ENEMIES{
-	EXPERIMENTAL
+	EXPERIMENTAL,
+	I9
 }
 
 
@@ -26,6 +27,31 @@ function SummonEnemy(_enemy, _x, _y, _level){
 				
 				weaknesses = [ELEMENT.ICE, ELEMENT.FIRE, ELEMENT.QUANTUM];
 				GainElementalRes(weaknesses);
+			}
+			
+		}
+		break;
+		
+		case ENEMIES.I9: {
+			_inst = instance_create_layer(_x, _y, "Enemies", oEliteI9);
+			with(_inst){
+				lvl = _level;
+				b_atk = 100;
+				b_hp = 1500;
+				hp = b_hp;
+				b_def = 300;
+				b_spd = 1;
+				element = ELEMENT.ICE;
+				max_toughtness = 3000;
+				toughness = max_toughtness;
+				
+				weaknesses = [ELEMENT.FIRE, ELEMENT.LIGHTNING, ELEMENT.QUANTUM];
+				GainElementalRes(weaknesses);
+				
+				// Create all bodies
+				for (var i = 0; i < array_length(bodies); i++){
+					bodies[i] = CreateI9Body(i, self);
+				}
 			}
 			
 		}

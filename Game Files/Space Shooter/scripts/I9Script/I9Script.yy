@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"I9Script",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"I9Script",
+  "parent":{
+    "name":"Elites",
+    "path":"folders/Scripts/Elites.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
