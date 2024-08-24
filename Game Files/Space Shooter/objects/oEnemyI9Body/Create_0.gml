@@ -91,12 +91,18 @@ movement = function(){
 		
 		if (countered){
 			countered = false;
-			mode = IMODE.BASE;
+			if (boss.weakness_broken){
+				direction += 180;
+			}
+			else mode = IMODE.BASE;
 		}
 		
 		if (place_meeting(x, y, oBorder)){
 			mode = IMODE.STUNNED;
 			stuntime = seconds(2);
+			if (boss.weakness_time > 0){
+				stuntime = seconds(8);
+			}
 			speed = 0;
 			ScreenShake(1, 0.7, 0.1);
 		}

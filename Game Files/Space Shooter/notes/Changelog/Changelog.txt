@@ -43,7 +43,7 @@ Added Chip-Ship relations
 Added Chip slots to the hangar
 Added a new way to filter chips via type
 
-10/8/24 - Saturady
+10/8/24 - Saturday
 Added Ability to remove assigned chips
 Added Elemental RES to enemies that do not have weaknesses
 Added Inventory Sorting (Defualt by SET -> TYPE -> STAT -> SCALE)
@@ -66,7 +66,7 @@ Added Party saving after quitting game
 Optimized particles
 Optimized enemy spawns
 
-17/8/24 - Saturady
+17/8/24 - Saturday
 
 Added Visual effects to: [Dodge] and [Counter]
 Added Counter now deals damage when countered enemy hits another enemy
@@ -78,5 +78,11 @@ Balance Changes:
 [Counter] deals damage when hitting another enemy (deals 1% of elites hp if hits elite)
 [Dodge] invisibility: 2s -> 1s 
 
+18/8/24 - Sunday
+Added New (Elite) I9
 
+
+24/8/24 - Saturday
+Added Set functionallity
+Added Sets to Hangar (Chip view)
 

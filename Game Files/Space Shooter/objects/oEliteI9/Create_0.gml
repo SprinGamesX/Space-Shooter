@@ -38,6 +38,23 @@ movement = function(){
 	part_particles_create(global.battlePartSystem, x, y, part_aura, 10);
 }
 
+onWeaknessBreak = function(){
+	var dir = 180;
+	for (var i = 0; i < 8; i++){
+		bodies[i].mode = IMODE.CHARGE;
+		bodies[i].direction = dir;
+		dir += 45;
+	}
+	weakness_time = seconds(10);
+	weakness_broken = true;
+}
+
+onWeaknessRecover = function(){
+	attack_cd = max_attack_cd;
+	toughness = max_toughtness;
+	weakness_broken = false;
+}
+
 onMeteorHit = function(){
 	for (var i = 0; i < 8; i++){
 		bodies[i].mode = IMODE.CHARGE;

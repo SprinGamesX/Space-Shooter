@@ -247,8 +247,33 @@ if (mode == HANGARMODE.CHIPS){
 		draw_sprite_ext(sStatIcons, preview_chip.stat, xx - 256, yy+12, 3, 3, 0, GetChipSetColor(preview_chip.set), 1);
 		
 		draw_setup(font_hangar, c_white, fa_left, fa_middle);
-		draw_text_scribble(xx - 192, yy + 48, StatToText(_chip.stat) + " +" + string_format(RoundTo(_chip.scale, 1), log10(_chip.scale), 1) + "%");
+		draw_text_scribble(xx - 192, yy + 48, StatToText(_chip.stat) + " +" + string_format(RoundTo(_chip.scale, 1), log10(_chip.scale), 1) + "%");	
+	}
+	
+	
+	var _chips = GetShipLoadout(_s.shipId);
+	var _setcount = 1;
+	var _achip = noone;
+	
+	for(var i = 0; i < array_length(_chips); i++){
+		if (instance_exists(_chips[i]) and _chips[i].chiptype == 1) _achip = _chips[i];
+	}
+	
+	if (instance_exists(_achip)){
 		
+		for (var i = 1; i < array_length(_chips); i++){
+			if (instance_exists(_chips[i]) and _chips[i].set == _achip.set) _setcount++;
+		}
+		
+		draw_setup(font_hangar, c_white, fa_center, fa_middle);
+		var _text = "[scale,1.2]SET - " + StatToText(_achip.set) +":";
+		
+		_text += (InRange(_setcount, 4, 5) ? " [rainbow]4[/rainbow] " : " 4 ") + "|";
+		_text += (InRange(_setcount, 6, 7) ? " [rainbow]6[/rainbow] " : " 6 ") + "|";
+		_text += (InRange(_setcount, 8, 10) ? " [rainbow]8[/rainbow] " : " 8");
+ 		
+		
+		draw_text_scribble(room_width/5 * 4 + 15, yy + 128, _text);
 	}
 	
 	

@@ -290,3 +290,47 @@ function GetShipLoadout(_shipId){
 	}
 	return arr;
 }
+
+function GetSetBuff(_type, _num){
+	var _mul = 0;
+	
+	// Elemental DMG or EFFECT CHANCE
+	if (InRange(_type, 8, 14) or _type == STAT.EFFECTCHANCE){
+		_mul = 0.05;
+	}
+	
+	// ATK or CRITDMG
+	if (_type == STAT.ATK or _type == STAT.CRITDMG){
+		_mul = 0.06;
+	}
+	
+	// HP
+	if (_type == STAT.HP){
+		_mul = 0.07;
+	}
+	
+	// DEF or ES
+	if (_type == STAT.DEF or _type == STAT.ES){
+		_mul = 0.08;
+	}
+	
+	// HEALING or SPD
+	if (_type == STAT.HEALINGBONUS or _type == STAT.SPD){
+		_mul = 0.04;
+	}
+	// ASPD or CRIT
+	if (_type == STAT.ASPD or _type == STAT.CRIT){
+		_mul = 0.03;
+	}
+	
+	// BREAK
+	if (_type == STAT.BREAKDMG){
+		_mul = 0.09;
+	}
+	
+	
+	if (_num >= 6) _mul *= 2;
+	if (_num >= 8) _mul *= 2;
+	
+	return _mul;
+}

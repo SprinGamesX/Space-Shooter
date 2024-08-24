@@ -1,6 +1,6 @@
 /// @description
 if (!stopped){
-	if (broken_time > 0){
+	if (broken_time > 0 and !object_is_ancestor(object_index, oEnemyElite)){
 		broken_time--;
 		if (broken_time <= 0){
 			toughness = max_toughtness;

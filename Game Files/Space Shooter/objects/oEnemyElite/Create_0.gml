@@ -13,6 +13,8 @@ kill_out_of_bounds = false;
 
 max_elmstat = 150;
 movement_speed = 0;
+weakness_time = 0;
+weakness_broken = false;
 
 onAttackFinish = function(){
 	isAttacking = false;
@@ -24,4 +26,15 @@ movement = function(){
 
 cooldowns = function(){
 	
+}
+
+onWeaknessBreak = function(){
+	weakness_broken = true;
+}
+
+onWeaknessRecover = function(){
+	
+	attack_cd = max_attack_cd;
+	toughness = max_toughtness;
+	weakness_broken = false;
 }

@@ -3,6 +3,7 @@
 x = -1000;
 y = -1000;
 
+
 // Particle System
 global.battlePartSystem = part_system_create();
 part_system_depth(global.battlePartSystem, layer_get_depth("Particles"));

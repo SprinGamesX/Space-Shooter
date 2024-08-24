@@ -218,11 +218,24 @@ function InitiateShip(_id){
 		}
 	}
 	var _chips = GetShipLoadout(_id);
+	var _set = -1;
+	var _count = 0;
+	
+	for (var i = 0; i < array_length(_chips); i++){
+		if (instance_exists(_chips[i]) and _chips[i].chiptype == 1) _set = _chips[i].set;
+	}
+	
 	for (var i = 0; i < array_length(_chips); i++){
 		if (instance_exists(_chips[i])){
 			ApplyStat(self, "Chip Buff " + string(i), _chips[i].stat, _chips[i].scale/100, 1, 1,,true,,false);
+			if (_chips[i].set == _set) _count++;
 		}
 	}
+	// Apply set buff
+	if (_set != -1){
+		ApplyStat(self, "Set Buff", _set, GetSetBuff(_set, _count), 1, 1,,true,,false);
+	}
+	
 	
 	// Particles
 	
