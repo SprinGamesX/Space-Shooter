@@ -3,6 +3,8 @@
 // Inherit the parent event
 event_inherited();
 
+active = false;
+
 attackQueue = ds_queue_create();
 attack_cd = 0;
 max_attack_cd = 0;
@@ -15,6 +17,7 @@ max_elmstat = 150;
 movement_speed = 0;
 weakness_time = 0;
 weakness_broken = false;
+entered = false;
 
 onAttackFinish = function(){
 	isAttacking = false;
@@ -37,4 +40,8 @@ onWeaknessRecover = function(){
 	attack_cd = max_attack_cd;
 	toughness = max_toughtness;
 	weakness_broken = false;
+}
+
+onEntery = function(){
+	entered = true;
 }

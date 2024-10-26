@@ -12,6 +12,5 @@ for (var i = 0; i < _n; i++){
 	}
 }
 
-
-
 ds_list_destroy(_col);
+if (_n > 20) instance_destroy();

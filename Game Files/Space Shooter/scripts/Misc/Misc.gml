@@ -78,6 +78,7 @@ function CreateCooldown(_timer, _repeat){
 	var _inst = instance_create_depth(-999, -999, 99, oCooldown);
 	with (_inst){
 		timer = _timer;
+		time = _timer;
 		onRepeat = _repeat;
 	}
 	return _inst;
@@ -92,4 +93,28 @@ function ScreenShake(_time, _magnitude, _fade)
       shake_magnitude = _magnitude;
       shake_fade = _fade;
    }
+}
+
+function SmoothMovCorrection(_obj, _dest_x, _dest_y, _exclude_x = false, _exclude_y = false, _correction = 2){
+	if (instance_exists(_obj)){
+		var _x = _dest_x;
+		var _y = _dest_y;
+		
+		var error_x = abs(_obj.x - _x) / 10;
+		if (_obj.x > _x) _obj.x -= _correction * sqrt(error_x);
+		if (_obj.x < _x) _obj.x += _correction * sqrt(error_x);
+		// y axis
+		var error_y = abs(_obj.y - _y) / 10;
+		if (_obj.y > _y) _obj.y -= _correction * sqrt(error_y);
+		if (_obj.y < _y) _obj.y += _correction * sqrt(error_y);
+	}
+}
+
+function SmoothRotCorrection(_obj, _dest_rot, _rot, _correction = 0.02){
+	var _error = abs(_rot - _dest_rot);
+	
+	if (_rot > _dest_rot) return _rot - (_correction * sqr(_error));
+	if (_rot < _dest_rot) return _rot + (_correction * sqr(_error));
+	
+	return _rot;
 }

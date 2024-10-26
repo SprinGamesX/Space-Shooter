@@ -174,5 +174,12 @@ part_type_orientation(part_enemy, 0, 359, 0, 0, 0);
 part_type_direction(part_enemy, 0, 359, 0, 0);
 part_type_alpha2(part_enemy, 1, 0);
 
-
+part_star = part_type_create();
+part_type_sprite(part_star, sStarParticle, 0,0,1);
+part_type_size(part_star, 0.5, 1, 0, 0.1);
+part_type_life(part_star, seconds(10), seconds(10));
+part_type_speed(part_star, 7, 9, 0, 0);
+part_type_orientation(part_star, 0, 360, 1, 0, 0);
+part_type_alpha1(part_star, 0.6)
+part_type_direction(part_star, 179, 181, 0, 1);
 

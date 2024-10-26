@@ -1,5 +1,13 @@
 /// @description
+
+if (instance_exists(selected_enemy) and object_is_ancestor(selected_enemy.object_index,oEnemyConnector)){
+		selected_enemy = selected_enemy.boss;
+}
+
 if (instance_exists(selected_enemy)){
+	
+	
+	
 	draw_sprite(sEnemyGui, 0, x, y - 24);
 	
 	var _hp = (selected_enemy.hp/selected_enemy.b_hp);

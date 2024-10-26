@@ -3,7 +3,8 @@
 
 enum ENEMIES{
 	EXPERIMENTAL,
-	I9
+	I9,
+	GOLON
 }
 
 
@@ -56,9 +57,31 @@ function SummonEnemy(_enemy, _x, _y, _level){
 			
 		}
 		break;
+		
+		case ENEMIES.GOLON: {
+			_inst = instance_create_layer(_x, _y, "Enemies", oEliteGolon);
+			with(_inst){
+				lvl = _level;
+				b_atk = 100;
+				b_hp = 2250;
+				hp = b_hp;
+				b_def = 300;
+				b_spd = 1;
+				element = ELEMENT.LIGHTNING;
+				max_toughtness = 3000;
+				toughness = max_toughtness;
+				
+				weaknesses = [ELEMENT.ICE, ELEMENT.LIFE, ELEMENT.STEEL];
+				GainElementalRes(weaknesses);
+				
+				
+			}
+			
+		}
+		break;
 	}
 	
-	
+	if (instance_exists(_inst)) _inst.active = true;
 	return _inst;
 	
 }
@@ -68,13 +91,15 @@ function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEME
 	
 	with(_inst){
 		
-		if (_customSprite != noone) sprite_index = _customSprite;
-		else {
-			if (_isSmall){
-				sprite_index = sEnemiesSmall;
+		if (!object_is_ancestor(_obj.object_index,oEnemyElite) and !object_is_ancestor(_obj.object_index,oEnemyConnector)){
+			if (_customSprite != noone) sprite_index = _customSprite;
+			else {
+				if (_isSmall){
+					sprite_index = sEnemiesSmall;
+				}
+				else sprite_index = sEnemiesNormal;
+				image_index = _element;
 			}
-			else sprite_index = sEnemiesNormal;
-			image_index = _element;
 		}
 		
 		b_atk = _atk;
@@ -107,6 +132,15 @@ function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEME
 function SummonEnemyLiner(_x, _y, _atk, _hp, _def, _spd, _direction, _element = ELEMENT.NONE, _toughness = 200, _boss = self, _isSmall = false, _customSprite = noone, _spin = false){
 	var _inst = SummonCustomEnemy(oEnemyLiner, _x, _y, _atk, _hp, _def, _spd, _element, _toughness, _boss, _isSmall, _customSprite, _spin);
 	_inst.direction = _direction;
+	return _inst;
+}
+
+function SummonEnemyConnector(_obj, _x, _y, _boss, _above = true){
+	var _inst = SummonCustomEnemy(_obj, _x, _y, _boss.b_atk, _boss.b_hp, _boss.b_def, _boss.b_spd, _boss.element,, _boss);
+	_inst.xoffset = _x;
+	_inst.yoffset = _y;
+	if (_above) _inst.depth = _boss.depth-1;
+	else _inst.depth = _boss.depth+1;
 	return _inst;
 }
 

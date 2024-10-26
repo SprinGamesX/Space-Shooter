@@ -65,9 +65,41 @@ function GetDescriptionForShip(_ship, _abilityId){
 		case 1: {
 			switch(_abilityId){
 				case ATTACK_TYPE.BASIC: return "Basic Attack:\nDeals minor ICE damage";
-				case ATTACK_TYPE.ALT: return "Alternative Attack:\nConjures a Laser dealing minor ICE damage";
+				case ATTACK_TYPE.ALT: return "Alternative Attack:\nBurst ICE shards that deal minor ICE damage";
 				case ATTACK_TYPE.SKILL: return "Skill:\nShoots ICE shards around itself / Special skill enhances all ships ATK";
 				case ATTACK_TYPE.ULTIMATE: return "Ultimate:\nShoots a frenzy of ICE shards around itself";
+			}
+		}
+		case 2: {
+			switch(_abilityId){
+				case ATTACK_TYPE.BASIC: return "Basic Attack:\nDeals minor FIRE damage";
+				case ATTACK_TYPE.ALT: return "Alternative Attack:\nAccumilate stacks of Flame when hitting an enemy, when stacks are not full shoot a single fireball, when it is full shoot three fireballs. Fireballs deal major FIRE damage";
+				case ATTACK_TYPE.SKILL: return "Skill:\nAccumilate 5 Flame charges, Flame stacks up to 10 stacks";
+				case ATTACK_TYPE.ULTIMATE: return "Ultimate:\nIncrease ASPD by 100% for 10 seconds, additionally gain max Flame stacks";
+			}
+		}
+		case 3: {
+			switch(_abilityId){
+				case ATTACK_TYPE.BASIC: return "Basic Attack:\nDeals minor LIFE damage, each attack will consume HP, HP cannot go lower then 1% that way";
+				case ATTACK_TYPE.ALT: return "Alternative Attack:\nHeals all ships for a small amount of HP and gain one charge";
+				case ATTACK_TYPE.SKILL: return "Skill:\nHeals itself for a minor amount of HP, if this ship has a full charge bar increase the healing and heal all ships";
+				case ATTACK_TYPE.ULTIMATE: return "Ultimate:\nHeal all ships for a major amount of HP, additionally when switching ships give the incoming ship HP bonus and heal it";
+			}
+		}
+		case 4: {
+			switch(_abilityId){
+				case ATTACK_TYPE.BASIC: return "Basic Attack:\nShoot a bouncing projectile that bounces 2 times deals minor LIGHTNING damage";
+				case ATTACK_TYPE.ALT: return "Alternative Attack:\nShoot a homing projectile that deals minor LIGHTNING damage";
+				case ATTACK_TYPE.SKILL: return "Skill:\nStrikes the crosshair with multiple piercing projectiles that deal mild LIGHTNING damage";
+				case ATTACK_TYPE.ULTIMATE: return "Ultimate:\nShoots a lot of Bouncing projectiles to all sides dealing minor LIGHTNING damage that can pierce the same enemy multiple times";
+			}
+		}
+		case 5: {
+			switch(_abilityId){
+				case ATTACK_TYPE.BASIC: return "Basic Attack:\nShoot a bouncing projectile that bounces 2 times deals minor LIGHTNING damage";
+				case ATTACK_TYPE.ALT: return "Alternative Attack:\nShoot a homing projectile that deals minor LIGHTNING damage";
+				case ATTACK_TYPE.SKILL: return "Skill:\nStrikes the crosshair with multiple piercing projectiles that deal mild LIGHTNING damage";
+				case ATTACK_TYPE.ULTIMATE: return "Ultimate:\nShoots a lot of Bouncing projectiles to all sides dealing minor LIGHTNING damage that can pierce the same enemy multiple times";
 			}
 		}
 	}

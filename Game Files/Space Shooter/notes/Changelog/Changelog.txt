@@ -86,3 +86,16 @@ Added New (Elite) I9
 Added Set functionallity
 Added Sets to Hangar (Chip view)
 
+Haitus - September
+
+13/10/24 - Sunday
+Added Golon (Lightning Dragon)
+Added VERY useful functions for smooth movement and smooth rotation
+Added Connector enemies (special enemies that share HP and toughness with boss)
+
+Fixed crash when a boss that has connectors is dead
+
+26/10/24 - Saturady
+Added Descriptions for Fire/Life/Lightning ships
+
+Fixed lag issue with lasers
