@@ -99,3 +99,82 @@ Fixed crash when a boss that has connectors is dead
 Added Descriptions for Fire/Life/Lightning ships
 
 Fixed lag issue with lasers
+
+27/10/24 - Sunday
+Added Descriptions for all ships (Currently)
+Added Descriptions for CHARGE SKILL, EXIT SKILL and ENTRANCE SKILL
+Added "Switch Ability" button to view extra skills (mentioned above)
+
+Balance Changes:
+Cuantico [SKILL] bounce 5 -> 3
+Acero [SPECIAL] extra shield from SKILL -> basic attack deals increased damage when possessing stacks
+
+Haitus - November -> March
+
+26/3/25 - Wednesday
+Optimized damage indicators
+Added scrollable inventory
+Added descriptions for passives for: Hielo, Fuego, Vida, Veneno
+Added functionallity for Boosts and Mastery upgrades for: Hielo
+
+28/03/25 - Friday
+Added functionallity to passives for ships: Hielo
+Added Extra functions for PreHit, Hit, PostHit
+Added plans for Presistant DoT (Damage over Time) and EhD (Extra hit Damage)
+
+29/03/25 - Saturady
+Added functionallity for all passives
+Added descriptions for passives for: Ligera, Acero, Cuantico
+Added Visuals to currently applied buffs and nerfs on the main ship
+Added functionality to Boost and Mastery for all ships
+
+30/03/25 - Sunday
+Added Inventory pages to the chip menu
+Added Functionality for Set bonuses
+Updated Main Menu visuals
+Added (Unfinished) Boss health bar
+
+31/03/25 - Monday
+Added Boss health bar
+
+Fixed DoT overstack issue
+
+2/04/25 - Wednesday
+Added Level ups
+Added New ship: Frost (Unfinished)
+
+Fixed game crash when you dont own any chips
+
+03/04/25 - Thursday
+Added descriptions for ships: Frost
+
+10/04/25 - Thursday
+Added passives for ships: Frost
+
+11/04/25 - Friday
+
+Added new elite: Lifebow (Unfinished)
+
+Balance Changes:
+Hielo [max energy]: 50 -> 120
+Vida [max energy]: 100 -> 125
+Veneno [max energy]: 100 -> 150
+Cuantino [max energy]: 130 -> 200
+Frost [max charge]: 30 -> 20
+
+12/04/25 - Saturady
+Finished new elite: Lifebow
+
+Lifebow [base HP]: 1750 -> 1250
+
+16/04/25 - Wednesday
+Elite enemies LVL in Testing now scales based on the avarage level of all ships in the current party
+Elite enemies now increase their HP by 20% and ATK by 10% per level
+
+17/04/25 - Thrusday
+Added Endless Mode (Simplfied)
+Added invincibilty for 2 seconds after a ship dies
+
+I9 [Base ATK]: 100 -> 50
+Golon [Base ATK]: 100 -> 50
+

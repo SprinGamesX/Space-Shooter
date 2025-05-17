@@ -35,9 +35,9 @@ onSkill = function(){
 }
 
 onSpecialSkill = function(){
-	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction, ATTACK_TYPE.SPECIAL,,,2);
-	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction - 5, ATTACK_TYPE.SPECIAL,,,2);
-	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction + 5, ATTACK_TYPE.SPECIAL,,,2);
+	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction, ATTACK_TYPE.SPECIAL,ATTACK_TYPE.ALT,,2);
+	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction - 5, ATTACK_TYPE.SPECIAL,ATTACK_TYPE.ALT,,2);
+	CreateLinearProjectile(sBigFireball, self, x, y, 10, direction + 5, ATTACK_TYPE.SPECIAL,ATTACK_TYPE.ALT,,2);
 }
 
 onUltimate = function(){
@@ -47,18 +47,24 @@ onUltimate = function(){
 	energy = 0;
 }
 
-onPostHit = function(_enemy, _atk_type, _dmg_type, _damage){
-	// After it is done call onAllyPostHit for allies
-	
-	var _shock = CheckForStat(_enemy, STAT.LIGHTNINGRES, "Shocked");
-	if (_shock != noone){
-		_shock.provider.onShock(_enemy);
-	}
-	
+onPostHitExtra = function(_enemy, _atk_type, _dmg_type, _damage){
 	count++;
 	if (count >= 5){
 		count = 0;
 		charge++;
 	}
-	oGameManager.onTeamPostHit(_enemy, _atk_type, self, _damage);
+	
+	if (passives[0] and _dmg_type == ATTACK_TYPE.ALT){
+		ApplyStat(self, "Heating Up", STAT.ATK, 0.05, seconds(5), 1, 3,,,true);
+	}
+}
+
+onBattleStart = function(){
+	if (passives[1])
+		ApplyStat(self, "Battle Hungry", STAT.ATK, 0.4, seconds(30), 1);
+}
+
+onEnemyKilled = function(_killer){
+	if(passives[2])
+		ApplyStat(self, "Blood Lust - Fuego", STAT.CRIT, 0.15, seconds(5), 1,,,,true);
 }

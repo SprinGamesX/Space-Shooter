@@ -113,3 +113,46 @@ QUANTUM - Decoherence - Deals Damage equal to 1% of the target's base HP and has
 
 Enemies of the same element will be completely immune to elemental accumilation
 Elemental accumilation will accumilate faster depending on the ship's Elemental Specialty
+
+DoT:
+
+Idea 1:
+
+Type 1: Damage over Time
+
+This type of DoT deals damage based on time passed and it will decrease in stacks once it deals damage, when reaching 0 stacks
+it will remove itself from its target, it will deal damage based on the multipliar it is given
+
+Type 2: Extra hit damage
+This type of DoT deals additional damage each time the target is hit, each hit decreases its stacks and once it reaches 0 stacks it removes itself
+it will deal damage based on the multiplier it is given
+
+
+Type 3: Presistant Damage over Time
+
+This type of DoT deals damage based on time passed and it will have a time limit , when the time is up
+it will remove itself from its target, it will deal damage based on the multipliar it is given and the amount of stacks
+
+Type 4: Presistant Extra hit damage
+This type of DoT deals additional damage each time the target is hit, it will also have a time limit, once time is up it removes itself
+it will deal damage based on the multiplier it is given and the amount of stacks
+
+for types 3 and 4:
+when reapplied while still active it will regain time equal to the amount of stacks it can hold:
+for example if it lasts for 10 seconds and has 10 stacks, each instance will restore 1 second to the effect
+
+
+Endless Mode:
+
+Endless Mode will be a series of battles of different sorts that will play out one after another without breaks
+it will ramp up in difficulty depending on the amount of waves defeated
+
+Challenges:
+Elite - kill a mini-boss enemy
+Defend - Defend a target from normal/small enemies
+Double up - Kill 2 mini bosses
+Boss - Kill boss enemy
+
+Explore Mode:
+Randomly generated grid of tiles that include different types of challenges and one boss room, fog of war type vision
+plays like a dungeon crawler

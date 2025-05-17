@@ -123,6 +123,9 @@ onFollowup = function(){
 // onHits
 onPreHit = function(_enemy, _atk_type,  _dmg_type){
 	// After it is done call onHit and onAllyPreHit for allies
+	
+	onPreHitExtra(_enemy, _atk_type,  _dmg_type);
+	
 	_enemy.onToughnessReduction(ds_map_find_value(toughs, _atk_type), self);
 	_enemy.onElementalHit(ds_map_find_value(elmacc, _atk_type), self);
 	
@@ -132,6 +135,9 @@ onPreHit = function(_enemy, _atk_type,  _dmg_type){
 
 onHit = function(_enemy, _atk_type, _dmg_type){
 	if (instance_exists(_enemy)){
+		
+		onHitExtra(_enemy, _atk_type,  _dmg_type)
+		
 		var _basedmg = (getATK()) * ds_map_find_value(scales,_atk_type);
 	
 		var _dmgbonus = 1 + GetDamageBonus(element, _dmg_type);
@@ -158,6 +164,9 @@ onHit = function(_enemy, _atk_type, _dmg_type){
 
 onPostHit = function(_enemy, _atk_type, _dmg_type, _damage){
 	// After it is done call onAllyPostHit for allies
+	
+	onPostHitExtra(_enemy, _atk_type,  _dmg_type, _damage);
+	
 	var _shock = CheckForStat(_enemy, STAT.LIGHTNINGRES, "Shocked");
 	if (_shock != noone){
 		_shock.provider.onShock(_enemy);
@@ -256,13 +265,13 @@ onEnemyBreak = function(_enemy, _breaker){
 }
 
 onBattleBegan = function(){
-	
-}
-
-onBattleStart = function(){
 	// Only for technical setup
 	trail_particle = CreateProjTrail(element);
 	laser_particle = CreateLaserParticles(element);
+}
+
+onBattleStart = function(){
+	
 }
 
 onReact = function(){
@@ -354,6 +363,26 @@ onShock = function(_enemy){
 	}
 	ds_list_destroy(_list);
 	
+	
+}
+
+onPreHitExtra = function(_enemy, _atk_type,  _dmg_type){
+	
+}
+
+onHitExtra = function(_enemy, _atk_type,  _dmg_type){
+
+}
+
+onPostHitExtra = function(_enemy, _atk_type,  _dmg_type, _damage){
+	
+}
+
+onExtraStep = function(){
+	
+}
+
+onExtraStepActive = function(){
 	
 }
 

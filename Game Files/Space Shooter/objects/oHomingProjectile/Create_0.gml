@@ -20,7 +20,16 @@ SeekClosestEnemy = function(){
 }
 lockOnEnemies = function(){
 	var _enemies = ds_list_create();
-	collision_circle_list(x, y, 3000, oEnemyObject, false, true, _enemies, true);
+	
+	if (exclude_normals){
+		collision_circle_list(x, y, 3000, oEnemyElite, false, true, _enemies, true);
+		if (ds_list_empty(_enemies)){
+			collision_circle_list(x, y, 3000, oEnemyObject, false, true, _enemies, true);
+		}
+	}
+	else collision_circle_list(x, y, 3000, oEnemyObject, false, true, _enemies, true);
+	
+	
 	
 	var _found = false;
 	for (var i = 0; i < ds_list_size(_enemies) and !_found; i++){

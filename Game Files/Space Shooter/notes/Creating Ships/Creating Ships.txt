@@ -1,0 +1,6 @@
+Steps:
+
+Step 1: Create object for the ship
+Step 2: Add to the list of ships and give it ID
+Step 3: Add Passives texts and functionality
+Step 4: Add to party selection

@@ -1,16 +1,7 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function CreateDamageIndicator(_xx, _yy, _text, _element, _size = 1){
-	var _inst = instance_create_layer(_xx, _yy, "Misc", oDamageIndicator);
-	with(_inst){
-		text = _text;
-		sc_obj = scribble(text);
-		sc_obj.scale(_size);
-		sc_obj.starting_format("font_damage_indicator", ColorForElement(_element));
-		sc_obj.align(fa_center, fa_middle);
-		typewriter.in(0.5, 2);
-	}
-	return _inst;
+	oDmgIndicatorManager.assign_indicator(_xx, _yy, _text, _element, _size);
 }
 
 function CreateStatIndicator(_ship, _stat, _scale){
@@ -186,6 +177,29 @@ function DrawProjTrail(_ship){
 		}
 	}
 	
+}
+
+function CreateProjEcho(){
+	if (room == rBattle){
+		var _part = part_type_create();
+		part_type_life(_part, seconds(0.5), seconds(0.5));
+		part_type_alpha2(_part, 0.5, 0);
+		part_type_size(_part, 1, 1, 0, false);
+	
+		oEchoHolder.echo_type_list[|oEchoHolder.currentID] = _part;
+		var _id = oEchoHolder.currentID;
+		oEchoHolder.currentID++;
+	
+		return _id;
+	}
+	return 0;
+}
+
+function DrawProjEcho(_echo_id, _obj = self){
+	var _echo = oEchoHolder.echo_type_list[|_echo_id];
+	part_type_sprite(_echo, _obj.sprite_index, 0, 0, 0);
+	part_type_orientation(_echo, _obj.image_angle, _obj.image_angle, 0, 0, 0);
+	part_particles_create(global.battlePartSystem, _obj.x, _obj.y, _echo, 1);
 }
 
 function EnemyDeathParticles(_enemy = self){

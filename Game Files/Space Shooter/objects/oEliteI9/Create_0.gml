@@ -31,7 +31,7 @@ movement = function(){
 	
 	var _part = part_aura;
 	
-	if (RollChance(0.5)){
+	if (RollChance(0.1)){
 		part_type_color2(_part, #b3fff1, #b3fff1);
 	}
 	
@@ -51,7 +51,7 @@ onWeaknessBreak = function(){
 
 onWeaknessRecover = function(){
 	attack_cd = max_attack_cd;
-	toughness = max_toughtness;
+	toughness = max_toughness;
 	weakness_broken = false;
 }
 

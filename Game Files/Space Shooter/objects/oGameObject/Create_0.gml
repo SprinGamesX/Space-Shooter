@@ -71,6 +71,7 @@ onStatOver = function(_ref){
 	var _i = ds_list_find_index(_list, _ref);
 	ds_list_delete(_list, _i);
 	instance_destroy(_ref);
+	if (room == rBattle) oGameManager.refreshBuffs();
 }
 
 

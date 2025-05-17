@@ -12,7 +12,10 @@ element = ELEMENT.LIFE;
 onBasicAttack = function(){
 	CreateLinearProjectile(sLifeball, self, x, y, 10, direction, ATTACK_TYPE.BASIC);
 	ammo--;
-	ConsumeHp(1);
+	var _hp_consumed = ConsumeHp(getHP()/100);
+	if (passives[2]){
+		RestoreTeamHp(_hp_consumed,,true);
+	}
 }
 
 onAltAttack = function(){
@@ -26,6 +29,11 @@ onAltAttack = function(){
 
 
 onSkill = function(){
+	
+	if (passives[1]){
+		ApplyTeamStat("Guarding Nature", STAT.RES, 0.15, seconds(10), 1,,,,true);
+	}
+	
 	if (charge == max_charge){
 		onSpecialSkill();
 	}
@@ -40,9 +48,13 @@ onSpecialSkill = function(){
 onUltimate = function(){
 	RestoreTeamHp(getHP() * ds_map_find_value(scales, ATTACK_TYPE.ULTIMATE));
 	energy = 0;
+	if (passives[0])
+		GenerateEnergy(20);
 }
 
 onExitSkill = function(_next){
 	ApplyStat(_next, "Vida's Blessing", STAT.HP, 0.15, seconds(10), 1);
 	RestoreHp(getHP() * 0.1,,_next);
 }
+
+

@@ -14,10 +14,10 @@ if (die_out_of_bounds and IsOutOfBounds(50)){
 
 // Collision with enemies
 var _col = instance_place(x, y, oEnemyObject);
-if (instance_exists(_col) and _col != noone and ds_list_find_index(hit_list, _col.id) == -1){
+if (instance_exists(_col) and _col != noone and !_col.ghost and ds_list_find_index(hit_list, _col.id) == -1){
 	CreateAoe(owner, owner.element, x, y, atk_type, dmg_type,aoe);
 	pierce--;
-	ds_list_add(hit_list, _col.id);
+	if (!object_is_ancestor(_col.object_index, oEnemyElite)) ds_list_add(hit_list, _col.id);
 	
 	if (object_is_ancestor(_col.object_index, oEnemyElite)){
 		var _part = _col.part_hit;
@@ -31,4 +31,7 @@ if (instance_exists(_col) and _col != noone and ds_list_find_index(hit_list, _co
 // Particles
 if (trail){
 	DrawProjTrail(owner);
+}
+if (echo != -1){
+	DrawProjEcho(echo);
 }

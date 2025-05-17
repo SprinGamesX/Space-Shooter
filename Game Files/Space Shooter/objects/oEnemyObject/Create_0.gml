@@ -10,6 +10,7 @@ image_yscale = 0;
 scale = 0;
 isEntering = true;
 ind_index = 1;
+ghost = false;
 
 // Stats
 b_atk = 0;
@@ -24,7 +25,7 @@ weaknesses = [0,0,0];
 
 // Toughness
 toughness = 0;
-max_toughtness = 0;
+max_toughness = 0;
 broken_time = 0;
 stopped = false;
 stoptime = -1;
@@ -59,7 +60,7 @@ onHit = function(_damage, _attacker){
 
 onToughnessReduction = function(_amount, _ship){
 	if (toughness > 0 and HasWeakness(_ship.element)){
-		toughness -= _amount;
+		toughness -= _amount * (1 + _ship.getStatBonus(STAT.BREAKEFF));
 		if (toughness <= 0) {
 			toughness = 0;
 			broken_time = seconds(5);
@@ -94,9 +95,8 @@ onShipHit = function(_enemy){
 		if (_enemy.element == ELEMENT.LIFE or _enemy.element == ELEMENT.QUANTUM or _enemy.element == ELEMENT.LIGHTNING or _enemy.element == ELEMENT.VENOM) _enemy.onDodge(self);
 		else _enemy.onReflect(self);
 	}
-	else {	
-		// Enemies deal 10% of ATK if they are normal enemies and 100% of atk if they are elite
-		var _basedmg = (getATK()) * (object_index == oEnemyElite ? 1 : 0.1);
+	else {
+		var _basedmg = (getATK());
 	
 		var _dmgbonus = 1 + GetDamageBonus(element, ATTACK_TYPE.EXIT);
 	
@@ -110,7 +110,7 @@ onShipHit = function(_enemy){
 		// 1 - Lvl multiplier
 		var _damage = _basedmg * _dmgbonus * _res * _def * (1 + (_crit ? getStatBonus(STAT.CRITDMG) : 0)) * (1 - ((_enemy.lvl - lvl) * 0.01));
 
-		show_debug_message(string(_damage));
+		//show_debug_message(string(_damage));
 	
 		CreateDamageIndicator(_enemy.x + random_range(0, 48) * (ind_index), _enemy.y - random_range(16, 64), string(round(_damage)) + (_crit ? "!" : ""), ELEMENT.NONE);
 		ind_index *= -1;
@@ -119,6 +119,10 @@ onShipHit = function(_enemy){
 		hits--;
 		if (hits <= 0) instance_destroy();
 	}
+}
+
+onCustomMovement = function(){
+	
 }
 
 part_hit = part_type_create();

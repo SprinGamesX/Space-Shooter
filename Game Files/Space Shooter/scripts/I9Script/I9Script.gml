@@ -12,8 +12,8 @@ function CreateI9Body(_index, _parent = self){
 		b_def = _parent.b_def;
 		b_spd = 3;
 		element = ELEMENT.ICE;
-		max_toughtness = _parent.max_toughtness/2;
-		toughness = max_toughtness;
+		max_toughness = _parent.max_toughness/2;
+		toughness = max_toughness;
 		boss = _parent;
 		
 		sprite_index = sI9Bodies;

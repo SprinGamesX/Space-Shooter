@@ -6,7 +6,7 @@ var _n = instance_place_list(x, y, oEnemyObject, _col, false);
 
 
 for (var i = 0; i < _n; i++){
-	if (ds_list_find_index(hit_list, _col[|i]) == -1){
+	if (ds_list_find_index(hit_list, _col[|i]) == -1 and (not _col[|i].ghost)){
 		owner.onPreHit(_col[|i], atk_type, dmg_type);
 		ds_list_add(hit_list, _col[|i]);
 	}

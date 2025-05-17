@@ -42,25 +42,31 @@ onUltimate = function(){
 	ult_remain = 30;
 	alarm[1] = seconds(0.05);
 	energy = 0;
+	
+	if (passives[1]){
+		ApplyTeamStat("Veneno - Venomous Elixer 1", STAT.ATK, 0.1, seconds(20), 1,,,,,"Venomous Elixer");
+		ApplyTeamStat("Veneno - Venomous Elixer 2", STAT.VENOMDMG, 0.1, seconds(20), 1);
+	}
 }
 
-onPreHit = function(_enemy, _atk_type, _dmg_type){
+onPreHitExtra = function(_enemy, _atk_type,  _dmg_type){
 	if (charge > 0){
 		
 		if (_atk_type == ATTACK_TYPE.ULTIMATE){
-			ApplyStat(_enemy, "Snake bitten",STAT.DEF, -0.05, seconds(10), 1,5,,,true);
+			ApplyStat(_enemy, "Snake bitten",STAT.DEF, -0.05, seconds(10), 1,5,,,true,,true);
+			if (passives[2]){
+				ApplyStat(_enemy, "Snake bitten - Poison",STAT.DOT, 0.3, seconds(2), 1,10,,,true,,true);
+			}
 		}
 		else {
-			ApplyStat(_enemy, "Venomus bite",STAT.RES, -0.05, seconds(10), 1,,,,true);
-			if(passives[0]) ApplyStat(self, "Poison fuel", STAT.VENOMDMG, 1, 1, 1);
+			ApplyStat(_enemy, "Venomus bite",STAT.RES, -0.05, seconds(10), 1,,,,true,,true);
 			charge--;
 		}
 	}
-	
-	_enemy.onToughnessReduction(ds_map_find_value(toughs, _atk_type), self);
-	_enemy.onElementalHit(ds_map_find_value(elmacc, _atk_type), self);
-	
-	oGameManager.onTeamPreHit(_enemy, _atk_type, self);
-	onHit(_enemy, _atk_type, _dmg_type);
 }
 
+onBattleStart = function(){
+	if (passives[0]){
+		ApplyTeamStat("Deep Infections", STAT.DOTDMG, 0.5, 1, 1,,true);
+	}
+}

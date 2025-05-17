@@ -42,7 +42,6 @@ onSpecialSkill = function(){
 	for (var i = 0; i < 360; i += 10){
 		CreateLinearProjectile(sIceShard1, self, x, y, 5, i, ATTACK_TYPE.SPECIAL);
 	}
-	if (passives[0]) CreateFollower(oTestFollower, self, 0, -48, seconds(0.5), seconds(2)+1, true);
 	charge = 0;
 }
 
@@ -55,3 +54,20 @@ onUltimate = function(){
 	energy = 0;
 }
 
+onBattleStart = function(){
+	if (passives[0]){
+		ApplyTeamStat("Heilo's Ice Spirit", STAT.ICEDMG, 0.1, 1, 1,,true);
+	}
+}
+
+onExitSkill = function(_next){
+	if (passives[1] and charge == max_charge){
+		ApplyStat(_next, "Heilo's Frosted Support", STAT.ICEDMG, 0.5, seconds(10), 1,,,,true);
+		charge = 0;
+	}
+}
+
+onPreHitExtra = function(_enemy, _atk_type,  _dmg_type){
+	if (passives[2] and (_atk_type == ATTACK_TYPE.SKILL or _atk_type == ATTACK_TYPE.ULTIMATE))
+		ApplyStat(_enemy, "Heilo's Frostbite", STAT.ICERES, -0.1, seconds(15), 1,,,,true,,true);
+}

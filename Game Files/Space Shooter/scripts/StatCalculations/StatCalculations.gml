@@ -7,14 +7,8 @@ enum STAT{
 	CRIT = 3,
 	CRITDMG = 4,
 	ENERGYREGEN = 5,
-	AMMO = 20,
-	RELOADSPD = 21,
 	SPD = 6,
 	RES = 7,
-	FRIC = 22,
-	ES = 19,
-	RESPEN = 23,
-	DEFPEN = 24,
 	ICEDMG = 8,
 	FIREDMG = 9,
 	LIFEDMG = 10,
@@ -23,15 +17,21 @@ enum STAT{
 	STEELDMG = 13,
 	QUANTUMDMG = 14,
 	BREAKDMG = 15,
+	HEALINGBONUS = 16,
+	ASPD = 17,
+	EFFECTCHANCE = 18,
+	ES = 19,
+	AMMO = 20,
+	RELOADSPD = 21,
+	FRIC = 22,
+	RESPEN = 23,
+	DEFPEN = 24,
 	BREAKEFF = 25,
 	BASICATTACKDMG = 26,
 	ALTDMG = 27,
 	SKILLDMG = 28,
 	ULTIMATEDMG = 29,
 	FOLLOWUPDMG = 30,
-	HEALINGBONUS = 16,
-	ASPD = 17,
-	EFFECTCHANCE = 18,
 	DOTDMG = 31,
 	ICERES = 32,
 	FIRERES = 33,
@@ -40,7 +40,7 @@ enum STAT{
 	LIGHTNINGRES = 36,
 	STEELRES = 37,
 	QUANTUMRES = 38,
-	DOT = 999
+	DOT = 39
 }
 
 function StatToText(_stat){
@@ -77,11 +77,19 @@ function StatToText(_stat){
 		case STAT.ASPD: return "ATTACK SPEED";
 		case STAT.EFFECTCHANCE: return "EFFECT-CHANCE";
 		case STAT.DOT: return "DoT";
+		
+		case STAT.ICERES: return "ICE RES";
+		case STAT.FIRERES: return "FIRE RES";
+		case STAT.LIFERES: return "LIFE RES";
+		case STAT.VENOMRES: return "VENOM RES";
+		case STAT.LIGHTNINGRES: return "LIGHTNING RES";
+		case STAT.STEELRES: return "STEEL RES";
+		case STAT.QUANTUMRES: return "QUANTUM RES";
 	}
 	return "Forgor :(";
 }
 
-function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stacks = 1, _isInfinite = false, _supplier = self, _show_indicator = false, _custom_indicator = ""){
+function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stacks = 1, _isInfinite = false, _supplier = self, _show_indicator = false, _custom_indicator = "", _is_negative = false){
 	var _inst = noone;
 	
 	if (_show_indicator){
@@ -115,9 +123,13 @@ function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stack
 			isInfinite = _isInfinite;
 			max_stacks = _max_stacks;
 			stacks = _stacks;
-			if (_stat == STAT.DOT) max_time = _lifetime;
+			max_time = _lifetime;
+			isNegative = _is_negative;
 		}
 		ds_list_add(_list, _inst);
+		if (room == rBattle and instance_exists(oGameManager) and IsValidStat(_inst)){
+			oGameManager.refreshBuffs();
+		}
 		return _inst;
 	}
 	// if the buff exists
@@ -128,14 +140,14 @@ function ApplyStat(_target, _name, _stat, _scale, _lifetime, _stacks, _max_stack
 			if (_inst.stacks < _inst.max_stacks) {
 				_inst.stacks += _stacks;
 				if (_inst.stacks > _inst.max_stacks) _inst.stacks = _inst.max_stacks;
-				if (_stat == STAT.DOT and _inst.max_time > _lifetime) _inst.max_time = _lifetime;
-				else _inst.time = _lifetime;
+				if (_stat != STAT.DOT)
+					_inst.time = _lifetime;
 				return noone;
 			}
 			// if stacks are maxed refresh time
 			else {
-				if (_stat == STAT.DOT and _inst.max_time > _lifetime) _inst.max_time = _lifetime;
-				else _inst.time = _lifetime;
+				if (_stat != STAT.DOT)
+					_inst.time = _lifetime;
 				return noone;
 			}
 		}
@@ -167,6 +179,7 @@ function ApplyTeamStat(_name, _stat, _scale, _lifetime, _stacks, _max_stacks = 1
 	for (var i = 0; i < array_length(_team); i++){
 		ApplyStat(_team[i], _name, _stat, _scale, _lifetime, _stacks, _max_stacks, _isInfinite, _supplier, _show_indicator, _custom_indicator);
 	}
+	
 }
 	
 function CheckForStat(_gameobject, _type, _name){
@@ -177,4 +190,32 @@ function CheckForStat(_gameobject, _type, _name){
 	}
 	
 	return noone;
+}
+
+// This function seperates stats from chips and passives 
+function IsValidStat(_stat){
+	var _valid = true;
+	var _name = _stat.name;
+	
+	var _list = ["MASTERY", "BOOST", "CHIP", "ST", "CHIP", "SET", "Base Crit", "Base Critdmg", "RES"];
+	
+	for (var i = 0; i < array_length(_list) and _valid; i++){
+		if (string_count(_list[i], _name) >= 1){
+			_valid = false;
+		}
+	}
+	
+	return _valid;
+	
+}
+
+function RemoveStatByName(_target, _stattype, _name){
+	var _list = ds_map_find_value(_target.dstats, _stattype);
+	if (ds_list_size(_list) <= 0) return noone;
+	for (var i = 0; i < ds_list_size(_list); i++){
+		if (_list[|i].name == _name){
+			_list[|i].isInfinite = false;
+			_list[|i].time = 0;
+		}
+	}
 }

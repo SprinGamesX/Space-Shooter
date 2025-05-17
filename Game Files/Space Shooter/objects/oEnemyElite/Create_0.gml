@@ -38,10 +38,16 @@ onWeaknessBreak = function(){
 onWeaknessRecover = function(){
 	
 	attack_cd = max_attack_cd;
-	toughness = max_toughtness;
+	toughness = max_toughness;
 	weakness_broken = false;
 }
 
 onEntery = function(){
 	entered = true;
+}
+
+applyStatsForLevel = function(){
+	b_atk += b_atk * (0.1*lvl);
+	b_hp += b_hp * (0.2*lvl);
+	hp = b_hp;
 }

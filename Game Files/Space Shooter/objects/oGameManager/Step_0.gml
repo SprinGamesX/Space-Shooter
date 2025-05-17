@@ -15,6 +15,12 @@ if (switch_cd <= 0){
 	}
 }
 
+switch(global.gamemode){
+	case GAMEMODE.TRAINING: onModeTraining(); break;
+	case GAMEMODE.ENDLESS:  onModeEndless();  break;
+}
+
+
 // Check for death
 for (var i = 0; i < 3; i++){
 	if (team_standing[i] == 1 and team[i].hp <= 0) {
@@ -22,11 +28,6 @@ for (var i = 0; i < 3; i++){
 		forceSwitch();
 	}
 }
-for (var i = 0; i < array_length(training); i++){
-	if (!instance_exists(training[i])){
-		//training[i] = SummonTrainingEnemy(sEnemiesNormal, room_width/4 * 3 + random_range(-128, 128), random_range(64, room_height - 64), 10, 500, 0, 0);
-		training[i] = SummonEnemy(ENEMIES.GOLON, room_width/5 * 4, room_height/2, 1);
-	}
-}
 
+part_type_alpha1(part_star, random_range(0.35, 0.6));
 part_particles_create(global.battlePartSystem, room_width + 10, random_range(0, room_height), part_star, 1);

@@ -25,14 +25,14 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Enemies",
-    "path":"folders/Sprites/Enemies.yy",
+    "name":"Elite - Ice Cube'",
+    "path":"folders/Sprites/Enemies/Elite - Ice Cube'.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"sI9",
     "autoRecord":true,
     "backdropHeight":768,

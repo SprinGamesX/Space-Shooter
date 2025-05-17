@@ -22,7 +22,7 @@ onAltAttack = function(){
 
 onSkill = function(){
 	for (var i = -90; i <= 90; i+= 90){
-		CreateHomingProjectile(sQuantumBall, self, x, y, 20, direction + i, ATTACK_TYPE.SKILL,,5,,15);
+		CreateHomingProjectile(sQuantumBall, self, x, y, 20, direction + i, ATTACK_TYPE.SKILL,,3,,15);
 	}
 }
 
@@ -39,10 +39,22 @@ onUltimate = function(){
 }
 
 onEnemyBreak = function(_enemy, _breaker){
+	if (passives[0])
+		ApplyStat(self,"Break Incouragement", STAT.BREAKDMG, 0.15, seconds(15), 1,,,,true);
+	
 	charge++;
 	if (charge >= max_charge){
 		ApplyTeamStat("Quantumania", STAT.BREAKDMG, 0.1, 1, 1, 10, true,,true, "Quantumania");
 	}
+	
+	if (passives[2]){
+		AdditionalBreakDamage(_enemy, self, 0.5);
+	}
 }
 
 
+onBattleStart = function(){
+	if (passives[1]){
+		ApplyTeamStat("Cauntino - Break Increase", STAT.BREAKEFF, 0.1, 1, 1,,true);
+	}
+}

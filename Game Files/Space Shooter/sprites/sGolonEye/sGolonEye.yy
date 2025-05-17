@@ -25,14 +25,14 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Enemies",
-    "path":"folders/Sprites/Enemies.yy",
+    "name":"Elite - Lightning Dragon",
+    "path":"folders/Sprites/Enemies/Elite - Lightning Dragon.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"sGolonEye",
     "autoRecord":true,
     "backdropHeight":768,

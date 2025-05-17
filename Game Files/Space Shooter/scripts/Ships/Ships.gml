@@ -1,7 +1,7 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 
-
+global.ship_levels = array_create(array_length(global.ships), 1);
 
 enum ROLES{
 	DPS,
@@ -19,12 +19,15 @@ function GenerateEnergy(_energy,_target = self){
 
 function ConsumeHp(_hp, _target = self){
 	var _hp_consumed = _target.hp - _hp;
+	var _re = _hp;
 	if (_hp_consumed <= 0) {
+		_re = _hp_consumed * (-1)
 		_hp_consumed = _target.hp - 1;
 		_target.hp = 1;
 	}
 	else _target.hp -= _hp;
 	_target.onHpReduction(_hp_consumed);
+	return _re;
 }
 
 function RestoreHp(_hp, _supplier = self, _target = self){
@@ -71,7 +74,7 @@ function TriggerElementalReaction(_enemy, _ship){
 		case ELEMENT.ICE: {
 			// effect
 			StopEnemy(_enemy, seconds(5) * (1 + _ship.getStatBonus(STAT.ES)));
-			ApplyStat(_enemy, "Cryoarrested", STAT.ICERES, -0.05, 1, 1, 10, true, _ship,true, "Cryoarrested");
+			ApplyStat(_enemy, "Cryoarrested", STAT.ICERES, -0.05, 1, 1, 10, true, _ship,true, "Cryoarrested", true);
 			
 			// Notify team
 			var _team = oGameManager.getTeam();
@@ -82,7 +85,7 @@ function TriggerElementalReaction(_enemy, _ship){
 		
 		case ELEMENT.FIRE: {
 			// effect
-			ApplyStat(_enemy, "Volatogenic", STAT.FIRERES, 0, 1, 1, 100, true, _ship,true, "Volatogenic");
+			ApplyStat(_enemy, "Volatogenic", STAT.FIRERES, 0, 1, 1, 100, true, _ship,true, "Volatogenic", true);
 			
 			// Notify team
 			var _team = oGameManager.getTeam();
@@ -105,10 +108,10 @@ function TriggerElementalReaction(_enemy, _ship){
 		case ELEMENT.VENOM: {
 			// effect
 			// Apply DoT
-			ApplyStat(_enemy, "Incised", STAT.ATK, -0.2, seconds(15), 1,,, _ship,true, "Incised");
-			ApplyStat(_enemy, "Incised 2", STAT.SPD, -0.2, seconds(15), 1,,, _ship);
+			ApplyStat(_enemy, "Incised", STAT.ATK, -0.2, seconds(15), 1,,, _ship,true, "Incised",true);
+			ApplyStat(_enemy, "Incised 2", STAT.SPD, -0.2, seconds(15), 1,,, _ship,,,true);
 			
-			ApplyStat(_enemy, "Incised DoT", STAT.DOT, 0.5 + (0.5 * _ship.getStatBonus(STAT.ES)), seconds(2), 5,50,,_ship);
+			ApplyStat(_enemy, "Incised DoT", STAT.DOT, 0.5 + (0.5 * _ship.getStatBonus(STAT.ES)), seconds(2), 5,50,,_ship,,,true);
 			
 			
 			// Notify team
@@ -120,7 +123,7 @@ function TriggerElementalReaction(_enemy, _ship){
 		
 		case ELEMENT.LIGHTNING: {
 			// effect
-			ApplyStat(_enemy, "Shocked", STAT.LIGHTNINGRES, -0.1, seconds(15), 1,,, _ship,true, "Electrostruck");
+			ApplyStat(_enemy, "Electrostruck", STAT.LIGHTNINGRES, -0.3, seconds(15), 1,,, _ship,true, "Electrostruck", true);
 			
 			// Notify team
 			var _team = oGameManager.getTeam();
@@ -131,8 +134,8 @@ function TriggerElementalReaction(_enemy, _ship){
 		
 		case ELEMENT.STEEL: {
 			// effect
-			ApplyStat(_enemy, "Fractured", STAT.DEF, -0.5, seconds(15), 1,,,_ship,true, "Fractured");
-			_enemy.onToughnessReduction(_enemy.max_toughtness * 0.15, _ship);
+			ApplyStat(_enemy, "Fractured", STAT.DEF, -0.5, seconds(15), 1,,,_ship,true, "Fractured", true);
+			_enemy.onToughnessReduction(_enemy.max_toughness * 0.15, _ship);
 			
 			// Notify team
 			var _team = oGameManager.getTeam();
@@ -144,7 +147,7 @@ function TriggerElementalReaction(_enemy, _ship){
 		case ELEMENT.QUANTUM: {
 			// effect
 			
-			ApplyStat(_enemy, "Decoherence", STAT.QUANTUMRES, 0, 1, 1,,,_ship,true, "Decoherence");
+			ApplyStat(_enemy, "Decoherence", STAT.QUANTUMRES, 0, 1, 1,,,_ship,true, "Decoherence", true);
 			AdditionalSetDamage(_enemy, _ship, _enemy.b_hp * 0.01);
 			if (!object_is_ancestor(_enemy.object_index, oEnemyElite)){
 				_enemy.direction += irandom_range(0, 360);
@@ -159,17 +162,35 @@ function TriggerElementalReaction(_enemy, _ship){
 				_team[i].onQuantumReaction(_enemy);
 			}
 		} break;
+	}	
+}
+
+function SaveShipLevels(){
+	ini_open("Ship Levels.ini");
+	
+	for (var i = 0; i < array_length(global.ship_levels); i++){
+		ini_write_real("Ship Levels", i, global.ship_levels[i]);
 	}
 	
-	
-	
+	ini_close();
 }
+
+function LoadShipLevels(){
+	ini_open("Ship Levels.ini");
+	
+	for (var i = 0; i < array_length(global.ship_levels); i++){
+		global.ship_levels[i] = ini_read_real("Ship Levels", i, 1);
+	}
+	
+	ini_close();
+}
+
 
 
 function InitiateShip(_id){
 	var _ship = GetShipDetails(_id);
 	
-	lvl = 1;
+	lvl = global.ship_levels[_id-1];
 	name = _ship.name;
 	role = _ship.role;
 	
@@ -208,17 +229,20 @@ function InitiateShip(_id){
 	ApplyStat(self, "Base Critdmg", STAT.CRITDMG, 0.5, 1, 1,,true,,false);
 	
 	passives = [global.passives[shipId][3], global.passives[shipId][9], global.passives[shipId][13]];
+	boosts = [global.passives[shipId][1], global.passives[shipId][7]];
+	mastery = [global.passives[shipId][5], global.passives[shipId][11]];
+	
 	var pass = global.passives[shipId];
 	var _ind = 0;
 	var _st = GetShipST(shipId);
 	for (var i = 0; i < array_length(pass); i += 2){
 		if (pass[i]){
-			ApplyStat(self, "ST Buff " + string(i), _st[0][_ind], _st[1][_ind], 1, 1,,true,,false);
+			ApplyStat(self, "ST " + string(i), _st[0][_ind], _st[1][_ind], 1, 1,,true,,false);
 			_ind++;
 		}
 	}
 	var _chips = GetShipLoadout(_id);
-	var _set = -1;
+	var _set_list = array_create(10, -1);
 	var _count = 0;
 	
 	for (var i = 0; i < array_length(_chips); i++){
@@ -227,15 +251,17 @@ function InitiateShip(_id){
 	
 	for (var i = 0; i < array_length(_chips); i++){
 		if (instance_exists(_chips[i])){
-			ApplyStat(self, "Chip Buff " + string(i), _chips[i].stat, _chips[i].scale/100, 1, 1,,true,,false);
-			if (_chips[i].set == _set) _count++;
+			ApplyStat(self, "CHIP " + string(i), _chips[i].stat, _chips[i].scale/100, 1, 1,,true,,false);
+			_set_list[i] = _chips[i].set
 		}
 	}
 	// Apply set buff
-	if (_set != -1){
-		ApplyStat(self, "Set Buff", _set, GetSetBuff(_set, _count), 1, 1,,true,,false);
+	if (!array_equals(_set_list, array_create(10, -1))){
+		ApplySetBuffs(self, _set_list);
 	}
 	
+	// Apply Additional buffs
+	GetAdditionalBuffs(self, mastery, boosts);
 	
 	// Particles
 	
@@ -273,7 +299,7 @@ function GetShipDetails(_id){
 				max_acd = seconds(0.4);
 				max_scd = seconds(4);
 				
-				max_energy = 50;
+				max_energy = 120;
 				max_charge = 2;
 				
 				scales = ds_map_create();
@@ -388,7 +414,7 @@ function GetShipDetails(_id){
 				max_acd = seconds(1);
 				max_scd = seconds(15);
 				
-				max_energy = 100;
+				max_energy = 125;
 				max_charge = 2;
 				
 				scales = ds_map_create();
@@ -445,7 +471,7 @@ function GetShipDetails(_id){
 				max_acd = seconds(1.5);
 				max_scd = seconds(12);
 				
-				max_energy = 100;
+				max_energy = 150;
 				max_charge = 20;
 				
 				scales = ds_map_create();
@@ -560,13 +586,13 @@ function GetShipDetails(_id){
 				max_scd = seconds(22);
 				
 				max_energy = 130;
-				max_charge = 3;
+				max_charge = 10;
 				
 				scales = ds_map_create();
 				ds_map_add(scales, ATTACK_TYPE.BASIC, 0.1);
 				ds_map_add(scales, ATTACK_TYPE.ALT, 0);
 				ds_map_add(scales, ATTACK_TYPE.SKILL, 0);
-				ds_map_add(scales, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(scales, ATTACK_TYPE.SPECIAL, 0.3);
 				ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 0);
 				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
 				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
@@ -576,7 +602,7 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.BASIC, 20);
 				ds_map_add(toughs, ATTACK_TYPE.ALT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.SKILL, 0);
-				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 40);
 				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 0);
 				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
@@ -616,7 +642,7 @@ function GetShipDetails(_id){
 				max_acd = seconds(0.3);
 				max_scd = seconds(5);
 				
-				max_energy = 130;
+				max_energy = 200;
 				max_charge = 3;
 				
 				scales = ds_map_create();
@@ -650,8 +676,143 @@ function GetShipDetails(_id){
 				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
+		case 8:{
+			_inst = instance_create_depth(-100,-100,999, oShipObject);
+			with(_inst){
+				
+				name = "Frost";
+				role = ROLES.DPS;
+				lvl = 1;
+
+				// base stats
+				b_atk = 30;
+				b_hp = 100;
+				b_def = 34;
+				b_spd = 4;
+
+				// Ammo
+				reload_max = seconds(2);
+				max_ammo = 20;
+				
+				// Cooldowns
+				max_bcd = seconds(0.2);
+				max_acd = seconds(0.4);
+				max_scd = seconds(10);
+				
+				max_energy = 300;
+				max_charge = 20;
+				
+				scales = ds_map_create();
+				ds_map_add(scales, ATTACK_TYPE.BASIC, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.ALT, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.SKILL, 0.25);
+				ds_map_add(scales, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 1);
+				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				toughs = ds_map_create();
+				ds_map_add(toughs, ATTACK_TYPE.BASIC, 10);
+				ds_map_add(toughs, ATTACK_TYPE.ALT, 20);
+				ds_map_add(toughs, ATTACK_TYPE.SKILL, 20);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 100);
+				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				elmacc = ds_map_create();
+				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 1);
+				ds_map_add(elmacc, ATTACK_TYPE.ALT, 1);
+				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 1);
+				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 5);
+				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
+			}
+		} break;
 	}
 	
 	return _inst;
 }
 
+function GetAdditionalBuffs(_ship, _mastery, _boost){
+	switch(_ship.shipId){
+		case 1:
+			
+			if (_mastery[0]) ApplyStat(_ship, "MASTERY 1", STAT.ALTDMG, 0.25, 1, 1,,true,_ship,false);
+			if (_mastery[1]) ApplyStat(_ship, "MASTERY 2", STAT.ULTIMATEDMG, 0.25, 1, 1,,true,_ship,false);
+			
+			if (_boost[0]) ApplyStat(_ship, "BOOST 1", STAT.ATK, 0.20, 1, 1,,true,_ship,false);
+			if (_boost[1]) ApplyStat(_ship, "BOOST 2", STAT.ENERGYREGEN, 0.15, 1, 1,,true,_ship,false);
+			
+		break;
+		
+		case 2:
+			
+			if (_mastery[0]) ApplyStat(_ship, "MASTERY 1", STAT.ALTDMG, 0.25, 1, 1,,true,_ship,false);
+			if (_mastery[1]) ApplyStat(_ship, "MASTERY 2", STAT.SKILLDMG, 0.25, 1, 1,,true,_ship,false);
+			
+			if (_boost[0]) ApplyStat(_ship, "BOOST 1", STAT.ATK, 0.20, 1, 1,,true,_ship,false);
+			if (_boost[1]) ApplyStat(_ship, "BOOST 2", STAT.CRITDMG, 0.18, 1, 1,,true,_ship,false);
+			
+		break;
+		
+		case 3:
+			
+			if (_mastery[0]) ApplyStat(_ship, "MASTERY 1", STAT.BASICATTACKDMG, 0.25, 1, 1,,true,_ship,false);
+			if (_mastery[1]) ApplyStat(_ship, "MASTERY 2", STAT.HEALINGBONUS, 0.25, 1, 1,,true,_ship,false);
+			
+			if (_boost[0]) ApplyStat(_ship, "BOOST 1", STAT.HP, 0.20, 1, 1,,true,_ship,false);
+			if (_boost[1]) ApplyStat(_ship, "BOOST 2", STAT.HEALINGBONUS, 0.15, 1, 1,,true,_ship,false);
+			
+		break;
+		case 4:
+			
+			if (_mastery[0]) ApplyStat(_ship, "MASTERY 1", STAT.ALTDMG, 0.25, 1, 1,,true,_ship,false);
+			if (_mastery[1]) ApplyStat(_ship, "MASTERY 2", STAT.ULTIMATEDMG, 0.25, 1, 1,,true,_ship,false);
+			
+			if (_boost[0]) ApplyStat(_ship, "BOOST 1", STAT.ATK, 0.20, 1, 1,,true,_ship,false);
+			if (_boost[1]) ApplyStat(_ship, "BOOST 2", STAT.VENOMDMG, 0.25, 1, 1,,true,_ship,false);
+			
+		break;
+		case 5:
+			
+			if (_mastery[0]) ApplyStat(_ship, "MASTERY 1", STAT.BASICATTACKDMG, 0.25, 1, 1,,true,_ship,false);
+			if (_mastery[1]) ApplyStat(_ship, "MASTERY 2", STAT.SKILLDMG, 0.25, 1, 1,,true,_ship,false);
+			
+			if (_boost[0]) ApplyStat(_ship, "BOOST 1", STAT.ATK, 0.20, 1, 1,,true,_ship,false);
+			if (_boost[1]) ApplyStat(_ship, "BOOST 2", STAT.CRITDMG, 0.18, 1, 1,,true,_ship,false);
+			
+		break;
+		case 6:
+			
+			if (_mastery[0]) ApplyStat(_ship, "MASTERY 1", STAT.BASICATTACKDMG, 0.25, 1, 1,,true,_ship,false);
+			if (_mastery[1]) ApplyStat(_ship, "MASTERY 2", STAT.BASICATTACKDMG, 0.25, 1, 1,,true,_ship,false);
+			
+			if (_boost[0]) ApplyStat(_ship, "BOOST 1", STAT.DEF, 0.20, 1, 1,,true,_ship,false);
+			if (_boost[1]) ApplyStat(_ship, "BOOST 2", STAT.RES, 0.10, 1, 1,,true,_ship,false);
+			
+		break;
+		case 7:
+			
+			if (_mastery[0]) ApplyStat(_ship, "MASTERY 1", STAT.ALTDMG, 0.25, 1, 1,,true,_ship,false);
+			if (_mastery[1]) ApplyStat(_ship, "MASTERY 2", STAT.ULTIMATEDMG, 0.25, 1, 1,,true,_ship,false);
+			
+			if (_boost[0]) ApplyStat(_ship, "BOOST 1", STAT.ATK, 0.20, 1, 1,,true,_ship,false);
+			if (_boost[1]) ApplyStat(_ship, "BOOST 2", STAT.BREAKDMG, 0.30, 1, 1,,true,_ship,false);
+			
+		break;
+		case 8:
+			
+			if (_mastery[0]) ApplyStat(_ship, "MASTERY 1", STAT.BASICATTACKDMG, 0.25, 1, 1,,true,_ship,false);
+			if (_mastery[1]) ApplyStat(_ship, "MASTERY 2", STAT.ULTIMATEDMG, 0.25, 1, 1,,true,_ship,false);
+			
+			if (_boost[0]) ApplyStat(_ship, "BOOST 1", STAT.ATK, 0.20, 1, 1,,true,_ship,false);
+			if (_boost[1]) ApplyStat(_ship, "BOOST 2", STAT.CRIT, 0.09, 1, 1,,true,_ship,false);
+			
+		break;
+	}
+}

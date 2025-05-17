@@ -3,7 +3,7 @@ if (!stopped){
 	if (broken_time > 0 and !object_is_ancestor(object_index, oEnemyElite)){
 		broken_time--;
 		if (broken_time <= 0){
-			toughness = max_toughtness;
+			toughness = max_toughness;
 		}
 	}
 	if (!customMovement){
@@ -13,6 +13,10 @@ if (!stopped){
 		}
 		else image_angle = direction;
 	}
+	else {
+		onCustomMovement();
+	}
+	
 	if (isEntering) onEntrance();
 	
 	if (countered){

@@ -3,10 +3,14 @@
 x = -1000;
 y = -1000;
 
+// Gamemodes
+enemies = array_create(1, noone);
+endless_level = 1;
 
 // Particle System
 global.battlePartSystem = part_system_create();
 part_system_depth(global.battlePartSystem, layer_get_depth("Particles"));
+instance_create_depth(-100, -100, 0, oEchoHolder);
 
 // Switch timers
 switch_cd = seconds(1);
@@ -23,13 +27,15 @@ team = [noone, noone, noone];
 active_index = 0; // the index of the current active ship in the team
 team_standing = [1,1,1]; // Array that stores a boolean that indicates if the ship is dead or not
 
-team[0] = instance_create_layer(room_width/2, room_height/2, "Ships", global.ships[global.party[0]]);
-team[1] = instance_create_layer(x, y, "Ships", global.ships[global.party[1]]);
-team[2] = instance_create_layer(x, y, "Ships", global.ships[global.party[2]]);
 
-team[0].active = true;
 
-training = array_create(1, noone);
+
+
+current_buffs = array_create(10, noone);
+current_buffs_num = 0;
+
+current_enemy_buffs = array_create(10, noone);
+current_enemy_buffs_num = 0;
 
 getActive = function(){
 	return team[active_index];
@@ -67,6 +73,8 @@ switchShip = function(_num){
 		team[_num].onEntranceSkill();
 		
 		switch_cd = switch_cd_max;
+		
+		refreshBuffs();
 	}
 }
 
@@ -74,6 +82,8 @@ forceSwitch = function(){
 	for (var i = 0; i < 3; i++){
 		if (team_standing[i] == 1){
 			switchShip(i);
+			team[i].invisible = true;
+			team[i].invis_cd = seconds(2);
 			return true;
 		}
 	}
@@ -157,6 +167,80 @@ onTeamBreak = function(_enemy, _breaker){
 	}
 }
 
+refreshBuffs = function(){
+	for(var i = 0; i < current_buffs_num; i++){
+		current_buffs[i] = noone;
+	}
+	current_buffs_num = 0;
+	
+	for(var i = 0; i < current_enemy_buffs_num; i++){
+		current_enemy_buffs[i] = noone;
+	}
+	current_enemy_buffs_num = 0;
+	
+	var _num = instance_number(oStat);
+	var _index = 0;
+	var _enemy_index = 0;
+	for (var i = 0; i < _num; i++){
+		var _stat = instance_find(oStat, i);
+		
+		if (instance_exists(_stat) and instance_exists(_stat.target) and 
+			object_is_ancestor(_stat.target.object_index, oShipObject) and 
+			_stat.target.id == getActive().id and IsValidStat(_stat))
+		{
+			current_buffs[_index] = _stat;
+			_index++;
+		}
+		
+		if (instance_exists(_stat) and instance_exists(_stat.target) and 
+			object_is_ancestor(_stat.target.object_index, oEnemyElite) and 
+			_stat.target.id == enemies[0].id and IsValidStat(_stat))
+		{
+			current_enemy_buffs[_enemy_index] = _stat;
+			_enemy_index++;
+		}
+		
+		
+	}
+	current_buffs_num = _index;
+	current_enemy_buffs_num = _enemy_index;
+}
+
+// Gamemodes
+
+onModeTraining = function(){
+	for (var i = 0; i < array_length(enemies); i++){
+		if (!instance_exists(enemies[i])){
+			var _training_enemy = choose(ENEMIES.I9,ENEMIES.GOLON,ENEMIES.LIFEBOW);
+		
+			var _level = 0;
+			for (var j = 0; j < array_length(team); j++){
+				_level += team[i].lvl;
+			}
+			_level = round(_level/3);
+		
+			enemies[i] = SummonEnemy(_training_enemy, room_width/5 * 4, room_height/2, _level);
+		}
+	}
+}
+
+onModeEndless = function(){
+	if (!instance_exists(enemies[0])){
+		endless_level += irandom_range(1, 5);
+		var _elite = choose(ENEMIES.I9,ENEMIES.GOLON,ENEMIES.LIFEBOW);
+		
+		enemies[0] = SummonEnemy(_elite, room_width/5 * 4, room_height/2, endless_level);
+	}
+}
+
+
+// Start game
+
+team[0] = instance_create_layer(room_width/2, room_height/2, "Ships", global.ships[global.party[0]]);
+team[1] = instance_create_layer(x, y, "Ships", global.ships[global.party[1]]);
+team[2] = instance_create_layer(x, y, "Ships", global.ships[global.party[2]]);
+
+team[0].active = true;
 
 for (var i = 0; i < 3; i++){
 	if (instance_exists(team[i])){
@@ -164,6 +248,8 @@ for (var i = 0; i < 3; i++){
 		team[i].onBattleBegan();
 	}
 }
+
+
 
 part_enemy = part_type_create();
 part_type_sprite(part_enemy, sPixel, 0,0,0);
@@ -178,8 +264,8 @@ part_star = part_type_create();
 part_type_sprite(part_star, sStarParticle, 0,0,1);
 part_type_size(part_star, 0.5, 1, 0, 0.1);
 part_type_life(part_star, seconds(10), seconds(10));
-part_type_speed(part_star, 7, 9, 0, 0);
+part_type_speed(part_star, 2, 4, 0, 0);
 part_type_orientation(part_star, 0, 360, 1, 0, 0);
-part_type_alpha1(part_star, 0.6)
+part_type_alpha1(part_star, 0.35);
 part_type_direction(part_star, 179, 181, 0, 1);
 

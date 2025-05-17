@@ -11,5 +11,8 @@ else if (time <= 0 and instance_exists(target)){
 		trigger();
 		stacks--;
 	}
-	else target.onStatOver(self);
+	else {
+		
+		target.onStatOver(self);
+	}
 }

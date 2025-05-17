@@ -1,2 +1,5 @@
 /// @description
-instance_destroy();
+if (active){
+	oDmgIndicatorManager.release_indicator(index);
+	active = false;
+}

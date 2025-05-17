@@ -4,7 +4,8 @@
 enum ENEMIES{
 	EXPERIMENTAL,
 	I9,
-	GOLON
+	GOLON,
+	LIFEBOW
 }
 
 
@@ -16,17 +17,17 @@ function SummonEnemy(_enemy, _x, _y, _level){
 			_inst = instance_create_layer(_x, _y, "Enemies", oExperimentalElite);
 			with(_inst){
 				lvl = _level;
-				b_atk = 100;
+				b_atk = 50;
 				b_hp = 1500;
 				hp = b_hp;
 				b_def = 300;
 				b_spd = 1;
 				movement_speed = 3;
 				element = ELEMENT.NONE;
-				max_toughtness = 3000;
-				toughness = max_toughtness;
+				max_toughness = 3000;
+				toughness = max_toughness;
 				
-				weaknesses = [ELEMENT.ICE, ELEMENT.FIRE, ELEMENT.QUANTUM];
+				weaknesses = [ELEMENT.ICE, ELEMENT.FIRE, ELEMENT.LIFE, ELEMENT.VENOM, ELEMENT.LIGHTNING, ELEMENT.STEEL,ELEMENT.QUANTUM];
 				GainElementalRes(weaknesses);
 			}
 			
@@ -37,14 +38,14 @@ function SummonEnemy(_enemy, _x, _y, _level){
 			_inst = instance_create_layer(_x, _y, "Enemies", oEliteI9);
 			with(_inst){
 				lvl = _level;
-				b_atk = 100;
+				b_atk = 50;
 				b_hp = 1500;
 				hp = b_hp;
 				b_def = 300;
 				b_spd = 1;
 				element = ELEMENT.ICE;
-				max_toughtness = 3000;
-				toughness = max_toughtness;
+				max_toughness = 3000;
+				toughness = max_toughness;
 				
 				weaknesses = [ELEMENT.FIRE, ELEMENT.LIGHTNING, ELEMENT.QUANTUM];
 				GainElementalRes(weaknesses);
@@ -62,14 +63,14 @@ function SummonEnemy(_enemy, _x, _y, _level){
 			_inst = instance_create_layer(_x, _y, "Enemies", oEliteGolon);
 			with(_inst){
 				lvl = _level;
-				b_atk = 100;
+				b_atk = 50;
 				b_hp = 2250;
 				hp = b_hp;
 				b_def = 300;
 				b_spd = 1;
 				element = ELEMENT.LIGHTNING;
-				max_toughtness = 3000;
-				toughness = max_toughtness;
+				max_toughness = 3000;
+				toughness = max_toughness;
 				
 				weaknesses = [ELEMENT.ICE, ELEMENT.LIFE, ELEMENT.STEEL];
 				GainElementalRes(weaknesses);
@@ -79,19 +80,43 @@ function SummonEnemy(_enemy, _x, _y, _level){
 			
 		}
 		break;
+		case ENEMIES.LIFEBOW: {
+			_inst = instance_create_layer(_x, _y, "Enemies", oEliteLifeBow);
+			with(_inst){
+				lvl = _level;
+				b_atk = 100;
+				b_hp = 1250;
+				hp = b_hp;
+				b_def = 300;
+				b_spd = 1;
+				element = ELEMENT.LIFE;
+				max_toughness = 3000;
+				toughness = max_toughness;
+				
+				weaknesses = [ELEMENT.FIRE, ELEMENT.VENOM, ELEMENT.QUANTUM];
+				GainElementalRes(weaknesses);
+				
+				
+			}
+			
+		}
+		break;
 	}
 	
-	if (instance_exists(_inst)) _inst.active = true;
+	if (instance_exists(_inst)) {
+		_inst.active = true;
+		_inst.applyStatsForLevel();
+	}
 	return _inst;
 	
 }
 
-function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEMENT.NONE, _toughness = 200, _boss = self, _isSmall = false, _customSprite = noone, _spin = false){
+function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEMENT.NONE, _toughness = 200, _boss = self, _isSmall = false, _customSprite = noone, _spin = false, _ghost = false){
 	var _inst = instance_create_layer(_x, _y, "Enemies", _obj);
 	
 	with(_inst){
 		
-		if (!object_is_ancestor(_obj.object_index,oEnemyElite) and !object_is_ancestor(_obj.object_index,oEnemyConnector)){
+		if (object_index == oEnemyObject or object_index == oEnemyLiner){
 			if (_customSprite != noone) sprite_index = _customSprite;
 			else {
 				if (_isSmall){
@@ -108,10 +133,12 @@ function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEME
 		b_def = _def;
 		b_spd = _spd;
 		element = _element;
-		max_toughtness = _toughness;
-		toughness = max_toughtness;
+		max_toughness = _toughness;
+		toughness = max_toughness;
 		boss = _boss;
+		
 		spin = _spin;
+		ghost = _ghost;
 		if (instance_exists(boss)){
 			weaknesses = boss.weaknesses;
 			if (boss.stopped) {
@@ -129,8 +156,8 @@ function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEME
 	return _inst;
 }
 
-function SummonEnemyLiner(_x, _y, _atk, _hp, _def, _spd, _direction, _element = ELEMENT.NONE, _toughness = 200, _boss = self, _isSmall = false, _customSprite = noone, _spin = false){
-	var _inst = SummonCustomEnemy(oEnemyLiner, _x, _y, _atk, _hp, _def, _spd, _element, _toughness, _boss, _isSmall, _customSprite, _spin);
+function SummonEnemyLiner(_x, _y, _atk, _hp, _def, _spd, _direction, _element = ELEMENT.NONE, _toughness = 200, _boss = self, _isSmall = false, _customSprite = noone, _spin = false, _ghost = false){
+	var _inst = SummonCustomEnemy(oEnemyLiner, _x, _y, _atk, _hp, _def, _spd, _element, _toughness, _boss, _isSmall, _customSprite, _spin, _ghost);
 	_inst.direction = _direction;
 	return _inst;
 }
@@ -154,8 +181,8 @@ function SummonTrainingEnemy(_sprite, _x, _y, _atk, _hp, _def, _spd, _element = 
 		b_def = _def;
 		b_spd = _spd;
 		element = _element;
-		max_toughtness = _toughness;
-		toughness = max_toughtness;
+		max_toughness = _toughness;
+		toughness = max_toughness;
 	}
 	return _inst;
 }

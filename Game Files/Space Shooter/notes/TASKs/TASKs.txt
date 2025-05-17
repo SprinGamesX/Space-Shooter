@@ -5,10 +5,17 @@ Tasks(Mandatory):
 - Add animation controller
 - Somehow obtimize lag
 
+- Keybinds
+- Windowed Mode
+- Lightning ship clutter
+- UI scale
+- Visual Switch Cooldown
+- 
+
+
 
 TASKS(QOL):
 - Add Full descriptions to the hangar
-- Complete passives
 - Add inventory sorting
 - Add pages to Hangar and Inventory
 - Optimize chip system

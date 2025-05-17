@@ -4,6 +4,7 @@ Elites:
 - FIRE Spirit
 - ICE Cube (I9)
 - STEEL Cannon
+- FIRE Meteor
 
 Bosses:
 
@@ -11,4 +12,6 @@ Bosses:
 - FIRE-ICE Ying & Yang
 - FIRE-STEEL Sword
 - LIFE-VENOM Snake
-- LIFE-??? Giant Tree
+- LIFE-QUANTUM Giant Tree
+
+- QUANTUM Black hole

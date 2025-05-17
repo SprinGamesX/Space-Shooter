@@ -1,0 +1,47 @@
+SSR - VENOM - DPS
+* DoT dps
+* Skill / Ultimate triggers active DoT
+* Increases DoT damage for team
+
+SSR - QUANTUM - DPS
+* Crit dps
+* Ultimate DPS
+* Uses scythe for attacks
+
+SR - STEEL - Shielder
+* takes portion of the damage for the attacked ship
+* Increases RES for the team
+* Can only heal/shield itself
+
+SSR - ??? - DPS
+* Break dps
+* Deals massive damage to broken enemies
+* Delays break
+
+SSR - ICE - DPS
+* Single target crit dps
+* Can focus on one enemy and ignore all others
+* Ultimate triggers follow up attacks
+
+SR - ??? - SUBDPS
+* Follow up dps
+* Increases ??? for active ship
+* Doesnt do much damage aside from follow ups
+* Gives allies energy
+
+SRR - ??? - SUBDPS
+* Crit scaler
+* Summon companion with skill
+* Companion shoots follow ups when allies use basic attacks has cooldown
+* Ultimate enhances companion and reduces shoot cooldown
+* Exit skill summons companion
+
+SRR - QUANTUM - HEALER
+* Ultimate:
+	Shoot a bunch of bullets
+	If at least 1 ally is dead: revive it for ? seconds, switch to it and give it full energy also increase its ???
+* Skill: give healing to all alive allies, if allies are dead, increase healing
+* Charge: if full, ultimate gives the ally additional time
+
+SRR - ??? - BUFFER
+* Ultimate: Create a tri-beam of all 3 elements in the team, gain bonus damage for each different element

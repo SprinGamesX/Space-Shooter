@@ -20,7 +20,7 @@ trigger = function(){
 	// 1 - Lvl multiplier
 	var _damage = _basedmg * _dmgbonus * _res * _def * (_enemy.toughness == 0 ? 1.15 : 1) * (1 - ((_enemy.lvl - provider.lvl) * 0.01));
 
-	show_debug_message(string(_damage));
+	//show_debug_message(string(_damage));
 	
 	CreateDamageIndicator(_enemy.x + random_range(0, 48) * (provider.ind_index), _enemy.y - random_range(16, 64), "<" + string(round(_damage)) + ">", provider.element, !object_is_ancestor(_enemy.object_index, oEnemyElite) ? 0.5 : 1);
 	provider.ind_index *= -1;

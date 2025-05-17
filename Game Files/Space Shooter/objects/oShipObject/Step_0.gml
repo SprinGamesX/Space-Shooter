@@ -73,6 +73,7 @@ if (active and !locked){
 		onReact();
 	}
 	
+	onExtraStepActive();
 }
 
 // Cooldowns
@@ -117,4 +118,5 @@ if (invisible) {
 }
 else image_alpha = 1;
 
-// Visuals
+// Extra
+onExtraStep();

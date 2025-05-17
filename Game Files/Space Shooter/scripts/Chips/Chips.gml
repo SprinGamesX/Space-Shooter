@@ -141,17 +141,21 @@ function GenerateRandomChip(){
 }
 
 function GetInventorySection(_spaces, _skips, _type = -1){
+	if (_spaces <= 0) return array_create(_spaces, noone);
 	var arr = array_create(_spaces, noone);
 	var _index = 0;
-	for (var i = _skips; arr[_spaces-1] == noone; i++){
+	for (var i = 0; arr[_spaces-1] == noone; i++){
 		if (ds_list_size(global.chips) <= i or i + _skips >= ds_list_size(global.chips)) break;
 		if (_type != -1){
 			if (_type == global.chips[|i].chiptype) {
-				arr[_index] = global.chips[|i];
-				_index++;
+				if (_skips > 0) _skips--;
+				else {
+					arr[_index] = global.chips[|i];
+					_index++;
+				}
 			}
 		}
-		else arr[i - _skips] = global.chips[|i]
+		else arr[i + _skips] = global.chips[|i]
 	}
 	return arr;
 }
@@ -266,6 +270,7 @@ function SeperateChip(_chip){
 	if (instance_exists(_chip)){
 		_chip.wearer = -1;
 		_chip.wearer_slot = -1;
+		SaveChips();
 		return true;
 	}
 	return false;
@@ -333,4 +338,47 @@ function GetSetBuff(_type, _num){
 	if (_num >= 8) _mul *= 2;
 	
 	return _mul;
+}
+
+function ApplySetBuffs(_ship, _setlist){
+	var _set = -1;
+	var _remaining = 10;
+	
+	// Check for how many chips actually have a set bonus
+	for (var i = 0; i < array_length(_setlist); i++){
+		if (_setlist[i] == -1) _remaining--;
+	}
+	
+	// Check chips
+	while (_remaining > 0){
+		// Find set option
+		var _index = 0;
+		while(_set == -1 and _remaining > 0){
+			if (_setlist[_index] != -1) {
+				_set = _setlist[_index];
+				_setlist[_index] = -1;
+				_remaining--;
+			}
+			_index++;
+			if (_index >= array_length(_setlist)) {
+				_remaining = 0;
+			}
+		}
+		if (_set != -1){
+			// count all chips that belong to that set
+			var _count = 1;
+			for (var i = 0; i < array_length(_setlist); i++){
+				if (_setlist[i] == _set){
+					_count++;
+					_setlist[i] = -1;
+					_remaining--;
+				}
+			}
+		
+			// Apply the buff if there are enough matching chips
+			if (_count >= 4) ApplyStat(_ship, "SET " + string(_set), _set, GetSetBuff(_set, _count), 1, 1,,true);
+		}
+		_set = -1;
+	}
+	
 }

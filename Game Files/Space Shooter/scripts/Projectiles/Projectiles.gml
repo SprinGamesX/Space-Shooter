@@ -1,6 +1,6 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function CreateLinearProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _spin = false, _trail = true, _echo = false){
+function CreateLinearProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _spin = false, _trail = true, _echo = -1){
 	var _inst = instance_create_layer(_x, _y, "Proj", oLinearProjectile);
 	with (_inst){
 		sprite_index = _sprite;
@@ -17,11 +17,12 @@ function CreateLinearProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_
 		
 		trail = _trail;
 		echo = _echo;
+		
 	}
 	return _inst;
 }
 
-function CreateHomingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _correction = 2, _exclude_normals = false, _spin = false, _trail = true, _echo = false){
+function CreateHomingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _correction = 2, _exclude_normals = false, _spin = false, _trail = true, _echo = -1){
 	var _inst = instance_create_layer(_x, _y, "Proj", oHomingProjectile);
 	with (_inst){
 		sprite_index = _sprite;
@@ -40,10 +41,11 @@ function CreateHomingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_
 		
 		trail = _trail;
 		echo = _echo;
+		
 	}
 	return _inst;
 }
-function CreateBouncingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _correction = 10, _radius = 1000, _spin = false, _trail = true, _echo = false){
+function CreateBouncingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _correction = 10, _radius = 1000, _spin = false, _trail = true, _echo = -1){
 	var _inst = instance_create_layer(_x, _y, "Proj", oBouncingProjectile);
 	with (_inst){
 		sprite_index = _sprite;
@@ -62,10 +64,11 @@ function CreateBouncingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _at
 		
 		trail = _trail;
 		echo = _echo;
+		
 	}
 	return _inst;
 }
-function CreateJumpingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _jumps = 1, _offset = 0, _spin = false, _trail = true, _echo = false){
+function CreateJumpingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _jumps = 1, _offset = 0, _spin = false, _trail = true, _echo = -1){
 	var _inst = instance_create_layer(_x, _y, "Proj", oJumpingProjectile);
 	with (_inst){
 		sprite_index = _sprite;
@@ -84,12 +87,13 @@ function CreateJumpingProjectile(_sprite, _owner, _x, _y, _spd, _direction, _atk
 		
 		trail = _trail;
 		echo = _echo;
+		
 	}
 	return _inst;
 }
 
 
-function CreateStormProjectile(_sprite, _owner, _x, _y, _spd, _direction, _rotspd, _rot, _radius, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _spin = false, _trail = true, _echo = false){
+function CreateStormProjectile(_sprite, _owner, _x, _y, _spd, _direction, _rotspd, _rot, _radius, _atk_type, _dmg_type = -1, _pierce = 1, _aoe = 1, _spin = false, _trail = true, _echo = -1){
 	var _inst = instance_create_layer(_x, _y, "Proj", oStormProjectile);
 	with (_inst){
 		base_x = _x;
@@ -112,6 +116,7 @@ function CreateStormProjectile(_sprite, _owner, _x, _y, _spd, _direction, _rotsp
 		
 		trail = _trail;
 		echo = _echo;
+		
 	}
 	return _inst;
 }
@@ -164,7 +169,7 @@ function GetAoeForElement(_element){
 }
 
 
-function CreateAoe(_owner, _element, _x, _y, _atk_type, _dmg_type, _size){
+function CreateAoe(_owner, _element, _x, _y, _atk_type, _dmg_type, _size, _limit = 5){
 	var _inst = instance_create_layer(_x, _y, "Proj", oAoe)
 	with(_inst){
 		owner = _owner;
@@ -174,6 +179,7 @@ function CreateAoe(_owner, _element, _x, _y, _atk_type, _dmg_type, _size){
 		image_xscale = _size;
 		image_yscale = _size;
 		image_speed = 1;
+		limit = _limit;
 	}
 	return _inst;
 }

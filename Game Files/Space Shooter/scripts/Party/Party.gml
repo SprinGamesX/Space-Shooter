@@ -21,6 +21,3 @@ function LoadParty(){
 	
 	ini_close();
 }
-
-// Load Party
-LoadParty();

@@ -30,6 +30,42 @@ draw_text_scribble(xx + 185*2, yy, max(_s.ammo, 0));
 
 draw_sprite_stretched_ext(sShipGuiBarBig, 0, xx - 79*4, (yy) - 8*4, 158*4 * _hp/100, 28, c_red, 1);
 
+
+// Buffs & Debuffs
+//draw_text_scribble(xx, yy - 100, "Buffs: " + string(current_buffs_num));
+var _extra_dis = 64;
+var _starting_dis = (current_buffs_num div 2) * _extra_dis;
+
+
+if (current_buffs_num mod 2 == 0){
+	_starting_dis -= 20;
+}
+
+for (var i = 0; i < current_buffs_num; i++){
+	var _cb = ColorForElement(current_buffs[i].provider.element);
+	var _xplace = xx + _extra_dis*i - _starting_dis;
+	draw_sprite_ext(sBuffBox, 0, _xplace, yy - 96, 2, 2, 0, c_dkgray, 1);
+	
+	var _dur_percent = current_buffs[i].time / current_buffs[i].max_time;
+	//draw_sprite_part_ext(sBuffBoxOverlay, 0, 0, 0, sprite_get_width(sBuffBoxOverlay), sprite_get_height(sBuffBoxOverlay) * _dur_percent,_xplace - 20,yy - 96 - 20 + (40 * (1-_dur_percent)),2,2, _cb, 0.9);
+	draw_sprite_part_ext(sBuffBoxOverlay, 0, 0, (20 * (1-_dur_percent)), sprite_get_width(sBuffBoxOverlay), sprite_get_height(sBuffBoxOverlay) * _dur_percent,_xplace - 20,yy - 96 - 20 + (40 * (1-_dur_percent)),2,2, _cb, 0.9);
+	draw_sprite_ext(sStatIcons, current_buffs[i].stat, _xplace, yy - 96, 1, 1, 0, _cb, 1);
+	
+	if (current_buffs[i].isNegative){
+		draw_sprite_ext(sUIArrow, 0, _xplace + 15, yy - 96 - 10, 1, 1, 270, c_red, 1);
+	}
+	else{
+		draw_sprite_ext(sUIArrow, 0, _xplace + 15, yy - 96 - 10, 1, 1, 90, c_lime, 1);
+	}
+	
+	if (current_buffs[i].max_stacks > 1){
+		draw_setup();
+		draw_text_scribble(_xplace - 20, yy - 96 + 10, string(current_buffs[i].stacks))
+	}
+	
+}
+
+
 // Shield stuff
 var _over = false;
 var _loops = 0;
@@ -90,11 +126,82 @@ for(var i = 0; i < 2; i++){
 	
 }
 
+
+// Draw boss bar (if boss exists)
+
+var _elite = enemies[0];
+
+if (instance_exists(_elite)){
+	var _alpha = 1;
+	if (InRange(getActive().x, room_width/2 - 500, room_width/2 + 500) and InRange(getActive().y, 23, 128)){
+		_alpha = 0.5;
+	}
+	
+	
+	var _xx = room_width/2;
+	var _boss = _elite;
+	
+	var _color_boss_bar = ColorForElement(_boss.element);
+	var _hp_percent = _boss.hp / _boss.getHP();
+	var _toughness_percent = _boss.toughness / _boss.max_toughness;
+	
+	draw_sprite_ext(sBossBar, 0, _xx, 64, 4, 4, 0, _color_boss_bar, _alpha);
+	draw_sprite_part_ext(sBossBar, 1, 0, 0, 122*2 * _hp_percent + 4*2,48,_xx - 128*4, 64 - 48,4, 4, _color_boss_bar, _alpha);
+	var _toughness_color = make_color_hsv(color_get_hue(_color_boss_bar), color_get_saturation(_color_boss_bar)/2, color_get_value(_color_boss_bar)/2)
+	draw_sprite_part_ext(sBossBar, 2, 0, 0, 110*2 * _toughness_percent + 9*2,48,_xx - 128*4, 64 - 48,4, 4, _toughness_color, _alpha);
+	
+	var _isDark = color_get_value(_color_boss_bar) < 50;
+	
+	draw_setup(font_boss_health, c_white);
+	draw_text_scribble(_xx, 16, "LVL: " + string(_boss.lvl));
+	draw_text_scribble(_xx, 64, string(round(_boss.hp)) + "/" + string(round(_boss.getHP())));
+	
+	for (var i = 0; i < array_length(_boss.weaknesses); i++){
+		var _icon_scale = 2;
+		draw_sprite_ext(sElements, _boss.weaknesses[i], _xx + 460 - i*16*_icon_scale, 16, _icon_scale, _icon_scale, 0, c_white, 1);
+	}
+	
+	
+	// Enemy buffs & nerfs
+	
+	_xx = _xx - 408;
+	_extra_dis = 64;
+	yy = 148;
+	
+	for (var i = 0; i < current_enemy_buffs_num; i++){
+		if (!instance_exists(current_enemy_buffs[i])) continue;
+		var _cb = ColorForElement(current_enemy_buffs[i].provider.element);
+		var _xplace = _xx + _extra_dis*i;
+		draw_sprite_ext(sBuffBox, 0, _xplace, yy, 2, 2, 0, c_dkgray, 1);
+	
+		var _dur_percent = current_enemy_buffs[i].time / current_enemy_buffs[i].max_time;
+		//draw_sprite_part_ext(sBuffBoxOverlay, 0, 0, 0, sprite_get_width(sBuffBoxOverlay), sprite_get_height(sBuffBoxOverlay) * _dur_percent,_xplace - 20,yy - 96 - 20 + (40 * (1-_dur_percent)),2,2, _cb, 0.9);
+		draw_sprite_part_ext(sBuffBoxOverlay, 0, 0, (20 * (1-_dur_percent)), sprite_get_width(sBuffBoxOverlay), sprite_get_height(sBuffBoxOverlay) * _dur_percent,_xplace - 20,yy - 20 + (40 * (1-_dur_percent)),2,2, _cb, 0.9);
+		draw_sprite_ext(sStatIcons, current_enemy_buffs[i].stat, _xplace, yy, 1, 1, 0, _cb, 1);
+	
+		if (current_enemy_buffs[i].isNegative){
+			draw_sprite_ext(sUIArrow, 0, _xplace + 15, yy - 8, 1, 1, 270, c_red, 1);
+		}
+		else{
+			draw_sprite_ext(sUIArrow, 0, _xplace + 15, yy, 1, 1, 90, c_lime, 1);
+		}
+	
+		if (current_enemy_buffs[i].max_stacks > 1){
+			draw_setup();
+			draw_text_scribble(_xplace - 20, yy + 10, string(current_enemy_buffs[i].stacks))
+		}
+	
+	}
+}
+
+
+
+
+// Show ship stats
 var _tab = keyboard_check(vk_tab);
 if (_tab){
 	draw_setup(font_debug, c_white, fa_left, fa_top);
 	var _text = "ATK: " + string(_s.getATK()) + "\nDEF: " + string(_s.getDEF());
 	draw_text_scribble(32, 32, _text);
 }
-
 

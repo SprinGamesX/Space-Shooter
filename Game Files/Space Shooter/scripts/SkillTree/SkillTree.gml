@@ -34,6 +34,9 @@ function GetShipST(_id){
 		
 		case 7: return [[STAT.ATK,STAT.HP,STAT.DEF,STAT.ATK,STAT.BREAKDMG,STAT.SPD,STAT.BREAKDMG],
 						[0.1, 0.1, 0.1, 0.15, 0.15, 0.04, 0.25]];
+		
+		case 8: return [[STAT.ATK,STAT.HP,STAT.DEF,STAT.ATK,STAT.ICEDMG,STAT.CRIT,STAT.ICEDMG],
+						[0.1, 0.1, 0.1, 0.15, 0.08, 0.08, 0.16]];
 	}
 }
 
@@ -60,4 +63,3 @@ function LoadPassives(){
 	
 	ini_close();
 }
-LoadPassives();

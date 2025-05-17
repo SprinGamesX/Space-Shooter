@@ -3,6 +3,12 @@ switch(selection){
 	// Testing
 	case 0: {
 		room_goto(rBattle);
+		global.gamemode = GAMEMODE.TRAINING;
+	} break;
+	
+	case 1: {
+		room_goto(rBattle);
+		global.gamemode = GAMEMODE.ENDLESS;
 	} break;
 	
 	case 2: {

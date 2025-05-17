@@ -4,7 +4,9 @@ enum HANGARITEM{
 	ARROW_LEFT,
 	ARROW_RIGHT,
 	BUTTON_SKILLS,
-	BUTTON_CHIPS
+	BUTTON_CHIPS,
+	INV_LEFT,
+	INV_RIGHT
 }
 
 enum HANGARMODE{
@@ -13,7 +15,6 @@ enum HANGARMODE{
 	SKILLS = 1
 }
 
-LoadPassives();
 
 alarm[0] = seconds(0.2);
 
@@ -25,8 +26,11 @@ skill_selection = 0;
 chipslot_selection = 0;
 chip_selection = -1;
 preview_chip = noone;
+show_extra_skills = false;
 ship = 1;
 mode = HANGARMODE.DEFAULT;
+
+chip_page = 1;
 
 
 moveLeft = function(){
@@ -47,3 +51,5 @@ switchMode = function(_mode){
 }
 
 time = 0;
+
+GlobalInventorySort();
