@@ -6,9 +6,12 @@ last_room = 0;
 
 goBack = function(){
 	if (ds_stack_size(global.history) > 0){
-		room_goto(ds_stack_pop(global.history));
-		savelast = false;
-		
+		var dest = ds_stack_pop(global.history);
+		if (dest == rMenu or dest == rBattle) goMain();
+		else {
+			room_goto(dest);
+			savelast = false;
+		}	
 	}
 }
 
@@ -17,7 +20,6 @@ goMain = function(){
 	ds_stack_clear(global.history);
 	room_goto(rMenu);
 }
-
 
 getLastRoom = function(){
 	return last_room;

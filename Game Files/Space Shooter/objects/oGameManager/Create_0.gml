@@ -9,8 +9,13 @@ endless_level = 1;
 
 // Particle System
 global.battlePartSystem = part_system_create();
+global.battlePartSystemOverlay = part_system_create();
 part_system_depth(global.battlePartSystem, layer_get_depth("Particles"));
+part_system_depth(global.battlePartSystemOverlay, layer_get_depth("Enemies") - 1);
 instance_create_depth(-100, -100, 0, oEchoHolder);
+
+// Particle Manager
+particle_manager = instance_create_depth(x, y, depth, oParticleManager);
 
 // Switch timers
 switch_cd = seconds(1);
@@ -27,8 +32,13 @@ team = [noone, noone, noone];
 active_index = 0; // the index of the current active ship in the team
 team_standing = [1,1,1]; // Array that stores a boolean that indicates if the ship is dead or not
 
+// Data Collection
+data_collector = instance_create_depth(x, y, depth, oBattleDataCollector);
 
 
+
+// Escape
+escape_counter = 0;
 
 
 current_buffs = array_create(10, noone);
@@ -211,7 +221,8 @@ refreshBuffs = function(){
 onModeTraining = function(){
 	for (var i = 0; i < array_length(enemies); i++){
 		if (!instance_exists(enemies[i])){
-			var _training_enemy = choose(ENEMIES.I9,ENEMIES.GOLON,ENEMIES.LIFEBOW);
+			//var _training_enemy = choose(ENEMIES.I9,ENEMIES.GOLON,ENEMIES.LIFEBOW);
+			var _training_enemy = ENEMIES.FIRESPIRIT;
 		
 			var _level = 0;
 			for (var j = 0; j < array_length(team); j++){
@@ -230,6 +241,10 @@ onModeEndless = function(){
 		var _elite = choose(ENEMIES.I9,ENEMIES.GOLON,ENEMIES.LIFEBOW);
 		
 		enemies[0] = SummonEnemy(_elite, room_width/5 * 4, room_height/2, endless_level);
+		
+		// Data
+		data_collector.elites_killed++;
+		data_collector.enemy_level = endless_level;
 	}
 }
 

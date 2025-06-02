@@ -207,3 +207,10 @@ function EnemyDeathParticles(_enemy = self){
 	
 	part_particles_create_color(global.battlePartSystem, _enemy.x, _enemy.y, _part, ColorForElement(_enemy.element), 30);
 }
+
+function EnemyDrawTrail(_enemy){
+	var _x = irandom_range(_enemy.x - _enemy.sprite_width/2,_enemy.x + _enemy.sprite_width/2);
+	var _y = irandom_range(_enemy.y - _enemy.sprite_height/2,_enemy.y + _enemy.sprite_height/2);
+	part_type_direction(_enemy.part_trail, direction + 175, direction + 185, 0, 0);
+	part_particles_create(global.battlePartSystem, _x, _y, _enemy.part_trail, 1);
+}

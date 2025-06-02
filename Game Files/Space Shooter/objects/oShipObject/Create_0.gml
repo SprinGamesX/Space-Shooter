@@ -176,6 +176,11 @@ onPostHit = function(_enemy, _atk_type, _dmg_type, _damage){
 		GenerateEnergy(1);
 	}
 	oGameManager.onTeamPostHit(_enemy, _atk_type, self, _damage);
+	
+	// Data stuff
+	if (instance_exists(oBattleDataCollector)){
+		oBattleDataCollector.damage_inflicted += _damage;
+	}
 }
 
 // allies
@@ -194,6 +199,8 @@ onAllyPostHit = function(_enemy, _atk_type, _ally, _damage){
 // Sustain
 onHitTaken = function(_enemy, _damage){
 	
+	onHitTakenExtra(_enemy, _damage);
+	
 	if (shield > 0){
 		var _shield = shield;
 		if (shield > _damage) {
@@ -211,6 +218,17 @@ onHitTaken = function(_enemy, _damage){
 	
 	GenerateEnergy(0.5);
 	ScreenShake(0.3, 1.2, 0.1);
+	
+	// Data swtuff
+	
+	if (instance_exists(oBattleDataCollector)){
+		oBattleDataCollector.damage_taken += _damage;
+		oBattleDataCollector.hits_taken += 1;
+	}
+}
+
+onHitTakenExtra = function(_enemy, _damage){
+	
 }
 
 onAllyHitTaken = function(_enemy, _ally){

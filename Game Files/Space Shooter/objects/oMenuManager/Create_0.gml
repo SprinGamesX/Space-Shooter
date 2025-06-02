@@ -1,5 +1,5 @@
 /// @description
-options = ["Testing", "Endless", "Hangar", "Party", "Inventory"];
+options = ["Testing", "Endless", "Hangar", "Party", "Inventory", "Options"];
 selection = 0;
 
 

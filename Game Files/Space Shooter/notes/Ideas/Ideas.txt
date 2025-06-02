@@ -156,3 +156,9 @@ Boss - Kill boss enemy
 Explore Mode:
 Randomly generated grid of tiles that include different types of challenges and one boss room, fog of war type vision
 plays like a dungeon crawler
+
+How to get ships?
+1. By quests: each ship has a quest to complete in order to get it
+2. Purchase: Just buy it (boring)
+3. Pull it: Gacha stuff
+4. Combine 1 and 2 (Like Head-soccer)

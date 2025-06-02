@@ -177,3 +177,7 @@ function SmoothRotCorrection(_obj, _dest_rot, _rot, _correction = 0.02){
 	
 	return _rot;
 }
+
+function smooth_number_to(_current, _target, _speed) {
+    return lerp(_current, _target, clamp(_speed, 0, 1));
+}

@@ -19,6 +19,10 @@ if (!stopped){
 	
 	if (isEntering) onEntrance();
 	
+	if (show_trail){
+		EnemyDrawTrail(self);
+	}
+	
 	if (countered){
 		var _enemy = instance_place(x, y, oEnemyObject);
 		if (instance_exists(_enemy)){

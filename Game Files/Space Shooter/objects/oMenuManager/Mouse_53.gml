@@ -20,4 +20,7 @@ switch(selection){
 	case 4: {
 		room_goto(rInventory);
 	} break;
+	case 5: {
+		room_goto(rOptions);
+	} break;
 }

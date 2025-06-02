@@ -178,3 +178,16 @@ Added invincibilty for 2 seconds after a ship dies
 I9 [Base ATK]: 100 -> 50
 Golon [Base ATK]: 100 -> 50
 
+27/05/25 - Tusday
+Added End screen to endless mode
+Fixed issues with the escape button
+
+29/05/25 - Thrusday
+Added Foundation for settings and keybinds
+Adjusted Endless mode ending 
+
+30/05/25 - Friday
+Fixed issue: Lingering endless reports from prior runs
+
+01/06/25 - Sunday (Happy Pride!)
+- Added Elite: Fire Spirit

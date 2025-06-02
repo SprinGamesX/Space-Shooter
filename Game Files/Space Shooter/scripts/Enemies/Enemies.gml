@@ -5,7 +5,8 @@ enum ENEMIES{
 	EXPERIMENTAL,
 	I9,
 	GOLON,
-	LIFEBOW
+	LIFEBOW,
+	FIRESPIRIT
 }
 
 
@@ -101,6 +102,25 @@ function SummonEnemy(_enemy, _x, _y, _level){
 			
 		}
 		break;
+		case ENEMIES.FIRESPIRIT: {
+			_inst = instance_create_layer(_x, _y, "Enemies", oEliteFireSpirit);
+			with(_inst){
+				lvl = _level;
+				b_atk = 25;
+				b_hp = 1500;
+				hp = b_hp;
+				b_def = 300;
+				b_spd = 10;
+				element = ELEMENT.FIRE;
+				max_toughness = 3000;
+				toughness = max_toughness;
+				
+				weaknesses = [ELEMENT.ICE, ELEMENT.LIGHTNING, ELEMENT.QUANTUM];
+				GainElementalRes(weaknesses);
+			}
+			
+		}
+		break;
 	}
 	
 	if (instance_exists(_inst)) {
@@ -111,7 +131,7 @@ function SummonEnemy(_enemy, _x, _y, _level){
 	
 }
 
-function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEMENT.NONE, _toughness = 200, _boss = self, _isSmall = false, _customSprite = noone, _spin = false, _ghost = false){
+function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEMENT.NONE, _toughness = 200, _boss = self, _isSmall = false, _customSprite = noone, _spin = false, _ghost = false, _trail = false){
 	var _inst = instance_create_layer(_x, _y, "Enemies", _obj);
 	
 	with(_inst){
@@ -139,6 +159,8 @@ function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEME
 		
 		spin = _spin;
 		ghost = _ghost;
+		show_trail = _trail;
+		if (show_trail) part_trail = oParticleManager.get_particle(PARTICLE.TRAIL_FIRE_ENEMY);
 		if (instance_exists(boss)){
 			weaknesses = boss.weaknesses;
 			if (boss.stopped) {
@@ -156,8 +178,8 @@ function SummonCustomEnemy(_obj, _x, _y, _atk, _hp, _def, _spd, _element = ELEME
 	return _inst;
 }
 
-function SummonEnemyLiner(_x, _y, _atk, _hp, _def, _spd, _direction, _element = ELEMENT.NONE, _toughness = 200, _boss = self, _isSmall = false, _customSprite = noone, _spin = false, _ghost = false){
-	var _inst = SummonCustomEnemy(oEnemyLiner, _x, _y, _atk, _hp, _def, _spd, _element, _toughness, _boss, _isSmall, _customSprite, _spin, _ghost);
+function SummonEnemyLiner(_x, _y, _atk, _hp, _def, _spd, _direction, _element = ELEMENT.NONE, _toughness = 200, _boss = self, _isSmall = false, _customSprite = noone, _spin = false, _ghost = false, _trail = false){
+	var _inst = SummonCustomEnemy(oEnemyLiner, _x, _y, _atk, _hp, _def, _spd, _element, _toughness, _boss, _isSmall, _customSprite, _spin, _ghost, _trail);
 	_inst.direction = _direction;
 	return _inst;
 }

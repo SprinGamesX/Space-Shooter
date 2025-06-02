@@ -11,6 +11,8 @@ scale = 0;
 isEntering = true;
 ind_index = 1;
 ghost = false;
+show_trail = false;
+part_trail = noone;
 
 // Stats
 b_atk = 0;

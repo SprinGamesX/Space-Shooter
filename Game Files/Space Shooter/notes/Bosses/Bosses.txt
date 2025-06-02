@@ -5,6 +5,8 @@ Elites:
 - ICE Cube (I9)
 - STEEL Cannon
 - FIRE Meteor
+- FIRE Catapult
+
 
 Bosses:
 

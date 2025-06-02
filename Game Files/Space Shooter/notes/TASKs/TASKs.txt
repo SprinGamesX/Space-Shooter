@@ -10,7 +10,7 @@ Tasks(Mandatory):
 - Lightning ship clutter
 - UI scale
 - Visual Switch Cooldown
-- 
+- Endless Mode: End and summery screen
 
 
 

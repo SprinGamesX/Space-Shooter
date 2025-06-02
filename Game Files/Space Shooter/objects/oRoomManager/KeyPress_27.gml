@@ -1,4 +1,4 @@
 /// @description
-if (room != rBattle){
+if (room != rBattle and room != rMenu){
 	goBack();
 }
