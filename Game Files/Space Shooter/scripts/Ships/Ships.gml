@@ -733,6 +733,63 @@ function GetShipDetails(_id){
 				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
+		case 9:{
+			_inst = instance_create_depth(-100,-100,999, oShipObject);
+			with(_inst){
+				
+				name = "Pheonix";
+				role = ROLES.SUBDPS;
+				lvl = 1;
+
+				// base stats
+				b_atk = 30;
+				b_hp = 100;
+				b_def = 34;
+				b_spd = 4;
+
+				// Ammo
+				reload_max = seconds(2);
+				max_ammo = 20;
+				
+				// Cooldowns
+				max_bcd = seconds(0.4);
+				max_acd = seconds(1);
+				max_scd = seconds(10);
+				
+				max_energy = 350;
+				max_charge = 5;
+				
+				scales = ds_map_create();
+				ds_map_add(scales, ATTACK_TYPE.BASIC, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.ALT, 0.1);
+				ds_map_add(scales, ATTACK_TYPE.SKILL, 0.05);
+				ds_map_add(scales, ATTACK_TYPE.SPECIAL, 1);
+				ds_map_add(scales, ATTACK_TYPE.ULTIMATE, 0);
+				ds_map_add(scales, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(scales, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(scales, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				toughs = ds_map_create();
+				ds_map_add(toughs, ATTACK_TYPE.BASIC, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ALT, 20);
+				ds_map_add(toughs, ATTACK_TYPE.SKILL, 2);
+				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
+				
+				elmacc = ds_map_create();
+				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 5);
+				ds_map_add(elmacc, ATTACK_TYPE.ALT, 5);
+				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 2);
+				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 2);
+				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 100);
+				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
+				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
+				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
+			}
+		} break;
 	}
 	
 	return _inst;

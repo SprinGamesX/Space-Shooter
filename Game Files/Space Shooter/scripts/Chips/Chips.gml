@@ -230,10 +230,11 @@ function LoadChips(){
 
 function ConnectChip(_chip, _ship, _slot){
 	var _found = noone;
+	var _inst = noone;
 	
 	// Check if the slot is occupied
 	for (var i = 0; i < ds_list_size(global.chips) and _found == noone; i++){
-		var _inst = global.chips[|i];
+		_inst = global.chips[|i];
 		if (instance_exists(_inst)){
 			if (_inst.wearer == _ship.shipId and _inst.wearer_slot == _slot){
 				_found = _inst;

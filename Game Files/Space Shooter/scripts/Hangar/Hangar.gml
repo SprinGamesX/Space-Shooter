@@ -10,7 +10,8 @@ global.ships = [
 	oShipLightning1,
 	oShipSteel1,
 	oShipQuantum1,
-	oShipIce2
+	oShipIce2,
+	oShipFire2
 ]
 
 function GetStatsString(_ship){

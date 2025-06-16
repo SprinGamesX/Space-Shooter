@@ -1,66 +1,56 @@
 {
   "main": {
-    "id": "2f128c012815c39f",
+    "id": "c6ec46c9e7d8acd4",
     "type": "split",
     "children": [
       {
-        "id": "b36219011d0f0ac7",
+        "id": "ebb62a37631b4f7c",
         "type": "tabs",
         "children": [
           {
-            "id": "bede17d2df97af6d",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
-            }
-          },
-          {
-            "id": "81a3766a8c00c2d6",
+            "id": "aed18dd76f19e9e2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Game Mechanics/Elements.md",
+                "file": "Game Mechanics/Ships and their skills.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Elements"
+              "title": "Ships and their skills"
             }
           },
           {
-            "id": "ac2d1f3903655ecf",
+            "id": "8b3dc8ec8dca70ca",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Ships/Heilo.md",
+                "file": "Game Mechanics/Stats.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Heilo"
+              "title": "Stats"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "0332c7c97d829c1b",
+    "id": "eb9043c67c0104b8",
     "type": "split",
     "children": [
       {
-        "id": "e6c3eb8b3baf8e0f",
+        "id": "2f9000a6c2d29705",
         "type": "tabs",
         "children": [
           {
-            "id": "49e3b32a8b1fd348",
+            "id": "aefa3d918ae49e8f",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -73,7 +63,7 @@
             }
           },
           {
-            "id": "7c8eb80183671f2b",
+            "id": "9175fb305980fb63",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -90,7 +80,7 @@
             }
           },
           {
-            "id": "1e61c5ec08114e1f",
+            "id": "9f7726858f66c85f",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -106,20 +96,20 @@
     "width": 300
   },
   "right": {
-    "id": "f7ec561e465b44af",
+    "id": "1828661e5ddd650a",
     "type": "split",
     "children": [
       {
-        "id": "aeee703dffff56aa",
+        "id": "6fd51832d88f5e28",
         "type": "tabs",
         "children": [
           {
-            "id": "51710a0350c85742",
+            "id": "c5b80c08f26eaa80",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Ships/Fuego.md",
+                "file": "Space Shooter - Documentation/Ships/Fuego.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -133,12 +123,12 @@
             }
           },
           {
-            "id": "54d578a4e9bef587",
+            "id": "be2c7ae71e68a7f6",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Ships/Fuego.md",
+                "file": "Space Shooter - Documentation/Ships/Fuego.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -147,7 +137,7 @@
             }
           },
           {
-            "id": "ecf3db08f90bb622",
+            "id": "5fb53ac8e27da3f4",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -162,12 +152,12 @@
             }
           },
           {
-            "id": "03c9d2afae119533",
+            "id": "2118fbbe88302113",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Ships/Fuego.md",
+                "file": "Space Shooter - Documentation/Ships/Fuego.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -185,30 +175,39 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "obsidian-git:Open Git source control": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "obsidian-git:Open Git source control": false
+      "command-palette:Open command palette": false
     }
   },
-  "active": "ac2d1f3903655ecf",
+  "active": "8b3dc8ec8dca70ca",
   "lastOpenFiles": [
-    "Ships/Fuego.md",
-    "Template/Ship Template.md",
-    "Game Mechanics/Elemental Shields and Breaks.md",
     "Game Mechanics/Ships and their skills.md",
-    "Game Mechanics/Elemental Overload.md",
-    "Ships/Heilo.md",
-    "Game Mechanics/Core and Charge.md",
+    "Game Mechanics/Stats.md",
     "Game Mechanics/Elements.md",
     "Game Mechanics/Roles.md",
-    "Game Mechanics/Ammo and Reload.md",
+    "Ships/Heilo.md",
+    "Template/Ship Template.md",
+    "Ships/Fuego.md",
+    "Game Mechanics/Core and Charge.md",
+    "Space Shooter - Documentation/Ships/Fuego.md",
     "Template",
     "Ships",
-    "Welcome.md",
-    "Game Mechanics"
+    "Game Mechanics/Elemental Shields and Breaks.md",
+    "Game Mechanics/Elemental Overload.md",
+    "Game Mechanics/Ammo and Reload.md",
+    "Game Mechanics",
+    "Space Shooter - Documentation/Ships/Heilo.md",
+    "Space Shooter - Documentation/Game Mechanics/Elemental Shields and Breaks.md",
+    "Space Shooter - Documentation/Game Mechanics/Elemental Overload.md",
+    "Space Shooter - Documentation/Game Mechanics/Core and Charge.md",
+    "Space Shooter - Documentation/Game Mechanics/Ammo and Reload.md",
+    "Space Shooter - Documentation/Game Mechanics/Elements.md",
+    "Space Shooter - Documentation/Game Mechanics/Roles.md",
+    "Space Shooter - Documentation/Game Mechanics/Ships and their skills.md"
   ]
 }

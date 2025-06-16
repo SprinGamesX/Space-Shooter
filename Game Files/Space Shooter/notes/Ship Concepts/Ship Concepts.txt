@@ -1,3 +1,10 @@
+SR - FIRE - SUBDPS
+* Element Overload
+* Increases Fire Explosion DMG
+* Increases team Elemental Specialty
+* Ultimate inflicts all enemies with max Fire Elemental Accumilation
+* Special attack triggers Fire Explosion even if the enemy is not dead
+
 SSR - VENOM - DPS
 * DoT dps
 * Skill / Ultimate triggers active DoT
