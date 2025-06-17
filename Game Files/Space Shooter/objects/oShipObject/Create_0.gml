@@ -169,7 +169,7 @@ onPostHit = function(_enemy, _atk_type, _dmg_type, _damage){
 	
 	var _shock = CheckForStat(_enemy, STAT.LIGHTNINGRES, "Shocked");
 	if (_shock != noone){
-		_shock.provider.onShock(_enemy);
+		_shock.provider.onSurge(_enemy);
 	}
 	
 	if (_atk_type != ATTACK_TYPE.ULTIMATE){
@@ -328,37 +328,35 @@ onReflect = function(_enemy){
 	part_particles_create(global.battlePartSystem, (x + _enemy.x)/2, (y + _enemy.y)/2, part_shockwave, 3);
 }
 
-onIceReaction = function(_enemy){
+onIceReaction = function(_enemy, _ship){
 	
 }
 
-onFireReaction = function(_enemy){
+onFireReaction = function(_enemy, _ship){
 	
 }
 
-onLifeReaction = function(_enemy){
+onLifeReaction = function(_enemy, _ship){
 	
 }
 
-onVenomReaction = function(_enemy){
+onVenomReaction = function(_enemy, _ship){
 	
 }
 
-onLightningReaction = function(_enemy){
+onLightningReaction = function(_enemy, _ship){
 	
 }
 
-onSteelReaction = function(_enemy){
+onSteelReaction = function(_enemy, _ship){
 	
 }
 
-onQuantumReaction = function(_enemy){
+onQuantumReaction = function(_enemy, _ship){
 	
 }
 
-onShock = function(_enemy){
-	
-	
+onSurge = function(_enemy){
 	
 	// Base Radius is 256 pixels
 	
@@ -382,6 +380,13 @@ onShock = function(_enemy){
 	ds_list_destroy(_list);
 	
 	
+}
+
+onFreeze = function(_enemy){
+	StopEnemy(_enemy, seconds(5) * (1 + getStatBonus(STAT.ES)));
+	ApplyStat(_enemy, "Freeze", STAT.ICERES, -0.05, 1, 1, 10, true, self,true, "Freeze", true);
+
+	onFreezeExtra(_enemy);
 }
 
 onPreHitExtra = function(_enemy, _atk_type,  _dmg_type){

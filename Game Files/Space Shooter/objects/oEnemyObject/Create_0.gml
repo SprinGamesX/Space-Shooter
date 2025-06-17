@@ -72,13 +72,7 @@ onToughnessReduction = function(_amount, _ship){
 }
 
 onElementalHit = function(_amount, _ship){
-	if (_amount != undefined and _ship.element != element and elemental_status[_ship.element] < max_elmstat){
-		elemental_status[_ship.element] += _amount;
-		if (elemental_status[_ship.element] >= max_elmstat) {
-			elemental_status[_ship.element] = 0;
-			TriggerElementalReaction(self, _ship);
-		}
-	}
+	
 }
 
 onEntrance = function(){

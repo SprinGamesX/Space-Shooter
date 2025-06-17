@@ -18,23 +18,23 @@ Core Cap:
 ## Primary Skill:
 
 CD:
-[[Elemental Overload#Elemental Accumulation|EA]]:
+[[Elemental Overload (Removed)#Elemental Accumulation|EA]]:
 [[Elemental Shields and Breaks#Break Value|BV]]: 
 
 ## Alt Skill:
 
 CD:
-[[Elemental Overload#Elemental Accumulation|EA]]:
+[[Elemental Overload (Removed)#Elemental Accumulation|EA]]:
 [[Elemental Shields and Breaks#Break Value|BV]]: 
 ## Module Skill: 
 
 CD:
-[[Elemental Overload#Elemental Accumulation|EA]]:
+[[Elemental Overload (Removed)#Elemental Accumulation|EA]]:
 [[Elemental Shields and Breaks#Break Value|BV]]: 
 ## Overdrive Skill:
 
 Energy: 
-[[Elemental Overload#Elemental Accumulation|EA]]:
+[[Elemental Overload (Removed)#Elemental Accumulation|EA]]:
 [[Elemental Shields and Breaks#Break Value|BV]]: 
 ## Core Skill:
 

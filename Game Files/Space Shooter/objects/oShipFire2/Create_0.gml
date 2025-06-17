@@ -7,12 +7,22 @@ InitiateShip(shipId);
 element = ELEMENT.FIRE;
 
 
+// Ultimate Particle
+part_ult = part_type_create();
+part_type_sprite(part_ult, sPixel, 0, 0, 0);
+part_type_life(part_ult, seconds(7), seconds(7));
+part_type_alpha3(part_ult, 0.8, 0.9, 1);
+part_type_speed(part_ult, 15, 20, 0, 0);
+part_type_direction(part_ult, 0, 360, 0, 0);
+part_type_orientation(part_ult, 0, 360, 0, 0, 0);
+part_type_color3(part_ult, make_colour_rgb(255, 123, 0), make_colour_rgb(255, 75, 20), make_colour_rgb(215, 63, 17));
+
+
 // Ship Specifics
 skill_shots = 20;
 
 onBasicAttack = function(){
 	CreateLinearProjectile(sFireArrow, self, x, y, 12, direction, ATTACK_TYPE.BASIC,,,2);
-	
 	ammo--;
 }
 
@@ -38,28 +48,32 @@ onSpecialSkill = function(){
 }
 
 onUltimate = function(){
-	for (var i = 0; i < 360; i += 10){
-		CreateLinearProjectile(sIceShard1, self, x, y, 10, i, ATTACK_TYPE.ULTIMATE);
+	var _enemies = ds_list_create();
+	var _count = collision_rectangle_list(0, 0, room_width, room_height, oEnemyObject, 0, 1, _enemies, false);
+	
+	for (var i = 0; i < _count; i++){
+		if (instance_exists(_enemies[|i])){
+			with(_enemies[|i]){
+				// 1 is the index for FIRE
+				elemental_status[1] = max_elmstat;
+			}
+		}
 	}
-	ult_pulses = 3;
-	alarm[0] = seconds(0.5);
+	
+	part_particles_create(global.battlePartSystem, x, y, part_ult, 1500);
+	
 	energy = 0;
 }
 
 onBattleStart = function(){
 	if (passives[0]){
-		ApplyTeamStat("Heilo's Ice Spirit", STAT.ICEDMG, 0.1, 1, 1,,true);
+		ApplyTeamStat("Pheonix's Will", STAT.ES, 0.25, 1, 1,,true);
 	}
+	energy = max_energy
 }
 
 onExitSkill = function(_next){
-	if (passives[1] and charge == max_charge){
-		ApplyStat(_next, "Heilo's Frosted Support", STAT.ICEDMG, 0.5, seconds(10), 1,,,,true);
-		charge = 0;
-	}
+	
 }
 
-onPreHitExtra = function(_enemy, _atk_type,  _dmg_type){
-	if (passives[2] and (_atk_type == ATTACK_TYPE.SKILL or _atk_type == ATTACK_TYPE.ULTIMATE))
-		ApplyStat(_enemy, "Heilo's Frostbite", STAT.ICERES, -0.1, seconds(15), 1,,,,true,,true);
-}
+

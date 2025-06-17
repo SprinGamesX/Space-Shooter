@@ -9,6 +9,7 @@ Elemental Accumulation is a meter of sorts that all enemies have and is separate
 ## Freeze
 Freeze is the Ice [Elemental Overload], it causes the enemy to freeze for 5 seconds and have its Ice Resistance reduced by 5% permanently.
 This effect can stack up to 10 stacks, meaning at max stacks it will reduce the enemy's Ice Resistance by 50%.
+Additionally the amount of time the enemy is frozen for increases based on [Elemental Specialty]
 
 ## Ignite
 Ignite is the Fire [Elemental Overload], each time Ignite is triggered it will apply the enemy with a stack of [Explosive] 
@@ -16,6 +17,7 @@ If an enemy has at least 1 stack of [Explosive] it will explode upon dying.
 
 #### Explosive
 A status effect that can be applied from [Ignite], Explosive stacks up to 50 and increases its effects based on the amount of stacks.
+Explosive DMG will increase based on the ship's [Elemental Specialty] 
 
 ## Bloom
 Bloom is the Life [Elemental Overload], once triggered it will heal all allies based on the amount of [Elemental Specialty] of the ship that triggered the overload.

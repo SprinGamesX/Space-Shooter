@@ -73,19 +73,20 @@ function TriggerElementalReaction(_enemy, _ship){
 	switch(_ship.element){
 		case ELEMENT.ICE: {
 			// effect
-			StopEnemy(_enemy, seconds(5) * (1 + _ship.getStatBonus(STAT.ES)));
-			ApplyStat(_enemy, "Cryoarrested", STAT.ICERES, -0.05, 1, 1, 10, true, _ship,true, "Cryoarrested", true);
+			
+			_ship.onFreeze(_enemy);
+			
 			
 			// Notify team
 			var _team = oGameManager.getTeam();
 			for (var i = 0; i < array_length(_team); i++){
-				_team[i].onIceReaction(_enemy);
+				_team[i].onIceReaction(_enemy, _ship);
 			}
 		} break;
 		
 		case ELEMENT.FIRE: {
 			// effect
-			ApplyStat(_enemy, "Volatogenic", STAT.FIRERES, 0, 1, 1, 100, true, _ship,true, "Volatogenic", true);
+			ApplyStat(_enemy, "Ignite", STAT.FIRERES, 0, 1, 1, 50, true, _ship,true, "Ignite", true);
 			
 			// Notify team
 			var _team = oGameManager.getTeam();
@@ -108,7 +109,7 @@ function TriggerElementalReaction(_enemy, _ship){
 		case ELEMENT.VENOM: {
 			// effect
 			// Apply DoT
-			ApplyStat(_enemy, "Incised", STAT.ATK, -0.2, seconds(15), 1,,, _ship,true, "Incised",true);
+			ApplyStat(_enemy, "Corrupt", STAT.ATK, -0.2, seconds(15), 1,,, _ship,true, "Incised",true);
 			ApplyStat(_enemy, "Incised 2", STAT.SPD, -0.2, seconds(15), 1,,, _ship,,,true);
 			
 			ApplyStat(_enemy, "Incised DoT", STAT.DOT, 0.5 + (0.5 * _ship.getStatBonus(STAT.ES)), seconds(2), 5,50,,_ship,,,true);

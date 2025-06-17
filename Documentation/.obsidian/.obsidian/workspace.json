@@ -1,56 +1,37 @@
 {
   "main": {
-    "id": "c6ec46c9e7d8acd4",
+    "id": "29d066cf4dc1e404",
     "type": "split",
     "children": [
       {
-        "id": "ebb62a37631b4f7c",
+        "id": "01cc5950d8ec0412",
         "type": "tabs",
         "children": [
           {
-            "id": "aed18dd76f19e9e2",
+            "id": "0ed587260ad1459a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Game Mechanics/Ships and their skills.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Ships and their skills"
-            }
-          },
-          {
-            "id": "8b3dc8ec8dca70ca",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Game Mechanics/Elemental Overload (Removed).md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Elemental Overload (Removed)"
+              "title": "New tab"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "eb9043c67c0104b8",
+    "id": "dbaa6013890b37f3",
     "type": "split",
     "children": [
       {
-        "id": "2f9000a6c2d29705",
+        "id": "917fa23485f7f7be",
         "type": "tabs",
         "children": [
           {
-            "id": "aefa3d918ae49e8f",
+            "id": "6d4805cf22a30d19",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -63,7 +44,7 @@
             }
           },
           {
-            "id": "9175fb305980fb63",
+            "id": "e735d88a40cf36aa",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -80,7 +61,7 @@
             }
           },
           {
-            "id": "9f7726858f66c85f",
+            "id": "cc0bf22e055e423e",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -96,20 +77,19 @@
     "width": 300
   },
   "right": {
-    "id": "1828661e5ddd650a",
+    "id": "a74cd1031c3093c9",
     "type": "split",
     "children": [
       {
-        "id": "6fd51832d88f5e28",
+        "id": "eab2b9f431308501",
         "type": "tabs",
         "children": [
           {
-            "id": "c5b80c08f26eaa80",
+            "id": "a6c305117c38905b",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Space Shooter - Documentation/Ships/Fuego.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,25 +99,24 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Fuego"
+              "title": "Backlinks"
             }
           },
           {
-            "id": "be2c7ae71e68a7f6",
+            "id": "157fc78314ca6e87",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Space Shooter - Documentation/Ships/Fuego.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from Fuego"
+              "title": "Outgoing links"
             }
           },
           {
-            "id": "5fb53ac8e27da3f4",
+            "id": "aa4ce7fa5d96b377",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -152,18 +131,17 @@
             }
           },
           {
-            "id": "2118fbbe88302113",
+            "id": "61cc9d555c2bc93e",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Space Shooter - Documentation/Ships/Fuego.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Fuego"
+              "title": "Outline"
             }
           }
         ]
@@ -180,34 +158,9 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "obsidian-git:Open Git source control": false
+      "command-palette:Open command palette": false
     }
   },
-  "active": "8b3dc8ec8dca70ca",
-  "lastOpenFiles": [
-    "Game Mechanics/Elemental Shields and Breaks.md",
-    "Game Mechanics/Elements.md",
-    "Game Mechanics/Roles.md",
-    "Game Mechanics/Ships and their skills.md",
-    "Game Mechanics/Stats.md",
-    "Ships/Heilo.md",
-    "Template/Ship Template.md",
-    "Ships/Fuego.md",
-    "Game Mechanics/Core and Charge.md",
-    "Space Shooter - Documentation/Ships/Fuego.md",
-    "Template",
-    "Ships",
-    "Game Mechanics/Elemental Overload (Removed).md",
-    "Game Mechanics/Ammo and Reload.md",
-    "Game Mechanics",
-    "Space Shooter - Documentation/Ships/Heilo.md",
-    "Space Shooter - Documentation/Game Mechanics/Elemental Shields and Breaks.md",
-    "Space Shooter - Documentation/Game Mechanics/Elemental Overload.md",
-    "Space Shooter - Documentation/Game Mechanics/Core and Charge.md",
-    "Space Shooter - Documentation/Game Mechanics/Ammo and Reload.md",
-    "Space Shooter - Documentation/Game Mechanics/Elements.md",
-    "Space Shooter - Documentation/Game Mechanics/Roles.md",
-    "Space Shooter - Documentation/Game Mechanics/Ships and their skills.md"
-  ]
+  "active": "0ed587260ad1459a",
+  "lastOpenFiles": []
 }

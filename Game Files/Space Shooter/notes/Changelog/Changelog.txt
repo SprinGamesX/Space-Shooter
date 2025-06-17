@@ -192,5 +192,11 @@ Fixed issue: Lingering endless reports from prior runs
 01/06/25 - Sunday (Happy Pride!)
 - Added Elite: Fire Spirit
 
-03/06/25 - Tusday
+03/06/25 - Tuesday
 - Added Ship: Pheonix (Fire:Disruptor) (Unfinished)
+
+17/06/25 - Tuesday
+
+- Removed:
+	Elemental Overload
+	Elemental Specialty (Stat)
