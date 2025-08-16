@@ -13,7 +13,6 @@ hits = 9999999;
 
 kill_out_of_bounds = false;
 
-max_elmstat = 150;
 movement_speed = 0;
 weakness_time = 0;
 weakness_broken = false;

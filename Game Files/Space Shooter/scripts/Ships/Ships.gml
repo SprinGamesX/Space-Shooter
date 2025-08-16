@@ -68,104 +68,6 @@ function ProvideTeamShield(_shield, _supplier = self, _ignore_self = false){
 	}
 }
 
-function TriggerElementalReaction(_enemy, _ship){
-	
-	switch(_ship.element){
-		case ELEMENT.ICE: {
-			// effect
-			
-			_ship.onFreeze(_enemy);
-			
-			
-			// Notify team
-			var _team = oGameManager.getTeam();
-			for (var i = 0; i < array_length(_team); i++){
-				_team[i].onIceReaction(_enemy, _ship);
-			}
-		} break;
-		
-		case ELEMENT.FIRE: {
-			// effect
-			ApplyStat(_enemy, "Ignite", STAT.FIRERES, 0, 1, 1, 50, true, _ship,true, "Ignite", true);
-			
-			// Notify team
-			var _team = oGameManager.getTeam();
-			for (var i = 0; i < array_length(_team); i++){
-				_team[i].onFireReaction(_enemy);
-			}
-		} break;
-		
-		case ELEMENT.LIFE: {
-			// effect
-			RestoreTeamHp((_ship.getHP() / 10)* _ship.getStatBonus(STAT.ES), _ship, false);
-			
-			// Notify team
-			var _team = oGameManager.getTeam();
-			for (var i = 0; i < array_length(_team); i++){
-				_team[i].onLifeReaction(_enemy);
-			}
-		} break;
-		
-		case ELEMENT.VENOM: {
-			// effect
-			// Apply DoT
-			ApplyStat(_enemy, "Corrupt", STAT.ATK, -0.2, seconds(15), 1,,, _ship,true, "Incised",true);
-			ApplyStat(_enemy, "Incised 2", STAT.SPD, -0.2, seconds(15), 1,,, _ship,,,true);
-			
-			ApplyStat(_enemy, "Incised DoT", STAT.DOT, 0.5 + (0.5 * _ship.getStatBonus(STAT.ES)), seconds(2), 5,50,,_ship,,,true);
-			
-			
-			// Notify team
-			var _team = oGameManager.getTeam();
-			for (var i = 0; i < array_length(_team); i++){
-				_team[i].onVenomReaction(_enemy);
-			}
-		} break;
-		
-		case ELEMENT.LIGHTNING: {
-			// effect
-			ApplyStat(_enemy, "Electrostruck", STAT.LIGHTNINGRES, -0.3, seconds(15), 1,,, _ship,true, "Electrostruck", true);
-			
-			// Notify team
-			var _team = oGameManager.getTeam();
-			for (var i = 0; i < array_length(_team); i++){
-				_team[i].onLightningReaction(_enemy);
-			}
-		} break;
-		
-		case ELEMENT.STEEL: {
-			// effect
-			ApplyStat(_enemy, "Fractured", STAT.DEF, -0.5, seconds(15), 1,,,_ship,true, "Fractured", true);
-			_enemy.onToughnessReduction(_enemy.max_toughness * 0.15, _ship);
-			
-			// Notify team
-			var _team = oGameManager.getTeam();
-			for (var i = 0; i < array_length(_team); i++){
-				_team[i].onSteelReaction(_enemy);
-			}
-		} break;
-		
-		case ELEMENT.QUANTUM: {
-			// effect
-			
-			ApplyStat(_enemy, "Decoherence", STAT.QUANTUMRES, 0, 1, 1,,,_ship,true, "Decoherence", true);
-			AdditionalSetDamage(_enemy, _ship, _enemy.b_hp * 0.01);
-			if (!object_is_ancestor(_enemy.object_index, oEnemyElite)){
-				_enemy.direction += irandom_range(0, 360);
-				_enemy.x += random(500);
-				_enemy.y += random_range(-500,500);
-			}
-			
-			
-			// Notify team
-			var _team = oGameManager.getTeam();
-			for (var i = 0; i < array_length(_team); i++){
-				_team[i].onQuantumReaction(_enemy);
-			}
-		} break;
-	}	
-}
-
 function SaveShipLevels(){
 	ini_open("Ship Levels.ini");
 	
@@ -220,12 +122,8 @@ function InitiateShip(_id){
 	energy = max_energy/2;
 	ds_map_copy(scales, _ship.scales);
 	ds_map_copy(toughs, _ship.toughs);
-	ds_map_copy(elmacc, _ship.elmacc);
 	
-	ds_map_add(scales, ATTACK_TYPE.FIRE_EXPLOSION, 0.5);
-	ds_map_add(toughs, ATTACK_TYPE.FIRE_EXPLOSION, 0);
-	ds_map_add(elmacc, ATTACK_TYPE.FIRE_EXPLOSION, 0);
-	
+
 	ApplyStat(self, "Base Crit", STAT.CRIT, 0.05, 1, 1,,true,,false);
 	ApplyStat(self, "Base Critdmg", STAT.CRITDMG, 0.5, 1, 1,,true,,false);
 	
@@ -323,15 +221,6 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 				
-				elmacc = ds_map_create();
-				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ALT, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 2);
-				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 2);
-				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 3);
-				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 				
 			}
 		} break;
@@ -381,15 +270,6 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 				
-				elmacc = ds_map_create();
-				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ALT, 2);
-				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 2);
-				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 		case 3:{
@@ -438,15 +318,6 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 				
-				elmacc = ds_map_create();
-				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ALT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 		case 4:{
@@ -490,20 +361,11 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.ALT, 20);
 				ds_map_add(toughs, ATTACK_TYPE.SKILL, 40);
 				ds_map_add(toughs, ATTACK_TYPE.SPECIAL, 0);
-				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 20);
+				ds_map_add(toughs, ATTACK_TYPE.ULTIMATE, 5);
 				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 				
-				elmacc = ds_map_create();
-				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ALT, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 2);
-				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 2);
-				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 		case 5:{
@@ -552,15 +414,6 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 				
-				elmacc = ds_map_create();
-				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ALT, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 		case 6:{
@@ -608,16 +461,7 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
-				
-				elmacc = ds_map_create();
-				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ALT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
+			
 			}
 		} break;
 		case 7:{
@@ -666,15 +510,6 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 				
-				elmacc = ds_map_create();
-				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ALT, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 2);
-				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 		case 8:{
@@ -723,15 +558,6 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 				
-				elmacc = ds_map_create();
-				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.ALT, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 1);
-				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 5);
-				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 		case 9:{
@@ -780,15 +606,6 @@ function GetShipDetails(_id){
 				ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 				ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 				
-				elmacc = ds_map_create();
-				ds_map_add(elmacc, ATTACK_TYPE.BASIC, 5);
-				ds_map_add(elmacc, ATTACK_TYPE.ALT, 5);
-				ds_map_add(elmacc, ATTACK_TYPE.SKILL, 2);
-				ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 2);
-				ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 100);
-				ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-				ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 			}
 		} break;
 	}

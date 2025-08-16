@@ -15,16 +15,15 @@ Core Cap: 10
 # Abilities:
 
 ## Primary Skill:
-Shoots a single bullet that deal minor Fire damage
-Consumes 1 AMMO
+Deal 5% of ATK as Fire damage
 CD: 0.1s
 
 ## Alt Skill:
-Shoots a fireball that deals major Fire damage
+Deal 80% of ATK as Fire damage with large AOE.
 Consumes 1 [Charge], can only be used when [Charge] is above 1.
 CD: 0.2s
 ## Module Skill: 
-Generate 5 [Charge] stacks and shoot 7 bullets that deal minor Fire damage
+Generate 5 [Charge] stacks and deal 7x15% of ATK as Fire damage. 
 CD: 10s
 
 ## Overdrive Skill:
@@ -54,15 +53,17 @@ When killing an enemy: gain 15% Crit Rate for 5s
 
 ### Precision Protocols:
 1. Increase the Damage dealt by [Alt Skill] by 25%
-2. Increase the Damage dealt by [Module Skill] by 25%
+2. Increase the Damage dealt by [Basic Skill] by 25%
 
 ### Minor Protocols: 
-1. Increase ATK by 20%
-2. Increase Crit DMG by 18%
+1. Increase ATK by 24%
+2. Increase CRIT RATE by 6% and CRIT DMG by 12%
 
 ### Calibrations:
-1. ATK +25%
-2. HP +10%
-3. DEF +10%
-4. ASPD +10%
-5. Crit DMG +16%
+1. ATK +5%
+2. HP +5%
+3. DEF +5%
+4. ATK +6%
+5. ASPD +3%
+6. CRIT DMG +12%
+7. ASPD +9%

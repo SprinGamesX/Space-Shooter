@@ -59,7 +59,7 @@ onPreHitExtra = function(_enemy, _atk_type,  _dmg_type){
 			}
 		}
 		else {
-			ApplyStat(_enemy, "Venomus bite",STAT.RES, -0.05, seconds(10), 1,,,,true,,true);
+			ApplyStat(_enemy, "Venomus bite",STAT.RES, -0.05, seconds(10), 1,5,,,true,,true);
 			charge--;
 		}
 	}

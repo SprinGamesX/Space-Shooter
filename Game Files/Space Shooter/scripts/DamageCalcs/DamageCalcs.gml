@@ -10,8 +10,6 @@ enum ATTACK_TYPE{
 	EXIT = 6,
 	FOLLOWUP = 7,
 	DOT = 8,
-	SHOCK = 998,
-	FIRE_EXPLOSION = 999
 }
 
 function GetDamageBonus(_element, _attribute, _obj = self){
@@ -31,9 +29,7 @@ function GetDamageBonus(_element, _attribute, _obj = self){
 		case ATTACK_TYPE.SKILL: _bonus += _obj.getStatBonus(STAT.SKILLDMG); break;
 		case ATTACK_TYPE.ULTIMATE: _bonus += _obj.getStatBonus(STAT.ULTIMATEDMG); break;
 		case ATTACK_TYPE.FOLLOWUP: _bonus += _obj.getStatBonus(STAT.FOLLOWUPDMG); break;
-		case ATTACK_TYPE.FIRE_EXPLOSION: _bonus += _obj.getStatBonus(STAT.ES); break;
 		case ATTACK_TYPE.DOT: _bonus += _obj.getStatBonus(STAT.DOTDMG); break;
-		case ATTACK_TYPE.SHOCK: _bonus += _obj.getStatBonus(STAT.ES); break;
 	}
 	
 	return _bonus;

@@ -45,6 +45,7 @@ onEnemyBreak = function(_enemy, _breaker){
 	charge++;
 	if (charge >= max_charge){
 		ApplyTeamStat("Quantumania", STAT.BREAKDMG, 0.1, 1, 1, 10, true,,true, "Quantumania");
+		charge = 0;
 	}
 	
 	if (passives[2]){

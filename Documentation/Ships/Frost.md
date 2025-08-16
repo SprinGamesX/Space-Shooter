@@ -1,6 +1,6 @@
 
-Role: ****
-Element: ****
+Role: **Striker**
+Element: **Ice**
 
 # Base Stats (LV.1)
 

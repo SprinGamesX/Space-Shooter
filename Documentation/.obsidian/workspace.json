@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Game Mechanics/Elemental Overload (Removed).md",
+                "file": "Ships/Cauntico.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Elemental Overload (Removed)"
+              "title": "Cauntico"
             }
           }
         ],
@@ -186,19 +186,27 @@
   },
   "active": "8b3dc8ec8dca70ca",
   "lastOpenFiles": [
-    "Game Mechanics/Elemental Shields and Breaks.md",
-    "Game Mechanics/Elements.md",
-    "Game Mechanics/Roles.md",
-    "Game Mechanics/Ships and their skills.md",
-    "Game Mechanics/Stats.md",
-    "Ships/Heilo.md",
-    "Template/Ship Template.md",
+    "Game Mechanics/Protocols and Calibrations.md",
+    "Ships/Cauntico.md",
     "Ships/Fuego.md",
+    "Game Mechanics/Ships and their skills.md",
+    "Game Mechanics/Elements.md",
+    "Game Mechanics/Elemental Shields and Breaks.md",
+    "Ships/Ligera.md",
+    "Ships/Acero.md",
+    "Game Mechanics/Stats.md",
+    "Ships/Phoenix.md",
+    "Ships/Heilo.md",
+    "Ships/Frost.md",
+    "Game Mechanics/Roles.md",
+    "Template/Ship Template.md",
+    "Ships/Veneno.md",
+    "Ships/Vida.md",
+    "Game Mechanics/Elemental Overload (Removed).md",
     "Game Mechanics/Core and Charge.md",
     "Space Shooter - Documentation/Ships/Fuego.md",
     "Template",
     "Ships",
-    "Game Mechanics/Elemental Overload (Removed).md",
     "Game Mechanics/Ammo and Reload.md",
     "Game Mechanics",
     "Space Shooter - Documentation/Ships/Heilo.md",
@@ -206,8 +214,6 @@
     "Space Shooter - Documentation/Game Mechanics/Elemental Overload.md",
     "Space Shooter - Documentation/Game Mechanics/Core and Charge.md",
     "Space Shooter - Documentation/Game Mechanics/Ammo and Reload.md",
-    "Space Shooter - Documentation/Game Mechanics/Elements.md",
-    "Space Shooter - Documentation/Game Mechanics/Roles.md",
-    "Space Shooter - Documentation/Game Mechanics/Ships and their skills.md"
+    "Space Shooter - Documentation/Game Mechanics/Elements.md"
   ]
 }

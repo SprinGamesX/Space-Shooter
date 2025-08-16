@@ -53,7 +53,6 @@ trail_particle = undefined;
 
 scales = ds_map_create();
 toughs = ds_map_create();
-elmacc = ds_map_create();
 
 ds_map_add(scales, ATTACK_TYPE.BASIC, 0);
 ds_map_add(scales, ATTACK_TYPE.ALT, 0);
@@ -74,15 +73,6 @@ ds_map_add(toughs, ATTACK_TYPE.ENTRANCE, 0);
 ds_map_add(toughs, ATTACK_TYPE.EXIT, 0);
 ds_map_add(toughs, ATTACK_TYPE.FOLLOWUP, 0);
 
-
-ds_map_add(elmacc, ATTACK_TYPE.BASIC, 0);
-ds_map_add(elmacc, ATTACK_TYPE.ALT, 0);
-ds_map_add(elmacc, ATTACK_TYPE.SKILL, 0);
-ds_map_add(elmacc, ATTACK_TYPE.SPECIAL, 0);
-ds_map_add(elmacc, ATTACK_TYPE.ULTIMATE, 0);
-ds_map_add(elmacc, ATTACK_TYPE.ENTRANCE, 0);
-ds_map_add(elmacc, ATTACK_TYPE.EXIT, 0);
-ds_map_add(elmacc, ATTACK_TYPE.FOLLOWUP, 0);
 
 
 
@@ -127,7 +117,6 @@ onPreHit = function(_enemy, _atk_type,  _dmg_type){
 	onPreHitExtra(_enemy, _atk_type,  _dmg_type);
 	
 	_enemy.onToughnessReduction(ds_map_find_value(toughs, _atk_type), self);
-	_enemy.onElementalHit(ds_map_find_value(elmacc, _atk_type), self);
 	
 	oGameManager.onTeamPreHit(_enemy, _atk_type, self);
 	onHit(_enemy, _atk_type,  _dmg_type);
@@ -326,67 +315,6 @@ onReflect = function(_enemy){
 	SlowAllEnemies(seconds(0.1));
 	ScreenShake(1, 1, 0.1);
 	part_particles_create(global.battlePartSystem, (x + _enemy.x)/2, (y + _enemy.y)/2, part_shockwave, 3);
-}
-
-onIceReaction = function(_enemy, _ship){
-	
-}
-
-onFireReaction = function(_enemy, _ship){
-	
-}
-
-onLifeReaction = function(_enemy, _ship){
-	
-}
-
-onVenomReaction = function(_enemy, _ship){
-	
-}
-
-onLightningReaction = function(_enemy, _ship){
-	
-}
-
-onSteelReaction = function(_enemy, _ship){
-	
-}
-
-onQuantumReaction = function(_enemy, _ship){
-	
-}
-
-onSurge = function(_enemy){
-	
-	// Base Radius is 256 pixels
-	
-	var _list = ds_list_create();
-	var _nearby = collision_circle_list(_enemy.x, _enemy.y, 256 * (1 + getStatBonus(STAT.ES)), oEnemyObject, 0, 0, _list, false);
-	
-	for (var i = 0; i < _nearby; i++){
-		if (_list[|i].id != _enemy.id and _list[|i].shock_immune <= 0){
-			AdditionalDamage(_list[|i], self, 0.1, ATTACK_TYPE.SHOCK);
-			
-			var _dist = point_distance(_enemy.x, _enemy.y, _list[|i].x, _list[|i].y);
-			var _dir = point_direction(_enemy.x, _enemy.y, _list[|i].x, _list[|i].y);
-			var _divider = _dist/10;
-			while(_dist >= 0 and _divider != 0){
-				part_particles_create(global.battlePartSystem, _enemy.x + lengthdir_x(_dist + random_range(-32, 32), _dir), _enemy.y + lengthdir_y(_dist + random_range(-32, 32), _dir), shock_particle, 3);
-				_dist -= _divider;
-			}
-			
-		}
-	}
-	ds_list_destroy(_list);
-	
-	
-}
-
-onFreeze = function(_enemy){
-	StopEnemy(_enemy, seconds(5) * (1 + getStatBonus(STAT.ES)));
-	ApplyStat(_enemy, "Freeze", STAT.ICERES, -0.05, 1, 1, 10, true, self,true, "Freeze", true);
-
-	onFreezeExtra(_enemy);
 }
 
 onPreHitExtra = function(_enemy, _atk_type,  _dmg_type){

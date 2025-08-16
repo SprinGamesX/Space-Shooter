@@ -55,7 +55,6 @@ onUltimate = function(){
 		if (instance_exists(_enemies[|i])){
 			with(_enemies[|i]){
 				// 1 is the index for FIRE
-				elemental_status[1] = max_elmstat;
 			}
 		}
 	}
@@ -67,7 +66,15 @@ onUltimate = function(){
 
 onBattleStart = function(){
 	if (passives[0]){
-		ApplyTeamStat("Pheonix's Will", STAT.ES, 0.25, 1, 1,,true);
+		
+		var _team = oGameManager.getTeam();
+		var _count = 0;
+		
+		for (var i = 0; i < _team; i++){
+			if (_team[i].element == ELEMENT.FIRE) _count++;
+		}
+		
+		ApplyTeamStat("Pheonix's Will", STAT.FIREDMG, 0.15 * _count, 1, 1,,true);
 	}
 	energy = max_energy
 }

@@ -22,7 +22,7 @@ Dark blue - QUANTUM DMG +5/10/20%
 Red - ATK +6/12/24%
 Green - HP +7/14/28%
 Blue - DEF +8/16/32%
-Pink - EFFECT CHANCE +5/10/20%
+Pink - EFFECT CHANCE +8/16/24%
 Turqiuse - ELEMENTAL SPECIALTY +8/16/32%
 Dark Green - HEALING BONUS +4/8/16%
 Bittersweet - ASPD +3/6/12%

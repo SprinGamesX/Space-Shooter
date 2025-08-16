@@ -197,6 +197,8 @@ Fixed issue: Lingering endless reports from prior runs
 
 17/06/25 - Tuesday
 
+- Reworked Ship: Phoenix (Fire:Disruptor)
+
 - Removed:
 	Elemental Overload
 	Elemental Specialty (Stat)
